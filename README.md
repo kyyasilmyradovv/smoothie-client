@@ -1,50 +1,65 @@
-# React + TypeScript + Vite
+# Getting Started with Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project was initialized with [Vite](https://vitejs.dev/).
 
-Currently, two official plugins are available:
+## Available Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+In the project directory, you can run:
 
-## Expanding the ESLint configuration
+### `yarn dev`
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Runs the app in development mode. \
+Open [http://localhost:5173](http://localhost:5173) to view it in your browser.
 
-- Configure the top-level `parserOptions` property like this:
+The page will reload when you make changes. \
+You may also see any lint errors in the console.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### `yarn build`
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Builds the app for production to the `dist` folder. \
+Vite optimizes the build for the best performance.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+The build is minified, and the filenames include hashes. \
+Your app is ready to be deployed!
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+See the section about [deployment](https://vitejs.dev/guide/static-deploy.html) for more information.
+
+### `yarn preview`
+
+Serves the production build locally for preview. \
+This allows you to test the production build on your local machine.
+
+### `yarn eject`
+
+**Note: Vite doesn't have an `eject` feature like Create React App.** \
+Vite is designed to be lightweight and fully customizable from the start.
+
+## Learn More
+
+You can learn more in the [Vite documentation](https://vitejs.dev/).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+Vite supports code splitting out of the box. Refer to [Vite's Build documentation](https://vitejs.dev/guide/build.html#chunk-splitting) for details.
+
+### Analyzing the Bundle Size
+
+Use tools like [Bundle Analyzer](https://www.npmjs.com/package/rollup-plugin-visualizer) to analyze your production build size.
+
+### Making a Progressive Web App
+
+Vite provides PWA support via plugins. Check out [Vite PWA documentation](https://vite-plugin-pwa.netlify.app/) for setup guidance.
+
+### Advanced Configuration
+
+You can customize your Vite project using the [Vite Configuration](https://vitejs.dev/config/) file.
+
+### Deployment
+
+Follow the [Vite Deployment Guide](https://vitejs.dev/guide/static-deploy.html) for detailed instructions on deploying your application.
+
+### `yarn build` fails to minify
+
+If your build fails to minify, ensure that your dependencies support ES modules or use the `optimizeDeps` option in Vite to pre-bundle them. Refer to [Vite's Troubleshooting Guide](https://vitejs.dev/guide/dep-pre-bundling.html) for more help.
