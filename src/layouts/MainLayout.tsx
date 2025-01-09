@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Navbar from "../components/navbar/Navbar";
 import Sidebar from "../components/sidebar/Sidebar";
@@ -12,6 +13,7 @@ import {
   Image,
   Layout,
   Row,
+  Table,
   Typography,
 } from "antd";
 import ITrade from "../assets/image.png";
@@ -20,6 +22,7 @@ import IDoc from "../assets/Document-1-Copy.png";
 import IPlus from "../assets/Pluse ellipse.svg";
 import logo from "../assets/Smoothie logo 1.png";
 import IStream from "../assets/asd.png";
+import IStreamer from "../assets/Streamer.png";
 import {
   ArrowRightOutlined,
   EyeOutlined,
@@ -105,12 +108,19 @@ const MainLayout = () => {
             </div>
           </div>
           <Row gutter={[16, 16]}>
-            <Col span={15}>
+            <Col span={14}>
               <div style={{ position: "relative" }}>
                 <Image
                   width="100%"
                   height="270px"
                   src={ITrade}
+                  preview={false}
+                />
+                <Image
+                  style={{ position: "absolute", bottom: "40px" }}
+                  width="60px"
+                  height="60px"
+                  src={IStreamer}
                   preview={false}
                 />
                 <div
@@ -172,7 +182,7 @@ const MainLayout = () => {
                 </div>
               </div>
             </Col>
-            <Col span={9}>
+            <Col span={10}>
               <div
                 style={{
                   borderRadius: "16px",
@@ -225,13 +235,239 @@ const MainLayout = () => {
                     </Typography.Text>
                   </div>
 
-                  <div style={{ marginTop: "10px" }}>
+                  <div style={{ margin: "10px 0" }}>
                     <Typography.Text style={{ fontSize: "12px" }}>
                       Cryptotoking Cash TV
                     </Typography.Text>
                   </div>
                   <div>
-                    {[
+                    <Table
+                      scroll={{ y: "auto" }}
+                      tableLayout="fixed"
+                      pagination={false}
+                      dataSource={[
+                        {
+                          Ticker: "$GOAT",
+                          CA: "da4g...54t7",
+                          Rating: "9/10",
+                          EntryPrice: "0.23",
+                        },
+                        {
+                          Ticker: "$KINGLANAND",
+                          CA: "da4g...54t76",
+                          Rating: "8/10",
+                          EntryPrice: "1.53",
+                        },
+                      ]}
+                      columns={[
+                        {
+                          title: (
+                            <Typography.Text
+                              ellipsis={{
+                                tooltip: "Ticker",
+                              }}
+                            >
+                              Ticker
+                            </Typography.Text>
+                          ),
+                          dataIndex: "Ticker",
+                          key: "Ticker",
+                          width: 120,
+                          onHeaderCell: () => ({
+                            style: { textAlign: "left" },
+                          }),
+                          onCell: () => ({
+                            style: { textAlign: "left" },
+                          }),
+                          render: (_: any, record: any) => {
+                            return (
+                              <Typography.Text
+                                ellipsis={{
+                                  tooltip: record.Ticker,
+                                }}
+                              >
+                                <Avatar
+                                  style={{ marginRight: "5px" }}
+                                  size={25}
+                                  shape="circle"
+                                  icon={<UserOutlined />}
+                                />
+                                {record.Ticker}
+                              </Typography.Text>
+                            );
+                          },
+                        },
+                        {
+                          title: (
+                            <Typography.Text
+                              ellipsis={{
+                                tooltip: "CA",
+                              }}
+                            >
+                              CA
+                            </Typography.Text>
+                          ),
+                          width: 110,
+                          dataIndex: "CA",
+                          key: "CA",
+                          onHeaderCell: () => ({
+                            style: { textAlign: "left" },
+                          }),
+                          onCell: () => ({
+                            style: { textAlign: "left" },
+                          }),
+                          render: (_: any, record: any) => {
+                            return (
+                              <div
+                                style={{
+                                  background: "#323232",
+                                  borderRadius: "16px",
+                                  padding: "2px 5px",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: "5px",
+                                }}
+                              >
+                                <Image
+                                  src={IDoc}
+                                  preview={false}
+                                  style={{
+                                    width: "15px",
+                                    height: "15px",
+                                  }}
+                                />
+                                <Typography.Text
+                                  ellipsis={{
+                                    tooltip: record.CA,
+                                  }}
+                                  style={{ fontSize: "10px" }}
+                                >
+                                  {record.CA}
+                                </Typography.Text>
+                              </div>
+                            );
+                          },
+                        },
+                        {
+                          title: (
+                            <Typography.Text
+                              ellipsis={{
+                                tooltip: "Rating",
+                              }}
+                            >
+                              Rating
+                            </Typography.Text>
+                          ),
+                          width: 70,
+                          dataIndex: "Rating",
+                          key: "Rating",
+                          onHeaderCell: () => ({
+                            style: { textAlign: "center" },
+                          }),
+                          onCell: () => ({
+                            style: { textAlign: "center" },
+                          }),
+                          render: (_: any, record: any) => {
+                            return (
+                              <Typography.Text
+                                ellipsis={{
+                                  tooltip: record.Rating,
+                                }}
+                                type="success"
+                                style={{ fontSize: "10px" }}
+                              >
+                                {record.Rating}
+                              </Typography.Text>
+                            );
+                          },
+                        },
+                        {
+                          title: (
+                            <Typography.Text
+                              ellipsis={{
+                                tooltip: "Entry Price",
+                              }}
+                            >
+                              Entry Price
+                            </Typography.Text>
+                          ),
+                          width: 100,
+                          dataIndex: "EntryPrice",
+                          key: "EntryPrice",
+                          onHeaderCell: () => ({
+                            style: { textAlign: "center" },
+                          }),
+                          onCell: () => ({
+                            style: { textAlign: "center" },
+                          }),
+                          render: (_: any, record: any) => {
+                            return (
+                              <Typography.Text
+                                ellipsis={{
+                                  tooltip: record.EntryPrice,
+                                }}
+                              >
+                                {record.EntryPrice}
+                              </Typography.Text>
+                            );
+                          },
+                        },
+                        {
+                          title: (
+                            <Typography.Text
+                              ellipsis={{
+                                tooltip: "Create Smoothie",
+                              }}
+                            >
+                              Create Smoothie
+                            </Typography.Text>
+                          ),
+                          dataIndex: "CreateSmoothie",
+                          key: "CreateSmoothie",
+                          onHeaderCell: () => ({
+                            style: { textAlign: "left" },
+                          }),
+                          onCell: () => ({
+                            style: { textAlign: "center" },
+                          }),
+                          render: (_: any) => {
+                            return (
+                              <div
+                                style={{
+                                  borderRadius: "16px",
+                                  border: "1px solid #AE1FCE",
+                                  padding: "2px 5px",
+                                  width: "90px",
+                                }}
+                              >
+                                <Image
+                                  src={IPlus}
+                                  preview={false}
+                                  style={{
+                                    width: "15px",
+                                    height: "15px",
+                                    marginRight: "5px",
+                                  }}
+                                />
+                                <Typography.Text style={{ fontSize: "10px" }}>
+                                  Add to
+                                </Typography.Text>
+                                <Image
+                                  src={logo}
+                                  preview={false}
+                                  style={{
+                                    width: "15px",
+                                    height: "15px",
+                                    marginLeft: "5px",
+                                  }}
+                                />
+                              </div>
+                            );
+                          },
+                        },
+                      ]}
+                    />
+                    {/* {[
                       {
                         name: "$GOAT",
                         copy: "da4g...54t76",
@@ -323,7 +559,7 @@ const MainLayout = () => {
                           </div>
                         </div>
                       </div>
-                    ))}
+                    ))} */}
 
                     <Button
                       style={{
@@ -452,7 +688,7 @@ const MainLayout = () => {
                     left: "10px",
                     padding: "3px 8px",
                     borderRadius: "8px",
-                    background: "rgba(53, 56, 64, 0.52)",
+                    background: "rgba(53, 56, 64, 1)",
                   }}
                 >
                   <Typography.Text>12k viewers</Typography.Text>

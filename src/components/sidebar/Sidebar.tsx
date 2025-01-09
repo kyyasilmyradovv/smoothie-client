@@ -102,7 +102,11 @@ const Sidebar = () => {
         <Image
           src={logo}
           preview={false}
-          style={{ width: "60px", height: "60px", marginBottom: "20px" }}
+          style={{
+            width: isSidebarOpen ? "100px" : "70px",
+            height: isSidebarOpen ? "100px" : "70px",
+            marginBottom: "20px",
+          }}
         />
       </div>
 

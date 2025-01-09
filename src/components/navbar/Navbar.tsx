@@ -1,11 +1,11 @@
-import { Avatar, Image, Input, Typography } from "antd";
+import { Button, Image, Input, Typography } from "antd";
 import ISearch from "../../assets/Magnifier.png";
-import IAvatar from "../../assets/a cute minimalistic simple hedgehog side profile C (1).png";
+// import IAvatar from "../../assets/a cute minimalistic simple hedgehog side profile C (1).png";
 import IBell from "../../assets/Bell.png";
 import IWorld from "../../assets/World.png";
 import ISon from "../../assets/Son.png";
 import IQues from "../../assets/QuestionCircleFilled.png";
-import { DownOutlined } from "@ant-design/icons";
+// import { DownOutlined } from "@ant-design/icons";
 
 const Navbar = () => {
   return (
@@ -97,7 +97,16 @@ const Navbar = () => {
           preview={false}
           style={{ width: "20px", height: "20px", marginRight: "12px" }}
         />
-        <div
+        <Button
+          size="large"
+          style={{
+            borderRadius: "16px",
+            background: "linear-gradient(0deg, #f00 -52.7%, #f5af19 191.82%)",
+          }}
+        >
+          Connect wallet
+        </Button>
+        {/* <div
           style={{
             borderRadius: "45px",
             background: "#323232",
@@ -106,7 +115,7 @@ const Navbar = () => {
         >
           <Avatar size={35} shape="circle" src={IAvatar} />
           <DownOutlined style={{ color: "#FFFFFF", marginLeft: "15px" }} />
-        </div>
+        </div> */}
       </div>
     </div>
   );
