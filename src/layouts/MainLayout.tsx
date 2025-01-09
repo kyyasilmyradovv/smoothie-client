@@ -306,7 +306,7 @@ const MainLayout = () => {
                           key: "Ticker",
                           width: 120,
                           onHeaderCell: () => ({
-                            style: { textAlign: "left" },
+                            style: { textAlign: "center" },
                           }),
                           onCell: () => ({
                             style: { textAlign: "left" },
@@ -343,7 +343,7 @@ const MainLayout = () => {
                           dataIndex: "CA",
                           key: "CA",
                           onHeaderCell: () => ({
-                            style: { textAlign: "left" },
+                            style: { textAlign: "center" },
                           }),
                           onCell: () => ({
                             style: { textAlign: "left" },
@@ -467,9 +467,10 @@ const MainLayout = () => {
                               <div
                                 style={{
                                   borderRadius: "16px",
-                                  border: "1px solid #AE1FCE",
+                                  border: "2px solid #AE1FCE",
                                   padding: "2px 5px",
                                   width: "90px",
+                                  cursor: "pointer",
                                 }}
                               >
                                 <Image
