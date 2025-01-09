@@ -191,32 +191,69 @@ const MainLayout = () => {
                   padding: "16px",
                 }}
               >
+                <div style={{ marginBottom: "12px" }}>
+                  <Typography.Title level={3}>
+                    Cryptotoking Cash TV
+                  </Typography.Title>
+                </div>
                 <div
-                  style={{ display: "flex", alignItems: "center", gap: "15px" }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
                 >
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "5px",
-                    }}
-                  >
-                    <HeartFilled style={{ color: "red", fontSize: "14px" }} />
-                    <Typography.Text>242</Typography.Text>
+                  <div>
+                    <Badge dot offset={[-5, 22]} status="success">
+                      <Avatar
+                        size={25}
+                        shape="circle"
+                        icon={<UserOutlined />}
+                      />
+                    </Badge>
+                    <Typography.Text
+                      style={{
+                        color: "#FFF;",
+                        fontSize: "14px",
+                        marginLeft: "10px",
+                      }}
+                    >
+                      Recrent
+                    </Typography.Text>
                   </div>
                   <div
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "5px",
+                      gap: "15px",
                     }}
                   >
-                    <EyeOutlined style={{ fontSize: "14px", color: "white" }} />
-                    <Typography.Text>2343</Typography.Text>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "5px",
+                      }}
+                    >
+                      <HeartFilled style={{ color: "red", fontSize: "14px" }} />
+                      <Typography.Text>242</Typography.Text>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "5px",
+                      }}
+                    >
+                      <EyeOutlined
+                        style={{ fontSize: "14px", color: "white" }}
+                      />
+                      <Typography.Text>2343</Typography.Text>
+                    </div>
                   </div>
                 </div>
                 <div style={{ marginTop: "10px" }}>
-                  <div>
+                  {/* <div>
                     <Badge dot offset={[-5, 22]} status="success">
                       <Avatar
                         size={25}
@@ -233,13 +270,8 @@ const MainLayout = () => {
                     >
                       Recrent
                     </Typography.Text>
-                  </div>
+                  </div> */}
 
-                  <div style={{ margin: "10px 0" }}>
-                    <Typography.Text style={{ fontSize: "12px" }}>
-                      Cryptotoking Cash TV
-                    </Typography.Text>
-                  </div>
                   <div>
                     <Table
                       scroll={{ y: "auto" }}
