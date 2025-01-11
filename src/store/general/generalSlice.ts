@@ -6,6 +6,8 @@ type SliceState = {
   appCustomization: TThemePropsType;
   language: string;
   isSidebarOpen: boolean;
+  isHelpModalOpen: boolean;
+  isConnectWalletModalOpen: boolean;
 };
 
 const initialState: SliceState = {
@@ -22,6 +24,8 @@ const initialState: SliceState = {
   },
   language: localStorage.getItem("I18N_LANGUAGE") ?? "en",
   isSidebarOpen: false,
+  isHelpModalOpen: false,
+  isConnectWalletModalOpen: false,
 };
 
 const generalSlice = createSlice({
@@ -37,9 +41,20 @@ const generalSlice = createSlice({
     setIsSidebarOpen(state, action: PayloadAction<boolean>) {
       state.isSidebarOpen = action.payload;
     },
+    setIsHelpModalOpen(state, action: PayloadAction<boolean>) {
+      state.isHelpModalOpen = action.payload;
+    },
+    setIsConnectWalletModalOpen(state, action: PayloadAction<boolean>) {
+      state.isConnectWalletModalOpen = action.payload;
+    },
   },
 });
 
-export const { setAppCustomization, setLanguage, setIsSidebarOpen } =
-  generalSlice.actions;
+export const {
+  setAppCustomization,
+  setLanguage,
+  setIsSidebarOpen,
+  setIsHelpModalOpen,
+  setIsConnectWalletModalOpen,
+} = generalSlice.actions;
 export default generalSlice.reducer;

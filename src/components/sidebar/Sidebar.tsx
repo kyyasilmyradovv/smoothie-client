@@ -176,14 +176,14 @@ const Sidebar = () => {
             <Typography.Text
               style={{ color: "rgba(255, 255, 255, 0.60)", fontSize: "12px" }}
             >
-              Best Performing Streamers
+              Best Performing Streamers 24h
             </Typography.Text>
             <RightOutlined style={{ color: "#1832D6" }} />
           </div>
           {[
-            { name: "Recrent", value: 345 },
-            { name: "Dimitri Licence", value: 500 },
-            { name: "Quickbaby", value: 345 },
+            { name: "Taiki", value: "1,925" },
+            { name: "Grant Blocmates", value: "980" },
+            { name: "Nothreadguy", value: "834" },
           ]?.map((e: any) => (
             <div
               style={{

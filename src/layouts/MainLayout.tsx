@@ -14,6 +14,7 @@ import {
   Layout,
   Row,
   Table,
+  Tooltip,
   Typography,
 } from "antd";
 import ITrade from "../assets/image.png";
@@ -23,6 +24,8 @@ import IPlus from "../assets/Pluse ellipse.svg";
 import logo from "../assets/Smoothie logo 1.png";
 import IStream from "../assets/asd.png";
 import IStreamer from "../assets/Streamer.png";
+import XIcon from "../assets/X 1.png";
+import userAvatar from "../assets/userAvatar.png";
 import {
   ArrowRightOutlined,
   EyeOutlined,
@@ -193,7 +196,7 @@ const MainLayout = () => {
               >
                 <div style={{ marginBottom: "12px" }}>
                   <Typography.Title level={3}>
-                    Cryptotoking Cash TV
+                    New Virtuals AI Coins
                   </Typography.Title>
                 </div>
                 <div
@@ -204,9 +207,10 @@ const MainLayout = () => {
                   }}
                 >
                   <div>
-                    <Badge dot offset={[-5, 22]} status="success">
+                    <Badge dot offset={[-5, 26]} status="success">
                       <Avatar
-                        size={25}
+                        src={userAvatar}
+                        size={30}
                         shape="circle"
                         icon={<UserOutlined />}
                       />
@@ -217,6 +221,7 @@ const MainLayout = () => {
                         fontSize: "14px",
                         marginLeft: "10px",
                       }}
+                      underline
                     >
                       Recrent
                     </Typography.Text>
@@ -235,8 +240,10 @@ const MainLayout = () => {
                         gap: "5px",
                       }}
                     >
-                      <HeartFilled style={{ color: "red", fontSize: "14px" }} />
-                      <Typography.Text>242</Typography.Text>
+                      <EyeOutlined
+                        style={{ fontSize: "14px", color: "white" }}
+                      />
+                      <Typography.Text>2343</Typography.Text>
                     </div>
                     <div
                       style={{
@@ -245,10 +252,8 @@ const MainLayout = () => {
                         gap: "5px",
                       }}
                     >
-                      <EyeOutlined
-                        style={{ fontSize: "14px", color: "white" }}
-                      />
-                      <Typography.Text>2343</Typography.Text>
+                      <HeartFilled style={{ color: "red", fontSize: "14px" }} />
+                      <Typography.Text>242</Typography.Text>
                     </div>
                   </div>
                 </div>
@@ -294,13 +299,19 @@ const MainLayout = () => {
                       columns={[
                         {
                           title: (
-                            <Typography.Text
-                              ellipsis={{
-                                tooltip: "Ticker",
-                              }}
+                            <Tooltip
+                              placement="topLeft"
+                              title={"Decription Ticker"}
                             >
-                              Ticker
-                            </Typography.Text>
+                              <Typography.Text
+                                style={{ fontSize: "10px", fontWeight: "400" }}
+                                ellipsis={{
+                                  tooltip: "Ticker?",
+                                }}
+                              >
+                                Ticker?
+                              </Typography.Text>
+                            </Tooltip>
                           ),
                           dataIndex: "Ticker",
                           key: "Ticker",
@@ -313,31 +324,56 @@ const MainLayout = () => {
                           }),
                           render: (_: any, record: any) => {
                             return (
-                              <Typography.Text
-                                ellipsis={{
-                                  tooltip: record.Ticker,
+                              <div
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "space-between",
                                 }}
                               >
-                                <Avatar
-                                  style={{ marginRight: "5px" }}
-                                  size={25}
-                                  shape="circle"
-                                  icon={<UserOutlined />}
-                                />
-                                {record.Ticker}
-                              </Typography.Text>
+                                <Typography.Text
+                                  ellipsis={{
+                                    tooltip: record.Ticker,
+                                  }}
+                                >
+                                  {record.Ticker}
+                                </Typography.Text>
+                                <Button
+                                  type="link"
+                                  style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                  }}
+                                  href={`https://x.com/search?q=${record.Ticker}`}
+                                  icon={
+                                    <Image
+                                      src={XIcon}
+                                      preview={false}
+                                      style={{ width: "15px", height: "15px" }}
+                                    />
+                                  }
+                                >
+                                  {/* */}
+                                </Button>
+                              </div>
                             );
                           },
                         },
                         {
                           title: (
-                            <Typography.Text
-                              ellipsis={{
-                                tooltip: "CA",
-                              }}
+                            <Tooltip
+                              placement="topLeft"
+                              title={"Decription CA"}
                             >
-                              CA
-                            </Typography.Text>
+                              <Typography.Text
+                                style={{ fontSize: "10px", fontWeight: "400" }}
+                                ellipsis={{
+                                  tooltip: "CA?",
+                                }}
+                              >
+                                CA?
+                              </Typography.Text>
+                            </Tooltip>
                           ),
                           width: 110,
                           dataIndex: "CA",
@@ -382,13 +418,19 @@ const MainLayout = () => {
                         },
                         {
                           title: (
-                            <Typography.Text
-                              ellipsis={{
-                                tooltip: "Rating",
-                              }}
+                            <Tooltip
+                              placement="topLeft"
+                              title={"Decription Rating"}
                             >
-                              Rating
-                            </Typography.Text>
+                              <Typography.Text
+                                style={{ fontSize: "10px", fontWeight: "400" }}
+                                ellipsis={{
+                                  tooltip: "Rating?",
+                                }}
+                              >
+                                Rating?
+                              </Typography.Text>
+                            </Tooltip>
                           ),
                           width: 70,
                           dataIndex: "Rating",
@@ -415,13 +457,19 @@ const MainLayout = () => {
                         },
                         {
                           title: (
-                            <Typography.Text
-                              ellipsis={{
-                                tooltip: "Entry Price",
-                              }}
+                            <Tooltip
+                              placement="topLeft"
+                              title={"Decription Price"}
                             >
-                              Entry Price
-                            </Typography.Text>
+                              <Typography.Text
+                                style={{ fontSize: "10px", fontWeight: "400" }}
+                                ellipsis={{
+                                  tooltip: "Entry Price?",
+                                }}
+                              >
+                                Entry Price?
+                              </Typography.Text>
+                            </Tooltip>
                           ),
                           width: 100,
                           dataIndex: "EntryPrice",
@@ -439,20 +487,26 @@ const MainLayout = () => {
                                   tooltip: record.EntryPrice,
                                 }}
                               >
-                                {record.EntryPrice}
+                                ${record.EntryPrice}
                               </Typography.Text>
                             );
                           },
                         },
                         {
                           title: (
-                            <Typography.Text
-                              ellipsis={{
-                                tooltip: "Create Smoothie",
-                              }}
+                            <Tooltip
+                              placement="topLeft"
+                              title={"Decription Actions"}
                             >
-                              Create Smoothie
-                            </Typography.Text>
+                              <Typography.Text
+                                style={{ fontSize: "10px", fontWeight: "400" }}
+                                ellipsis={{
+                                  tooltip: "Create Smoothie?",
+                                }}
+                              >
+                                Create Smoothie?
+                              </Typography.Text>
+                            </Tooltip>
                           ),
                           dataIndex: "CreateSmoothie",
                           key: "CreateSmoothie",
