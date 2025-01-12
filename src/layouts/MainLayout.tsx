@@ -18,6 +18,7 @@ import {
   Typography,
 } from "antd";
 import ITrade from "../assets/image.png";
+import ITradeVideo from "../assets/stream-1.mp4";
 import IPouse from "../assets/pause.png";
 import IDoc from "../assets/Document-1-Copy.png";
 import IPlus from "../assets/Pluse ellipse.svg";
@@ -47,6 +48,7 @@ import {
   RightOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import ReactPlayer from "react-player";
 
 const MainLayout = () => {
   const isSidebarOpen = useAppSelector((state) => state.general.isSidebarOpen);
@@ -129,14 +131,23 @@ const MainLayout = () => {
                 className={styles["videoWrapper"]}
                 style={{ position: "relative" }}
               >
-                <Image
+                {/* <Image
                   className={styles["tradeVideo"]}
                   width="100%"
                   height="375px"
                   src={ITrade}
                   preview={false}
+                /> */}
+                <ReactPlayer
+                  width="100%"
+                  height="375px"
+                  className={styles["videoWrapper"]}
+                  url={ITradeVideo}
+                  playing
+                  loop
+                  controls
                 />
-                <Image
+                {/* <Image
                   style={{
                     position: "absolute",
                     bottom: "130px",
@@ -147,8 +158,8 @@ const MainLayout = () => {
                   height="80px"
                   src={IStreamer}
                   preview={false}
-                />
-                <div className={styles["videoController"]}>
+                /> */}
+                {/* <div className={styles["videoController"]}>
                   <div className={styles.blur}></div>
                   <div
                     style={{
@@ -204,7 +215,7 @@ const MainLayout = () => {
                       }}
                     ></Button>
                   </div>
-                </div>
+                </div> */}
               </div>
             </Col>
             <Col span={10}>
@@ -218,7 +229,7 @@ const MainLayout = () => {
               >
                 <div style={{ marginBottom: "12px" }}>
                   <Typography.Title level={3}>
-                    New Viruals Agents
+                    New Virtuals Agents
                   </Typography.Title>
                 </div>
                 <div
@@ -298,7 +309,7 @@ const MainLayout = () => {
                           CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
                           Rating: "5/10",
                           EntryPrice: "1.53",
-                          Color: "#FFDD00",
+                          Color: "#56C600",
                         },
                         {
                           Ticker: "$GRIFFAIN",
@@ -360,7 +371,10 @@ const MainLayout = () => {
                                     display: "flex",
                                     alignItems: "center",
                                   }}
-                                  href={`https://x.com/search?q=${record.Ticker}`}
+                                  onClick={() => {
+                                    const url = `https://x.com/search?q=${record.Ticker}`;
+                                    window.open(url, "_blank");
+                                  }}
                                   icon={
                                     <Image
                                       src={XIcon}
@@ -941,7 +955,7 @@ const MainLayout = () => {
                 avatar: Favatar1,
                 name: "Bitcoin cash TV",
                 total: "456,453",
-                performance: "5353",
+                performance: "+5353",
                 title: "Coinstrack",
                 color: "#00C853",
               },
@@ -949,15 +963,15 @@ const MainLayout = () => {
                 avatar: Favatar2,
                 name: "Bitcoin cash TV",
                 total: "28,466",
-                performance: "412",
+                performance: "+412",
                 title: "ZCoin",
-                color: "#FFDD00",
+                color: "#00C853",
               },
               {
                 avatar: Favatar3,
                 name: "Cryptotoking",
                 total: "231",
-                performance: "33",
+                performance: "-33",
                 title: "BTC45",
                 color: "#E91916",
               },
@@ -965,7 +979,7 @@ const MainLayout = () => {
                 avatar: Favatar4,
                 name: "Bitcoin cash TV",
                 total: "349",
-                performance: "35",
+                performance: "-35",
                 title: "Coinstrack",
                 color: "#E91916",
               },
@@ -1101,7 +1115,7 @@ const MainLayout = () => {
                         marginRight: "15px",
                       }}
                     >
-                      +{e.performance}%
+                      {e.performance}%
                     </Typography.Text>
                     <RightOutlined style={{ color: "#1F6FCE" }} />
                   </div>

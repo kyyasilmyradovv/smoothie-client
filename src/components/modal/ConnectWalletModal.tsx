@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Image, Input, Modal, Typography } from "antd";
+import { Button, Image, Input, Modal } from "antd";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setIsConnectWalletModalOpen } from "../../store/general/generalSlice";
 import logo from "../../assets/logo.png";
@@ -38,22 +38,23 @@ const ConnectWalletModal: React.FC = () => {
               marginTop: "30px",
             }}
           />
-          <Typography.Title style={{ marginTop: "20px" }} level={3}>
-            Join waitlist & get something special
-          </Typography.Title>
+          {/* <Typography.Title style={{ marginTop: "10px" }} level={3}>
+            Join waitlist
+          </Typography.Title> */}
 
           <div
             style={{
               width: "100%",
-              marginTop: "20px",
+              marginTop: "10px",
               display: "flex",
-              flexDirection: "column",
+              // flexDirection: "column",
               alignItems: "center",
+              gap: "10px",
             }}
           >
-            <Typography.Text type="secondary" style={{ fontSize: "14px" }}>
+            {/* <Typography.Text type="secondary" style={{ fontSize: "14px" }}>
               Please enter your email to join our waitlist.
-            </Typography.Text>
+            </Typography.Text> */}
             <Input
               style={{
                 borderRadius: "16px",
@@ -65,7 +66,6 @@ const ConnectWalletModal: React.FC = () => {
             <Button
               type="primary"
               style={{
-                marginTop: "10px",
                 borderRadius: "16px",
                 background:
                   "linear-gradient(0deg, #f00 -52.7%, #f5af19 191.82%)",

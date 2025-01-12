@@ -16,16 +16,22 @@ const HelpModal: React.FC = () => {
   return (
     <>
       <Modal
-        title={
-          <Typography.Title level={4}>
-            How does Smoothie.fun work?
-          </Typography.Title>
-        }
+        styles={{
+          body: {
+            height: "530px",
+            overflow: "auto",
+            padding: "30px",
+          },
+        }}
+        width={800}
         open={isHelpModalOpen}
         onCancel={handleCancel}
         footer={null}
       >
-        <Typography.Text>
+        <Typography.Title level={4} underline>
+          How does Smoothie.fun work?
+        </Typography.Title>
+        <Typography.Text style={{ fontSize: "14px" }}>
           Smoothie.fun is a streaming platform for crypto analysts. Verified
           analysts can create streams, analyse projects, and add a rating to
           each project. Users (watchers of the stream) can create “Coin
@@ -40,8 +46,10 @@ const HelpModal: React.FC = () => {
           an audience and are reputable KOLs or are recommended by reputable
           KOLs/builders as valuable voices in the space.
         </Typography.Text>
-        <Typography.Title level={4}>Fees</Typography.Title>
-        <Typography.Text>
+        <Typography.Title level={4} underline>
+          Fees
+        </Typography.Title>
+        <Typography.Text style={{ fontSize: "14px" }}>
           In the beta stage Smoothie takes a 5% commission from all
           transactions, and half of that (2.5%) goes to the streamers. For
           example: A KOL named “1000x Caller” does six streams during the week.
