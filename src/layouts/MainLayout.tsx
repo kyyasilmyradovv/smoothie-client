@@ -17,9 +17,9 @@ import {
   Tooltip,
   Typography,
 } from "antd";
-import ITrade from "../assets/image.png";
+// import ITrade from "../assets/image.png";
 import ITradeVideo from "../assets/stream-1.mp4";
-import IPouse from "../assets/pause.png";
+// import IPouse from "../assets/pause.png";
 import IDoc from "../assets/Document-1-Copy.png";
 import IPlus from "../assets/Pluse ellipse.svg";
 import logo from "../assets/Smoothie logo 1.png";
@@ -39,12 +39,12 @@ import Favatar3 from "../assets/favatar3.png";
 import Favatar4 from "../assets/favatar4.png";
 import IStreamer from "../assets/Streamer.png";
 import XIcon from "../assets/X 1.png";
-import IVolume from "../assets/volume.png";
+// import IVolume from "../assets/volume.png";
 import {
   ArrowRightOutlined,
   EyeOutlined,
   HeartFilled,
-  LeftOutlined,
+  // LeftOutlined,
   RightOutlined,
   UserOutlined,
 } from "@ant-design/icons";
