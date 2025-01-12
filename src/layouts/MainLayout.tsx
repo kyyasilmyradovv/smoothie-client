@@ -302,14 +302,14 @@ const MainLayout = () => {
                           Ticker: "$GRIFFAIN",
                           CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
                           Rating: "2/10",
-                          EntryPrice: "1.53",
+                          EntryPrice: "0.81",
                           Color: "#E91916",
                         },
                         {
                           Ticker: "$FARTCOIN",
                           CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
                           Rating: "8/10",
-                          EntryPrice: "1.53",
+                          EntryPrice: "1.22",
                           Color: "#00C853",
                         },
                       ]}
