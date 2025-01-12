@@ -146,6 +146,7 @@ const MainLayout = () => {
                   playing
                   loop
                   controls
+                  muted
                 />
                 {/* <Image
                   style={{
