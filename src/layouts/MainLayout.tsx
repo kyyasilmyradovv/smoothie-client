@@ -22,10 +22,24 @@ import IPouse from "../assets/pause.png";
 import IDoc from "../assets/Document-1-Copy.png";
 import IPlus from "../assets/Pluse ellipse.svg";
 import logo from "../assets/Smoothie logo 1.png";
-import IStream from "../assets/asd.png";
+import IStream1 from "../assets/asd.png";
+import avatar1 from "../assets/avatar1.png";
+import IStream2 from "../assets/asd2.png";
+import avatar2 from "../assets/avatar2.png";
+import IStream3 from "../assets/asd3.png";
+import avatar3 from "../assets/avatar3.png";
+import IStream4 from "../assets/asd4.png";
+import avatar4 from "../assets/avatar4.png";
+import IStream5 from "../assets/asd5.png";
+import avatar5 from "../assets/avatar5.png";
+import Favatar1 from "../assets/favatar1.png";
+import Favatar2 from "../assets/favatar2.png";
+import Favatar3 from "../assets/favatar3.png";
+import Favatar4 from "../assets/favatar4.png";
 import IStreamer from "../assets/Streamer.png";
 import XIcon from "../assets/X 1.png";
 import userAvatar from "../assets/userAvatar.png";
+import IVolume from "../assets/volume.png";
 import {
   ArrowRightOutlined,
   EyeOutlined,
@@ -112,56 +126,62 @@ const MainLayout = () => {
           </div>
           <Row gutter={[16, 16]}>
             <Col span={14}>
-              <div style={{ position: "relative" }}>
+              <div
+                className={styles["videoWrapper"]}
+                style={{ position: "relative" }}
+              >
                 <Image
+                  className={styles["tradeVideo"]}
                   width="100%"
-                  height="270px"
+                  height="375px"
                   src={ITrade}
                   preview={false}
                 />
                 <Image
-                  style={{ position: "absolute", bottom: "40px" }}
-                  width="60px"
-                  height="60px"
+                  style={{
+                    position: "absolute",
+                    bottom: "120px",
+                    left: "10px",
+                  }}
+                  width="80px"
+                  height="80px"
                   src={IStreamer}
                   preview={false}
                 />
-                <div
-                  style={{
-                    display: "flex",
-                    position: "absolute",
-                    alignItems: "center",
-                    // justifyContent: "space-between",
-                    width: "100%",
-                    bottom: "20px",
-                  }}
-                >
-                  <Image
-                    src={IPouse}
-                    preview={false}
-                    style={{
-                      width: "20px",
-                      height: "20px",
-                      marginRight: "10px",
-                    }}
-                  />
-                  <div
-                    style={{
-                      height: "5px",
-                      width: "80%",
-                      borderRadius: "12px",
-                      background: `linear-gradient(
-                        to right,
-                        blue 0 150px,
-                        rgba(53, 56, 64, 0.52) 150px
-                      )`,
-                    }}
-                  ></div>
+                <div className={styles["videoController"]}>
                   <div
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "20px",
+                      gap: "8px",
+                    }}
+                  >
+                    <Image
+                      src={IPouse}
+                      preview={false}
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                      }}
+                    />
+                    <Typography.Text type="secondary">01:35:45</Typography.Text>
+                    <Image
+                      src={IVolume}
+                      preview={false}
+                      width="15px"
+                      height="15px"
+                      style={{
+                        // marginRight: "10px",
+                        marginBottom: "5px",
+                        opacity: "0.6",
+                      }}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
                       marginLeft: "auto",
                     }}
                   >
@@ -258,25 +278,6 @@ const MainLayout = () => {
                   </div>
                 </div>
                 <div style={{ marginTop: "10px" }}>
-                  {/* <div>
-                    <Badge dot offset={[-5, 22]} status="success">
-                      <Avatar
-                        size={25}
-                        shape="circle"
-                        icon={<UserOutlined />}
-                      />
-                    </Badge>
-                    <Typography.Text
-                      style={{
-                        color: "color: #FFF;",
-                        fontSize: "10px",
-                        marginLeft: "14px",
-                      }}
-                    >
-                      Recrent
-                    </Typography.Text>
-                  </div> */}
-
                   <div>
                     <Table
                       scroll={{ y: "auto" }}
@@ -285,31 +286,44 @@ const MainLayout = () => {
                       dataSource={[
                         {
                           Ticker: "$GOAT",
-                          CA: "da4g...54t7",
+                          CA: "0x1C4CcA7C5DB003824208aDDA61Bd749e55F463a3",
                           Rating: "9/10",
                           EntryPrice: "0.23",
+                          Color: "#56C600",
                         },
                         {
                           Ticker: "$KINGLANAND",
-                          CA: "da4g...54t76",
+                          CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+                          Rating: "5/10",
+                          EntryPrice: "1.53",
+                          Color: "#FFDD00",
+                        },
+                        {
+                          Ticker: "$GRIFFAIN",
+                          CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+                          Rating: "2/10",
+                          EntryPrice: "1.53",
+                          Color: "#E91916",
+                        },
+                        {
+                          Ticker: "$FARTCOIN",
+                          CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
                           Rating: "8/10",
                           EntryPrice: "1.53",
+                          Color: "#00C853",
                         },
                       ]}
                       columns={[
                         {
                           title: (
-                            <Tooltip
-                              placement="topLeft"
-                              title={"Decription Ticker"}
-                            >
+                            <Tooltip placement="topLeft" title={"Token symbol"}>
                               <Typography.Text
                                 style={{ fontSize: "10px", fontWeight: "400" }}
                                 ellipsis={{
-                                  tooltip: "Ticker?",
+                                  tooltip: "Ticker(?)",
                                 }}
                               >
-                                Ticker?
+                                Ticker(?)
                               </Typography.Text>
                             </Tooltip>
                           ),
@@ -363,15 +377,17 @@ const MainLayout = () => {
                           title: (
                             <Tooltip
                               placement="topLeft"
-                              title={"Decription CA"}
+                              title={
+                                "Each token has unique contract address for identification"
+                              }
                             >
                               <Typography.Text
                                 style={{ fontSize: "10px", fontWeight: "400" }}
                                 ellipsis={{
-                                  tooltip: "CA?",
+                                  tooltip: "CA(?)",
                                 }}
                               >
-                                CA?
+                                CA(?)
                               </Typography.Text>
                             </Tooltip>
                           ),
@@ -420,15 +436,17 @@ const MainLayout = () => {
                           title: (
                             <Tooltip
                               placement="topLeft"
-                              title={"Decription Rating"}
+                              title={
+                                "Positive rating does not constitute as a financial advice and you MUST do your own due diligence for any investment decisions."
+                              }
                             >
                               <Typography.Text
                                 style={{ fontSize: "10px", fontWeight: "400" }}
                                 ellipsis={{
-                                  tooltip: "Rating?",
+                                  tooltip: "Rating(?)",
                                 }}
                               >
-                                Rating?
+                                Rating(?)
                               </Typography.Text>
                             </Tooltip>
                           ),
@@ -448,7 +466,10 @@ const MainLayout = () => {
                                   tooltip: record.Rating,
                                 }}
                                 type="success"
-                                style={{ fontSize: "10px" }}
+                                style={{
+                                  fontSize: "10px",
+                                  color: record?.Color,
+                                }}
                               >
                                 {record.Rating}
                               </Typography.Text>
@@ -459,15 +480,17 @@ const MainLayout = () => {
                           title: (
                             <Tooltip
                               placement="topLeft"
-                              title={"Decription Price"}
+                              title={
+                                "Price of the token at the time of the analysis Rating assigned to the token by the streamer based on performed analysis."
+                              }
                             >
                               <Typography.Text
                                 style={{ fontSize: "10px", fontWeight: "400" }}
                                 ellipsis={{
-                                  tooltip: "Entry Price?",
+                                  tooltip: "Entry Price(?)",
                                 }}
                               >
-                                Entry Price?
+                                Entry Price(?)
                               </Typography.Text>
                             </Tooltip>
                           ),
@@ -494,19 +517,19 @@ const MainLayout = () => {
                         },
                         {
                           title: (
-                            <Tooltip
-                              placement="topLeft"
-                              title={"Decription Actions"}
+                            // <Tooltip
+                            //   placement="topLeft"
+                            //   title={"Decription Actions"}
+                            // >
+                            <Typography.Text
+                              style={{ fontSize: "10px", fontWeight: "400" }}
+                              ellipsis={{
+                                tooltip: "Create Smoothie",
+                              }}
                             >
-                              <Typography.Text
-                                style={{ fontSize: "10px", fontWeight: "400" }}
-                                ellipsis={{
-                                  tooltip: "Create Smoothie?",
-                                }}
-                              >
-                                Create Smoothie?
-                              </Typography.Text>
-                            </Tooltip>
+                              Create Smoothie
+                            </Typography.Text>
+                            // </Tooltip>
                           ),
                           dataIndex: "CreateSmoothie",
                           key: "CreateSmoothie",
@@ -682,7 +705,7 @@ const MainLayout = () => {
               </div>
             </Col>
           </Row>
-          {/* ------------- */}
+          {/* ------Live streams------- */}
           <div
             style={{
               display: "flex",
@@ -721,18 +744,54 @@ const MainLayout = () => {
               position: "relative",
             }}
           >
-            {[1, 2, 3, 4, 5, 6, 7].map(() => (
+            {[
+              {
+                img: IStream1,
+                viewers: "16k",
+                avatar: avatar1,
+                name: "Bitcoin cash TV",
+                description: "Dimitri Licence ",
+              },
+              {
+                img: IStream2,
+                viewers: "12k",
+                avatar: avatar2,
+                name: "Cryptotoking",
+                description: "Dream",
+              },
+              {
+                img: IStream3,
+                viewers: "18k",
+                avatar: avatar3,
+                name: "TreaderSamwise ...",
+                description: "Adam Smith",
+              },
+              {
+                img: IStream4,
+                viewers: "19k",
+                avatar: avatar4,
+                name: "TreaderSamwise ...",
+                description: "Tarik",
+              },
+              {
+                img: IStream5,
+                viewers: "24k",
+                avatar: avatar5,
+                name: "TreaderSamwE",
+                description: "John Doe",
+              },
+            ].map((e) => (
               <div
                 style={{
                   position: "relative",
-                  width: "260px",
+                  width: "300px",
                   paddingBottom: "10px",
                 }}
               >
                 <Image
-                  width="260px"
+                  width="280px"
                   height="180px"
-                  src={IStream}
+                  src={e.img}
                   preview={false}
                 />
                 <div
@@ -778,7 +837,7 @@ const MainLayout = () => {
                     background: "rgba(53, 56, 64, 1)",
                   }}
                 >
-                  <Typography.Text>12k viewers</Typography.Text>
+                  <Typography.Text>{e.viewers} viewers</Typography.Text>
                 </div>
                 <div
                   style={{
@@ -789,7 +848,12 @@ const MainLayout = () => {
                   }}
                 >
                   <div style={{ display: "flex", alignItems: "center" }}>
-                    <Avatar size={35} shape="circle" icon={<UserOutlined />} />
+                    <Avatar
+                      size={35}
+                      shape="circle"
+                      icon={<UserOutlined />}
+                      src={e.avatar}
+                    />
                     <div style={{ marginLeft: "10px" }}>
                       <div>
                         <Typography.Text
@@ -800,7 +864,7 @@ const MainLayout = () => {
                             color: "#FFF",
                           }}
                         >
-                          Bitcoin cash TV
+                          {e.name}
                         </Typography.Text>
                       </div>
                       <Typography.Text
@@ -811,7 +875,7 @@ const MainLayout = () => {
                           color: "#FFF",
                         }}
                       >
-                        Dimitri Licence
+                        {e.description}
                       </Typography.Text>
                     </div>
                   </div>
@@ -829,7 +893,7 @@ const MainLayout = () => {
             ))}
           </div>
 
-          {/* ------------- */}
+          {/* ------finished streams------- */}
 
           <div
             style={{
@@ -870,7 +934,40 @@ const MainLayout = () => {
               position: "relative",
             }}
           >
-            {[1, 2, 3, 4, 5].map(() => (
+            {[
+              {
+                avatar: Favatar1,
+                name: "Bitcoin cash TV",
+                total: "456,453",
+                performance: "5353",
+                title: "Coinstrack",
+                color: "#00C853",
+              },
+              {
+                avatar: Favatar2,
+                name: "Bitcoin cash TV",
+                total: "28,466",
+                performance: "412",
+                title: "ZCoin",
+                color: "#FFDD00",
+              },
+              {
+                avatar: Favatar3,
+                name: "Cryptotoking",
+                total: "231",
+                performance: "33",
+                title: "BTC45",
+                color: "#E91916",
+              },
+              {
+                avatar: Favatar4,
+                name: "Bitcoin cash TV",
+                total: "349",
+                performance: "20",
+                title: "Coinstrack",
+                color: "#E91916",
+              },
+            ].map((e) => (
               <div
                 style={{
                   position: "relative",
@@ -887,7 +984,12 @@ const MainLayout = () => {
                     alignItems: "center",
                   }}
                 >
-                  <Avatar size={35} shape="circle" icon={<UserOutlined />} />
+                  <Avatar
+                    size={35}
+                    shape="circle"
+                    icon={<UserOutlined />}
+                    src={e.avatar}
+                  />
                   <Typography.Text
                     style={{
                       fontSize: "14px",
@@ -897,7 +999,7 @@ const MainLayout = () => {
                       marginLeft: "15px",
                     }}
                   >
-                    Coinstrack
+                    {e.title}
                   </Typography.Text>
                 </div>
                 <Divider style={{ margin: "15px 0" }} />
@@ -929,41 +1031,7 @@ const MainLayout = () => {
                         marginRight: "15px",
                       }}
                     >
-                      Bitcoin cash TV
-                    </Typography.Text>
-                    <RightOutlined style={{ color: "#1F6FCE" }} />
-                  </div>
-                </div>
-                <Divider style={{ margin: "15px 0" }} />
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "100%",
-                    padding: "0 15px",
-                  }}
-                >
-                  <Typography.Text
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: "400",
-                      lineHeight: "18spx",
-                      color: "#FFF",
-                    }}
-                  >
-                    Total smoothies created:
-                  </Typography.Text>
-                  <div>
-                    <Typography.Text
-                      style={{
-                        fontSize: "12px",
-                        fontWeight: "400",
-                        lineHeight: "18spx",
-                        color: "#E91916",
-                        marginRight: "15px",
-                      }}
-                    >
-                      $456453
+                      {e.name}
                     </Typography.Text>
                     <RightOutlined style={{ color: "#1F6FCE" }} />
                   </div>
@@ -997,7 +1065,41 @@ const MainLayout = () => {
                         marginRight: "15px",
                       }}
                     >
-                      +5353%
+                      ${e.total}
+                    </Typography.Text>
+                    <RightOutlined style={{ color: "#1F6FCE" }} />
+                  </div>
+                </div>
+                <Divider style={{ margin: "15px 0" }} />
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    padding: "0 15px",
+                  }}
+                >
+                  <Typography.Text
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: "400",
+                      lineHeight: "18spx",
+                      color: "#FFF",
+                    }}
+                  >
+                    Performance::
+                  </Typography.Text>
+                  <div>
+                    <Typography.Text
+                      style={{
+                        fontSize: "12px",
+                        fontWeight: "400",
+                        lineHeight: "18spx",
+                        color: e.color,
+                        marginRight: "15px",
+                      }}
+                    >
+                      +{e.performance}%
                     </Typography.Text>
                     <RightOutlined style={{ color: "#1F6FCE" }} />
                   </div>

@@ -219,7 +219,7 @@ const Sidebar = () => {
                   fontSize: "10px",
                 }}
               >
-                +{e.value} %
+                +{e.value}%
               </div>
             </div>
           ))}

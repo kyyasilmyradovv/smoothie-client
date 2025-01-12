@@ -30,12 +30,15 @@ const App: FC = () => {
       fontFamily: "Poppins, sans-serif",
       fontSize: appCustomization.fontSize,
       colorBgContainer:
-        appCustomization.theme === "dark" ? "#000000" : "#FFFFFF",
+        appCustomization.theme === "dark" ? "inherit" : "#FFFFFF",
     },
     components: {
       Typography: {
         titleMarginTop: 0,
         titleMarginBottom: 0,
+      },
+      Table: {
+        headerBg: "inherit",
       },
     },
   };

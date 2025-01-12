@@ -19,3 +19,20 @@
     background: inherit;
   }
 }
+.videoWrapper {
+  position: relative;
+  cursor: pointer;
+  height: 375px;
+}
+.videoWrapper:hover .videoController {
+  display: flex;
+}
+
+.videoController {
+  display: none;
+  position: absolute;
+  align-items: center;
+  width: 96%;
+  bottom: 10px;
+  left: 10px;
+}
