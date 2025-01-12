@@ -38,7 +38,6 @@ import Favatar3 from "../assets/favatar3.png";
 import Favatar4 from "../assets/favatar4.png";
 import IStreamer from "../assets/Streamer.png";
 import XIcon from "../assets/X 1.png";
-import userAvatar from "../assets/userAvatar.png";
 import IVolume from "../assets/volume.png";
 import {
   ArrowRightOutlined,
@@ -140,8 +139,9 @@ const MainLayout = () => {
                 <Image
                   style={{
                     position: "absolute",
-                    bottom: "120px",
+                    bottom: "130px",
                     left: "10px",
+                    zIndex: "1000",
                   }}
                   width="80px"
                   height="80px"
@@ -149,11 +149,13 @@ const MainLayout = () => {
                   preview={false}
                 />
                 <div className={styles["videoController"]}>
+                  <div className={styles.blur}></div>
                   <div
                     style={{
                       display: "flex",
                       alignItems: "center",
                       gap: "8px",
+                      zIndex: "1000",
                     }}
                   >
                     <Image
@@ -216,7 +218,7 @@ const MainLayout = () => {
               >
                 <div style={{ marginBottom: "12px" }}>
                   <Typography.Title level={3}>
-                    New Virtuals AI Coins
+                    New Viruals Agents
                   </Typography.Title>
                 </div>
                 <div
@@ -229,7 +231,7 @@ const MainLayout = () => {
                   <div>
                     <Badge dot offset={[-5, 26]} status="success">
                       <Avatar
-                        src={userAvatar}
+                        src={IStreamer}
                         size={30}
                         shape="circle"
                         icon={<UserOutlined />}
@@ -534,7 +536,7 @@ const MainLayout = () => {
                           dataIndex: "CreateSmoothie",
                           key: "CreateSmoothie",
                           onHeaderCell: () => ({
-                            style: { textAlign: "left" },
+                            style: { textAlign: "center" },
                           }),
                           onCell: () => ({
                             style: { textAlign: "center" },
@@ -963,7 +965,7 @@ const MainLayout = () => {
                 avatar: Favatar4,
                 name: "Bitcoin cash TV",
                 total: "349",
-                performance: "20",
+                performance: "35",
                 title: "Coinstrack",
                 color: "#E91916",
               },

@@ -27,12 +27,23 @@
 .videoWrapper:hover .videoController {
   display: flex;
 }
+.videoWrapper:hover .blur {
+  display: flex;
+}
 
 .videoController {
+  padding: 10px;
   display: none;
   position: absolute;
   align-items: center;
-  width: 96%;
+  width: 100%;
   bottom: 10px;
-  left: 10px;
+}
+.blur {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  background-color: #000;
+  filter: blur(15.25px);
 }
