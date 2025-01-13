@@ -17,6 +17,7 @@ const ConnectWalletModal: React.FC = () => {
   return (
     <>
       <Modal
+        width={400}
         // title={<Typography.Title level={4}>Connect wallet</Typography.Title>}
         open={isConnectWalletModalOpen}
         onCancel={handleCancel}
@@ -35,7 +36,7 @@ const ConnectWalletModal: React.FC = () => {
             style={{
               width: "70px",
               height: "70px",
-              marginTop: "30px",
+              marginTop: "20px",
             }}
           />
           {/* <Typography.Title style={{ marginTop: "10px" }} level={3}>
