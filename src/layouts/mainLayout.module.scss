@@ -37,7 +37,7 @@
   position: absolute;
   align-items: center;
   width: 100%;
-  bottom: 10px;
+  bottom: 180px;
 }
 .blur {
   display: none;
@@ -46,4 +46,8 @@
   height: 20px;
   background-color: #000;
   filter: blur(15.25px);
+}
+
+video {
+  object-fit: cover;
 }

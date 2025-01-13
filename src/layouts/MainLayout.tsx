@@ -44,7 +44,7 @@ import {
   ArrowRightOutlined,
   EyeOutlined,
   HeartFilled,
-  // LeftOutlined,
+  LeftOutlined,
   RightOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -147,6 +147,7 @@ const MainLayout = () => {
                   loop
                   controls
                   muted
+                  style={{ objectFit: "cover" }}
                 />
                 {/* <Image
                   style={{
@@ -160,9 +161,9 @@ const MainLayout = () => {
                   src={IStreamer}
                   preview={false}
                 /> */}
-                {/* <div className={styles["videoController"]}>
+                <div className={styles["videoController"]}>
                   <div className={styles.blur}></div>
-                  <div
+                  {/* <div
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -190,17 +191,19 @@ const MainLayout = () => {
                         opacity: "0.6",
                       }}
                     />
-                  </div>
+                  </div> */}
                   <div
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "10px",
-                      marginLeft: "auto",
+                      // gap: "10px",
+                      width: "100%",
+                      justifyContent: "space-between",
+                      // marginLeft: "auto",
                     }}
                   >
                     <Button
-                      size="small"
+                      // size="small"
                       shape="circle"
                       icon={<LeftOutlined style={{ fontSize: "10px" }} />}
                       style={{
@@ -208,7 +211,7 @@ const MainLayout = () => {
                       }}
                     ></Button>
                     <Button
-                      size="small"
+                      // size="small"
                       shape="circle"
                       icon={<RightOutlined style={{ fontSize: "10px" }} />}
                       style={{
@@ -216,7 +219,7 @@ const MainLayout = () => {
                       }}
                     ></Button>
                   </div>
-                </div> */}
+                </div>
               </div>
             </Col>
             <Col span={10}>
