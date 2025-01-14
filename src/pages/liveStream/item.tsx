@@ -20,7 +20,6 @@ import CAvatar2 from "../../assets/CAvatar.png";
 import CAvatar1 from "../../assets/CAvatar1.png";
 import IStreamer from "../../assets/Streamer.png";
 import IMenu from "../../assets/Menu-3.png";
-import XIcon from "../../assets/X 1.png";
 import IDoc from "../../assets/Document-1-Copy.png";
 import IPlus from "../../assets/Pluse ellipse.svg";
 import logo from "../../assets/Smoothie logo 1.png";

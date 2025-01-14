@@ -4,19 +4,7 @@ import Navbar from "../components/navbar/Navbar";
 import Sidebar from "../components/sidebar/Sidebar";
 import { useAppSelector } from "../store/hooks";
 import styles from "./mainLayout.module.scss";
-import {
-  Avatar,
-  Badge,
-  Button,
-  Col,
-  Divider,
-  Image,
-  Layout,
-  Row,
-  Table,
-  Tooltip,
-  Typography,
-} from "antd";
+import { Layout } from "antd";
 // import ITrade from "../assets/image.png";
 
 import { Suspense } from "react";
