@@ -21,13 +21,14 @@ import log1 from "../../assets/portfolio 1 (1).png";
 import log3 from "../../assets/video-camera 1.png";
 import log4 from "../../assets/likes 1.png";
 import log5 from "../../assets/follow (2) 1.png";
+import { useNavigate } from "react-router-dom";
 
 export const activeMode = () => {
   return location.pathname.split("/").splice(0, 3).join("/");
 };
 
 const Sidebar = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const appCustomization = useAppSelector(
     (state) => state.general.appCustomization
@@ -39,17 +40,17 @@ const Sidebar = () => {
       <Menu
         theme={appCustomization.theme === "dark" ? "dark" : "light"}
         selectedKeys={[activeMode()]}
-        // onSelect={({ key }) => {
-        //   navigate(key);
-        // }}
+        onSelect={({ key }) => {
+          navigate(key);
+        }}
         style={{
           background: "inherit",
         }}
         mode="inline"
         items={SiderItems()}
-        // onClick={(e) => {
-        //   navigate(`${e.key}`, { replace: true });
-        // }}
+        onClick={(e) => {
+          navigate(`${e.key}`, { replace: true });
+        }}
       />
     );
   };

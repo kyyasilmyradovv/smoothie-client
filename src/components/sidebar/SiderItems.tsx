@@ -34,7 +34,7 @@ const SiderItems: () => MenuItem[] = () => {
   return [
     getItem(
       t("Live streams"),
-      "/",
+      "/liveStreams",
       true,
       <div style={{ display: "flex", alignItems: " center" }}>
         <Image
@@ -46,7 +46,7 @@ const SiderItems: () => MenuItem[] = () => {
     ),
     getItem(
       t("Upcoming streams"),
-      "/2",
+      "/upcomingStreams",
       true,
       <div style={{ display: "flex", alignItems: " center" }}>
         <Image
@@ -58,7 +58,7 @@ const SiderItems: () => MenuItem[] = () => {
     ),
     getItem(
       t("Finished Streams"),
-      "/3",
+      "/finishedStreams",
       true,
       <div style={{ display: "flex", alignItems: " center" }}>
         <Image
@@ -70,7 +70,7 @@ const SiderItems: () => MenuItem[] = () => {
     ),
     getItem(
       t("Written Analysis"),
-      "/4",
+      "/writtenAnalysis",
       true,
       <div style={{ display: "flex", alignItems: " center" }}>
         <Image

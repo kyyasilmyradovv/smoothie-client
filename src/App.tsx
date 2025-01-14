@@ -12,6 +12,7 @@ import { useAppSelector } from "./store/hooks";
 
 import MainLayout from "./layouts/MainLayout";
 import Loader from "./components/Loader";
+import { PageRoutes } from "./Routes";
 
 const App: FC = () => {
   const language = useAppSelector((state) => state.general.language);
@@ -80,7 +81,17 @@ const App: FC = () => {
               <MainLayout />
             </Suspense>
           }
-        ></Route>
+        >
+          {PageRoutes.map((route, index) => {
+            return (
+              <Route
+                path={route.path}
+                element={route.element}
+                key={`route-index-${index}`}
+              />
+            );
+          })}
+        </Route>
       </Routes>
     </ConfigProvider>
   );
