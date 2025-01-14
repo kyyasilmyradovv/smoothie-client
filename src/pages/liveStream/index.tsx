@@ -43,9 +43,11 @@ import Favatar3 from "../../assets/favatar3.png";
 import Favatar4 from "../../assets/favatar4.png";
 import IStreamer from "../../assets/Streamer.png";
 import XIcon from "../../assets/X 1.png";
+import { useNavigate } from "react-router-dom";
 // import IVolume from "../assets/volume.png";
 
 const LiveStreams = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div
@@ -777,7 +779,14 @@ const LiveStreams = () => {
               paddingBottom: "10px",
             }}
           >
-            <Image width="280px" height="180px" src={e.img} preview={false} />
+            <Image
+              onClick={() => navigate(`/liveStreams/1`)}
+              width="280px"
+              height="180px"
+              style={{ cursor: "pointer" }}
+              src={e.img}
+              preview={false}
+            />
             <div
               style={{
                 display: "flex",
@@ -864,6 +873,7 @@ const LiveStreams = () => {
                 </div>
               </div>
               <Button
+                onClick={() => navigate(`/liveStreams/1`)}
                 style={{
                   background: "#00C853",
                   borderRadius: "16px",
