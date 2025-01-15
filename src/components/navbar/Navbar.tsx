@@ -1,8 +1,9 @@
-import { Button, Divider, Image, Input, Switch, Typography } from "antd";
+import { Button, Divider, Image, Input, Typography } from "antd";
 import ISearch from "../../assets/Magnifier.png";
 // import IAvatar from "../../assets/a cute minimalistic simple hedgehog side profile C (1).png";
 import IBell from "../../assets/Bell.png";
 // import IWorld from "../../assets/World.png";
+import ISon from "../../assets/Son.png";
 import HelpModal from "../modal/HelpModal";
 import { useAppDispatch } from "../../store/hooks";
 import {
@@ -12,8 +13,8 @@ import {
 import ConnectWalletModal from "../modal/ConnectWalletModal";
 import {
   ExclamationCircleOutlined,
-  MoonOutlined,
-  SunOutlined,
+  // MoonOutlined,
+  // SunOutlined,
 } from "@ant-design/icons";
 // import { ExclamationCircleFilled } from "@ant-design/icons";
 // import { DownOutlined } from "@ant-design/icons";
@@ -126,7 +127,7 @@ const Navbar = () => {
             preview={false}
             style={{ width: "20px", height: "20px", marginRight: "12px" }}
           />
-          {/* <div
+          <div
             style={{
               borderRadius: "16px",
               background: "#323232",
@@ -148,8 +149,8 @@ const Navbar = () => {
                 background: "black",
               }}
             ></div>
-          </div> */}
-          <Switch
+          </div>
+          {/* <Switch
             style={{
               display: "flex",
               marginRight: "12px",
@@ -162,7 +163,7 @@ const Navbar = () => {
             checkedChildren={<SunOutlined style={{ fontSize: "12px" }} />}
             unCheckedChildren={<MoonOutlined style={{ fontSize: "12px" }} />}
             defaultChecked
-          />
+          /> */}
           <Button
             size="large"
             style={{
