@@ -28,6 +28,7 @@ const AddSmothieModal: React.FC = () => {
   return (
     <>
       <StyledModal
+        centered
         width={645}
         // title={<Typography.Title level={4}>Connect wallet</Typography.Title>}
         open={isAddSmothieModalOpen}
@@ -69,10 +70,15 @@ const AddSmothieModal: React.FC = () => {
               defaultValue="USDC"
               style={{ width: "100px" }}
               // onChange={handleChange}
-              options={[{ value: "USDC", label: "USDC" }]}
+              options={[
+                { value: "USDC", label: "USDC" },
+                { value: "USDT", label: "USDT" },
+                { value: "ETH", label: "ETH" },
+                { value: "SOL", label: "SOL" },
+              ]}
             />
             <InputNumber
-              step={0.01}
+              // step={0.01}
               controls
               size="large"
               min={0}

@@ -50,6 +50,10 @@ const App: FC = () => {
       Modal: {
         // contentBg: appCustomization.theme === "dark" ? "#010118" : "#FFF",
       },
+      Select: {
+        optionSelectedBg:
+          appCustomization.theme === "dark" ? undefined : "rgb(241, 241, 241)",
+      },
     },
   };
 
