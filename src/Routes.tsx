@@ -12,7 +12,7 @@ type TRoute = {
 
 export const PageRoutes: TRoute[] = [
   {
-    path: "/liveStreams",
+    path: "/",
     element: <LiveStreams />,
   },
   {

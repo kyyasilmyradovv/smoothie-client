@@ -3,6 +3,14 @@ import { Button, Image, Input, Modal } from "antd";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setIsConnectWalletModalOpen } from "../../store/general/generalSlice";
 import logo from "../../assets/logo.png";
+import { styled } from "styled-components";
+
+const StyledModal = styled(Modal)`
+  .ant-modal-content {
+    border-radius: 16px;
+    background: #010118;
+  }
+`;
 
 const ConnectWalletModal: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +24,7 @@ const ConnectWalletModal: React.FC = () => {
 
   return (
     <>
-      <Modal
+      <StyledModal
         width={400}
         // title={<Typography.Title level={4}>Connect wallet</Typography.Title>}
         open={isConnectWalletModalOpen}
@@ -77,7 +85,7 @@ const ConnectWalletModal: React.FC = () => {
             </Button>
           </div>
         </div>
-      </Modal>
+      </StyledModal>
     </>
   );
 };

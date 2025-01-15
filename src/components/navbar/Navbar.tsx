@@ -1,10 +1,8 @@
-import { Button, Divider, Image, Input, Typography } from "antd";
+import { Button, Divider, Image, Input, Switch, Typography } from "antd";
 import ISearch from "../../assets/Magnifier.png";
 // import IAvatar from "../../assets/a cute minimalistic simple hedgehog side profile C (1).png";
 import IBell from "../../assets/Bell.png";
 // import IWorld from "../../assets/World.png";
-import ISon from "../../assets/Son.png";
-import IQues from "../../assets/QuestionCircleFilled.png";
 import HelpModal from "../modal/HelpModal";
 import { useAppDispatch } from "../../store/hooks";
 import {
@@ -12,6 +10,12 @@ import {
   setIsHelpModalOpen,
 } from "../../store/general/generalSlice";
 import ConnectWalletModal from "../modal/ConnectWalletModal";
+import {
+  ExclamationCircleOutlined,
+  MoonOutlined,
+  SunOutlined,
+} from "@ant-design/icons";
+// import { ExclamationCircleFilled } from "@ant-design/icons";
 // import { DownOutlined } from "@ant-design/icons";
 
 const Navbar = () => {
@@ -74,6 +78,10 @@ const Navbar = () => {
           />
         </div> */}
           <Button
+            onClick={() => {
+              const url = `https://fr9lr27d5om.typeform.com/to/ABFoOUOp`;
+              window.open(url, "_blank");
+            }}
             type="text"
             style={{
               // marginRight: "12px",
@@ -100,16 +108,12 @@ const Navbar = () => {
             onClick={() => {
               dispatch(setIsHelpModalOpen(true));
             }}
-            // icon={}
           >
             <Typography.Text style={{ fontWeight: "500", lineHeight: "18px" }}>
               How it works
             </Typography.Text>
-            <Image
-              src={IQues}
-              preview={false}
-              style={{ width: "15px", height: "15px" }}
-            />
+            <ExclamationCircleOutlined />
+            {/* <ExclamationCircleFilled style={{ fontSize: "14px" }} /> */}
           </Button>
 
           {/* <Image
@@ -122,7 +126,7 @@ const Navbar = () => {
             preview={false}
             style={{ width: "20px", height: "20px", marginRight: "12px" }}
           />
-          <div
+          {/* <div
             style={{
               borderRadius: "16px",
               background: "#323232",
@@ -144,7 +148,21 @@ const Navbar = () => {
                 background: "black",
               }}
             ></div>
-          </div>
+          </div> */}
+          <Switch
+            style={{
+              display: "flex",
+              marginRight: "12px",
+              height: "26px",
+              alignItems: "center",
+              background: "#323232",
+              borderRadius: "16px",
+              // padding: "5px",
+            }}
+            checkedChildren={<SunOutlined style={{ fontSize: "12px" }} />}
+            unCheckedChildren={<MoonOutlined style={{ fontSize: "12px" }} />}
+            defaultChecked
+          />
           <Button
             size="large"
             style={{

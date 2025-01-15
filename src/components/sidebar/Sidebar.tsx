@@ -182,9 +182,9 @@ const Sidebar = () => {
             <RightOutlined style={{ color: "#1832D6" }} />
           </div>
           {[
-            { name: "Taiki", value: "1,925" },
             { name: "Grant Blocmates", value: "980" },
-            { name: "Nothreadguy", value: "834" },
+            { name: "notthreadguy", value: "834" },
+            { name: "Taiki", value: "1,925" },
           ]?.map((e: any) => (
             <div
               style={{

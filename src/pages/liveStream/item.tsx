@@ -34,6 +34,7 @@ import {
   ArrowUpOutlined,
   DislikeOutlined,
   DownOutlined,
+  ExclamationCircleOutlined,
   EyeOutlined,
   HeartFilled,
   HeartOutlined,
@@ -403,12 +404,20 @@ const LiveStream = () => {
                   title: (
                     <Tooltip placement="topLeft" title={"Token symbol"}>
                       <Typography.Text
-                        style={{ fontSize: "10px", fontWeight: "400" }}
+                        style={{
+                          fontSize: "10px",
+                          fontWeight: "400",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "3px",
+                          justifyContent: "center",
+                        }}
                         ellipsis={{
                           tooltip: "Ticker(?)",
                         }}
                       >
-                        Ticker(?)
+                        Ticker
+                        <ExclamationCircleOutlined />
                       </Typography.Text>
                     </Tooltip>
                   ),
@@ -444,7 +453,10 @@ const LiveStream = () => {
                 {
                   title: (
                     <Typography.Text
-                      style={{ fontSize: "10px", fontWeight: "400" }}
+                      style={{
+                        fontSize: "10px",
+                        fontWeight: "400",
+                      }}
                       ellipsis={{
                         tooltip: "Links",
                       }}
@@ -537,12 +549,20 @@ const LiveStream = () => {
                       }
                     >
                       <Typography.Text
-                        style={{ fontSize: "10px", fontWeight: "400" }}
+                        style={{
+                          fontSize: "10px",
+                          fontWeight: "400",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "3px",
+                          justifyContent: "center",
+                        }}
                         ellipsis={{
                           tooltip: "CA(?)",
                         }}
                       >
-                        CA(?)
+                        CA
+                        <ExclamationCircleOutlined />
                       </Typography.Text>
                     </Tooltip>
                   ),
@@ -597,12 +617,20 @@ const LiveStream = () => {
                       }
                     >
                       <Typography.Text
-                        style={{ fontSize: "10px", fontWeight: "400" }}
+                        style={{
+                          fontSize: "10px",
+                          fontWeight: "400",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "3px",
+                          justifyContent: "center",
+                        }}
                         ellipsis={{
                           tooltip: "Entry Price(?)",
                         }}
                       >
-                        Entry Price(?)
+                        Entry Price
+                        <ExclamationCircleOutlined />
                       </Typography.Text>
                     </Tooltip>
                   ),
@@ -636,12 +664,20 @@ const LiveStream = () => {
                       }
                     >
                       <Typography.Text
-                        style={{ fontSize: "10px", fontWeight: "400" }}
+                        style={{
+                          fontSize: "10px",
+                          fontWeight: "400",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "3px",
+                          justifyContent: "center",
+                        }}
                         ellipsis={{
                           tooltip: "Rating(?)",
                         }}
                       >
-                        Rating(?)
+                        Rating
+                        <ExclamationCircleOutlined />
                       </Typography.Text>
                     </Tooltip>
                   ),
@@ -788,6 +824,24 @@ const LiveStream = () => {
               <Typography.Title level={3}>
                 Create Your Smoothie
               </Typography.Title>
+
+              <Tooltip
+                placement="topRight"
+                title={"Chat with Smoothie AI to execute your transactions"}
+              >
+                <Button type="text">
+                  <Typography.Title
+                    style={{ fontWeight: "400", fontSize: "14px" }}
+                    italic
+                    level={4}
+                  >
+                    Insert a prompt
+                  </Typography.Title>
+                  <ExclamationCircleOutlined
+                    style={{ fontSize: "12px", marginLeft: "3px" }}
+                  />
+                </Button>
+              </Tooltip>
             </div>
             <div style={{ marginTop: "63px", display: "flex", gap: "8px" }}>
               <Button

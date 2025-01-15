@@ -34,7 +34,7 @@ const SiderItems: () => MenuItem[] = () => {
   return [
     getItem(
       t("Live streams"),
-      "/liveStreams",
+      "/",
       true,
       <div style={{ display: "flex", alignItems: " center" }}>
         <Image
