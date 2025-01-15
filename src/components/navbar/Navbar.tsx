@@ -5,6 +5,7 @@ import WISearch from "../../assets/WMagnifier.png";
 // import IBell from "../../assets/Bell.png";
 // import IWorld from "../../assets/World.png";
 import ISon from "../../assets/Son.png";
+import IMoon from "../../assets/Moon.png";
 import HelpModal from "../modal/HelpModal";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
@@ -196,7 +197,7 @@ const Navbar = () => {
                 }}
               ></div>
               <Image
-                src={ISon}
+                src={IMoon}
                 preview={false}
                 style={{ width: "20px", height: "20px", marginLeft: "5px" }}
               />
