@@ -44,6 +44,9 @@ const App: FC = () => {
       Layout: {
         bodyBg: appCustomization.theme === "dark" ? "#090909" : "#B1B1B1",
       },
+      Modal: {
+        // contentBg: appCustomization.theme === "dark" ? "#010118" : "#FFF",
+      },
     },
   };
 

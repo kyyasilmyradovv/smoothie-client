@@ -8,11 +8,13 @@ type SliceState = {
   isSidebarOpen: boolean;
   isHelpModalOpen: boolean;
   isConnectWalletModalOpen: boolean;
+  isAddSmothieModalOpen: boolean;
+  addSmothieName: string;
 };
 
 const initialState: SliceState = {
   appCustomization: {
-    theme: EThemeEnum.LIGHT,
+    theme: EThemeEnum.DARK,
     primaryColor: "",
     rowHoverBg: "#586CC6",
     fontSize: 14,
@@ -26,6 +28,8 @@ const initialState: SliceState = {
   isSidebarOpen: false,
   isHelpModalOpen: false,
   isConnectWalletModalOpen: false,
+  isAddSmothieModalOpen: false,
+  addSmothieName: "",
 };
 
 const generalSlice = createSlice({
@@ -47,6 +51,12 @@ const generalSlice = createSlice({
     setIsConnectWalletModalOpen(state, action: PayloadAction<boolean>) {
       state.isConnectWalletModalOpen = action.payload;
     },
+    setIsAddSmothieModalOpen(state, action: PayloadAction<boolean>) {
+      state.isAddSmothieModalOpen = action.payload;
+    },
+    setAddSmothieName(state, action: PayloadAction<string>) {
+      state.addSmothieName = action.payload;
+    },
   },
 });
 
@@ -56,5 +66,7 @@ export const {
   setIsSidebarOpen,
   setIsHelpModalOpen,
   setIsConnectWalletModalOpen,
+  setIsAddSmothieModalOpen,
+  setAddSmothieName,
 } = generalSlice.actions;
 export default generalSlice.reducer;

@@ -46,11 +46,16 @@ import Favatar4 from "../../assets/favatar4.png";
 import IStreamer from "../../assets/Streamer.png";
 import XIcon from "../../assets/X 1.png";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import {
+  setAddSmothieName,
+  setIsAddSmothieModalOpen,
+} from "../../store/general/generalSlice";
 // import { useAppSelector } from "../../store/hooks";
 // import IVolume from "../assets/volume.png";
 
 const LiveStreams = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const appCustomization = useAppSelector(
     (state) => state.general.appCustomization
@@ -574,7 +579,7 @@ const LiveStreams = () => {
                       onCell: () => ({
                         style: { textAlign: "center" },
                       }),
-                      render: (_: any) => {
+                      render: (_: any, record: any) => {
                         return (
                           <div
                             style={{
@@ -583,6 +588,10 @@ const LiveStreams = () => {
                               padding: "2px 5px",
                               width: "90px",
                               cursor: "pointer",
+                            }}
+                            onClick={() => {
+                              dispatch(setIsAddSmothieModalOpen(true));
+                              dispatch(setAddSmothieName(record?.Ticker));
                             }}
                           >
                             <Image

@@ -11,6 +11,7 @@ import { Suspense } from "react";
 import Loader from "../components/Loader";
 import { Content } from "antd/es/layout/layout";
 import { Outlet } from "react-router-dom";
+import AddSmothieModal from "../components/modal/AddSmothieModal";
 
 const MainLayout = () => {
   const isSidebarOpen = useAppSelector((state) => state.general.isSidebarOpen);
@@ -47,6 +48,7 @@ const MainLayout = () => {
             </Content>
           </Suspense>
         </div>
+        <AddSmothieModal />
       </Layout>
     </Layout>
   );

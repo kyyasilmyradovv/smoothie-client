@@ -46,9 +46,14 @@ import {
   SmileOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import {
+  setAddSmothieName,
+  setIsAddSmothieModalOpen,
+} from "../../store/general/generalSlice";
 
 const LiveStream = () => {
+  const dispatch = useAppDispatch();
   const appCustomization = useAppSelector(
     (state) => state.general.appCustomization
   );
@@ -769,7 +774,7 @@ const LiveStream = () => {
                   onCell: () => ({
                     style: { textAlign: "center" },
                   }),
-                  render: (_: any) => {
+                  render: (_: any, record: any) => {
                     return (
                       <div
                         style={{ display: "flex", justifyContent: "center" }}
@@ -781,6 +786,10 @@ const LiveStream = () => {
                             padding: "2px 5px",
                             width: "90px",
                             cursor: "pointer",
+                          }}
+                          onClick={() => {
+                            dispatch(setIsAddSmothieModalOpen(true));
+                            dispatch(setAddSmothieName(record?.Ticker));
                           }}
                         >
                           <Image
