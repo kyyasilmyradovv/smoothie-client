@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 //packages
 import React from "react";
@@ -13,13 +14,15 @@ import { setIsSidebarOpen } from "../../store/general/generalSlice";
 import {
   ArrowLeftOutlined,
   ArrowRightOutlined,
+  LikeOutlined,
   RightOutlined,
   UserOutlined,
+  VideoCameraOutlined,
 } from "@ant-design/icons";
 import logo from "../../assets/smoothie logo (1).png";
 import log1 from "../../assets/portfolio 1 (1).png";
-import log3 from "../../assets/video-camera 1.png";
-import log4 from "../../assets/likes 1.png";
+// import log3 from "../../assets/video-camera 1.png";
+// import log4 from "../../assets/likes 1.png";
 import log5 from "../../assets/follow (2) 1.png";
 import { useNavigate } from "react-router-dom";
 
@@ -34,14 +37,13 @@ const Sidebar = () => {
     (state) => state.general.appCustomization
   );
   const isSidebarOpen = useAppSelector((state) => state.general.isSidebarOpen);
-
   const menuSection = () => {
     return (
       <Menu
         theme={appCustomization.theme === "dark" ? "dark" : "light"}
         selectedKeys={[activeMode()]}
         onSelect={({ key }) => {
-          navigate(key);
+          if (key === "/") navigate(key);
         }}
         style={{
           background: "inherit",
@@ -49,7 +51,7 @@ const Sidebar = () => {
         mode="inline"
         items={SiderItems()}
         onClick={(e) => {
-          navigate(`${e.key}`, { replace: true });
+          if (e.key === "/") navigate(`${e.key}`, { replace: true });
         }}
       />
     );
@@ -65,7 +67,8 @@ const Sidebar = () => {
       //   collapsed={false}
       onCollapse={(value) => dispatch(setIsSidebarOpen(value))}
       style={{
-        background: "rgb(19 19 19)",
+        background:
+          appCustomization.theme === "dark" ? "rgb(19 19 19)" : "#FFFFFF",
         padding: "0 10px",
         borderRadius: "16px",
         // opacity: "0.2",
@@ -87,10 +90,12 @@ const Sidebar = () => {
           onClick={() => dispatch(setIsSidebarOpen(!isSidebarOpen))}
           size="small"
           icon={isSidebarOpen ? <ArrowLeftOutlined /> : <ArrowRightOutlined />}
-          style={{
-            background: "rgba(53, 56, 64, 0.52)",
-            // float: isSidebarOpen ? "right" : undefined,
-          }}
+          style={
+            {
+              // background: "rgba(53, 56, 64, 0.52)",
+              // float: isSidebarOpen ? "right" : undefined,
+            }
+          }
         />
       </div>
       <div
@@ -114,7 +119,7 @@ const Sidebar = () => {
       {menuSection()}
       <Button
         style={{
-          marginLeft: isSidebarOpen ? "22px" : "19px",
+          marginLeft: isSidebarOpen ? "22px" : "25px",
           marginTop: "10px",
         }}
         type="text"
@@ -123,7 +128,7 @@ const Sidebar = () => {
           <Image
             src={log1}
             preview={false}
-            style={{ width: "15px", height: "15px" }}
+            style={{ width: "20px", height: "20px" }}
           />
         }
       >
@@ -149,21 +154,23 @@ const Sidebar = () => {
           </div>
         )}
       </Button>
-      <Divider style={{ margin: "15px 0" }} />
+      <Divider
+        style={{
+          margin: "15px 0",
+          background:
+            appCustomization.theme === "dark"
+              ? "rgba(255, 255, 255, 0.50)"
+              : "black",
+        }}
+      />
       {!isSidebarOpen ? (
         <Button
           style={{
-            marginLeft: isSidebarOpen ? "24px" : "19px",
+            marginLeft: isSidebarOpen ? "24px" : "25px",
           }}
           type="text"
           size="small"
-          icon={
-            <Image
-              src={log3}
-              preview={false}
-              style={{ width: "20px", height: "20px" }}
-            />
-          }
+          icon={<VideoCameraOutlined style={{ fontSize: "16px" }} />}
         ></Button>
       ) : (
         <div>
@@ -174,9 +181,7 @@ const Sidebar = () => {
               justifyContent: "space-between",
             }}
           >
-            <Typography.Text
-              style={{ color: "rgba(255, 255, 255, 0.60)", fontSize: "12px" }}
-            >
+            <Typography.Text style={{ fontSize: "12px" }}>
               Best Performing Streamers 24h
             </Typography.Text>
             <RightOutlined style={{ color: "#1832D6" }} />
@@ -213,7 +218,8 @@ const Sidebar = () => {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  background: "#282828",
+                  background:
+                    appCustomization.theme === "dark" ? "#282828" : "#E9E9E9",
                   borderRadius: "12px",
                   padding: "2px 6px",
                   color: "#00C853",
@@ -226,21 +232,23 @@ const Sidebar = () => {
           ))}
         </div>
       )}
-      <Divider style={{ margin: "15px 0" }} />
+      <Divider
+        style={{
+          margin: "15px 0",
+          background:
+            appCustomization.theme === "dark"
+              ? "rgba(255, 255, 255, 0.50)"
+              : "black",
+        }}
+      />
       {!isSidebarOpen ? (
         <Button
           style={{
-            marginLeft: isSidebarOpen ? "24px" : "19px",
+            marginLeft: isSidebarOpen ? "24px" : "25px",
           }}
           type="text"
           size="small"
-          icon={
-            <Image
-              src={log4}
-              preview={false}
-              style={{ width: "18px", height: "18px" }}
-            />
-          }
+          icon={<LikeOutlined style={{ fontSize: "16px" }} />}
         ></Button>
       ) : (
         <div>

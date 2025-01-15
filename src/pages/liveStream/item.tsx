@@ -15,12 +15,12 @@ import {
 import styles from "./index.module.scss";
 import ReactPlayer from "react-player";
 import ITradeVideo from "../../assets/stream-1.mp4";
-import ISmile from "../../assets/ISmile.png";
+// import ISmile from "../../assets/ISmile.png";
 import CAvatar2 from "../../assets/CAvatar.png";
 import CAvatar1 from "../../assets/CAvatar1.png";
 import IStreamer from "../../assets/Streamer.png";
-import IMenu from "../../assets/Menu-3.png";
-import IDoc from "../../assets/Document-1-Copy.png";
+// import IMenu from "../../assets/Menu-3.png";
+// import IDoc from "../../assets/Document-1-Copy.png";
 import IPlus from "../../assets/Pluse ellipse.svg";
 import logo from "../../assets/Smoothie logo 1.png";
 import logo1 from "../../assets/logo.png";
@@ -28,10 +28,13 @@ import XNewIcon from "../../assets/XNew.png";
 import IChart from "../../assets/IChart.png";
 import IChart2 from "../../assets/IChart2.png";
 import IWeb from "../../assets/website logo.png";
+import WIWeb from "../../assets/Wwebsite logo.png";
 import IDex from "../../assets/dexscreener logo 8.png";
 import ITwitTab from "../../assets/ITwitTab.png";
+import WITwitTab from "../../assets/Wtwitter-x 1.png";
 import {
   ArrowUpOutlined,
+  CopyOutlined,
   DislikeOutlined,
   DownOutlined,
   ExclamationCircleOutlined,
@@ -39,10 +42,16 @@ import {
   HeartFilled,
   HeartOutlined,
   LikeOutlined,
+  MoreOutlined,
+  SmileOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import { useAppSelector } from "../../store/hooks";
 
 const LiveStream = () => {
+  const appCustomization = useAppSelector(
+    (state) => state.general.appCustomization
+  );
   return (
     <div>
       <div
@@ -57,7 +66,7 @@ const LiveStream = () => {
             fontSize: "16px",
             fontWeight: "500",
             lineHeight: "30px",
-            color: "#FFF",
+            // color: "#FFF",
           }}
         >
           Live Stream
@@ -125,7 +134,10 @@ const LiveStream = () => {
             style={{
               height: "100%",
               width: "100%",
-              background: "rgba(53, 56, 64, 0.52)",
+              background:
+                appCustomization.theme === "dark"
+                  ? "rgba(53, 56, 64, 0.52)"
+                  : "#F1F1F1",
               borderRadius: "16px",
               padding: "12px 16px",
               position: "relative",
@@ -139,7 +151,7 @@ const LiveStream = () => {
                 fontSize: "16px",
                 fontWeight: "500",
                 lineHeight: "30px",
-                color: "#FFF",
+                // color: "#FFF",
               }}
             >
               Stream chat
@@ -169,7 +181,7 @@ const LiveStream = () => {
                     style={{
                       fontSize: "12px",
                       lineHeight: "20px",
-                      color: "#FFF",
+                      // color: "#FFF",
                     }}
                   >
                     {e.title}
@@ -179,7 +191,7 @@ const LiveStream = () => {
                       style={{
                         fontSize: "14px",
                         lineHeight: "20px",
-                        color: "#FFF",
+                        // color: "#FFF",
                       }}
                     >
                       {e.decription}
@@ -228,12 +240,17 @@ const LiveStream = () => {
                 left: "16px",
               }}
               placeholder="Send a message"
+              prefix={
+                <SmileOutlined
+                  style={{ fontSize: "16px", marginRight: "5px" }}
+                />
+              }
               suffix={
-                <Image
-                  width="20px"
-                  height="20px"
-                  src={ISmile}
-                  preview={false}
+                <Button
+                  style={{ background: "#00C853" }}
+                  size="small"
+                  shape="circle"
+                  icon={<ArrowUpOutlined style={{ color: "#FFFFFF" }} />}
                 />
               }
             />
@@ -290,7 +307,10 @@ const LiveStream = () => {
                     {["btc", "onlinetv", "atcoin", "trading"]?.map((e) => (
                       <Tag
                         style={{
-                          background: "var(--black-2, #3F3F3F)",
+                          background:
+                            appCustomization.theme === "dark"
+                              ? "var(--black-2, #3F3F3F)"
+                              : "#E5E7EB",
                           borderRadius: "4px",
                         }}
                       >
@@ -321,6 +341,7 @@ const LiveStream = () => {
                     borderRadius: "16px",
                     border: "1px solid var(--red-danger, #E91916)",
                     background: "linear-gradient(96deg, #F00 0%, #FB430A 100%)",
+                    color: "#FFFFFF",
                   }}
                 >
                   Follow
@@ -333,7 +354,7 @@ const LiveStream = () => {
                   gap: "5px",
                 }}
               >
-                <EyeOutlined style={{ fontSize: "14px", color: "white" }} />
+                <EyeOutlined style={{ fontSize: "14px" }} />
                 <Typography.Text>2343</Typography.Text>
               </div>
               <div
@@ -353,7 +374,8 @@ const LiveStream = () => {
                   gap: "5px",
                 }}
               >
-                <Image src={IMenu} preview={false} style={{ height: "15px" }} />
+                {/* <Image src={IMenu} preview={false} style={{ height: "15px" }} /> */}
+                <MoreOutlined style={{ fontSize: "16px" }} />
               </div>
             </div>
           </div>
@@ -361,11 +383,15 @@ const LiveStream = () => {
             style={{
               marginTop: "20px",
               paddingBottom: "15px",
-              background: "rgba(53, 56, 64, 0.52)",
+              background:
+                appCustomization.theme === "dark"
+                  ? "rgba(53, 56, 64, 0.52)"
+                  : "#F1F1F1",
               borderRadius: "16px",
             }}
           >
             <Table
+              // bordered
               scroll={{ y: "auto" }}
               tableLayout="fixed"
               pagination={false}
@@ -373,21 +399,21 @@ const LiveStream = () => {
                 {
                   Ticker: "$GOAT",
                   CA: "0x1C4CcA7C5DB003824208aDDA61Bd749e55F463a3",
-                  Rating: "9/10",
+                  Rating: "2/10",
                   EntryPrice: "0.23",
-                  Color: "#56C600",
+                  Color: "#E91916",
                 },
                 {
                   Ticker: "$KINGLANAND",
                   CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
-                  Rating: "7/10",
+                  Rating: "5/10",
                   EntryPrice: "1.53",
-                  Color: "#56C600",
+                  Color: "#FFDD00",
                 },
                 {
                   Ticker: "$GRIFFAIN",
                   CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
-                  Rating: "2/10",
+                  Rating: "4/10",
                   EntryPrice: "0.81",
                   Color: "#E91916",
                 },
@@ -496,9 +522,13 @@ const LiveStream = () => {
                           }}
                           icon={
                             <Image
-                              src={ITwitTab}
+                              src={
+                                appCustomization.theme === "dark"
+                                  ? ITwitTab
+                                  : WITwitTab
+                              }
                               preview={false}
-                              style={{ width: "10px", height: "10px" }}
+                              style={{ width: "12px", height: "12px" }}
                             />
                           }
                         >
@@ -512,9 +542,11 @@ const LiveStream = () => {
                           }}
                           icon={
                             <Image
-                              src={IWeb}
+                              src={
+                                appCustomization.theme === "dark" ? IWeb : WIWeb
+                              }
                               preview={false}
-                              style={{ width: "15px", height: "15px" }}
+                              style={{ width: "18px", height: "18px" }}
                             />
                           }
                         >
@@ -579,7 +611,10 @@ const LiveStream = () => {
                     return (
                       <div
                         style={{
-                          background: "#323232",
+                          background:
+                            appCustomization.theme === "dark"
+                              ? "#323232"
+                              : "#E5E7EB",
                           borderRadius: "16px",
                           padding: "2px 5px",
                           display: "flex",
@@ -587,14 +622,15 @@ const LiveStream = () => {
                           gap: "5px",
                         }}
                       >
-                        <Image
+                        {/* <Image
                           src={IDoc}
                           preview={false}
                           style={{
                             width: "15px",
                             height: "15px",
                           }}
-                        />
+                        /> */}
+                        <CopyOutlined />
                         <Typography.Text
                           ellipsis={{
                             tooltip: record.CA,
@@ -796,7 +832,10 @@ const LiveStream = () => {
         <Col span={24}>
           <div
             style={{
-              background: "rgba(53, 56, 64, 0.52)",
+              background:
+                appCustomization.theme === "dark"
+                  ? "rgba(53, 56, 64, 0.52)"
+                  : "#F1F1F1",
               borderRadius: "16px",
               padding: "19px 68px",
               display: "flex",
@@ -890,14 +929,17 @@ const LiveStream = () => {
                 height: "40px",
                 border: "0.5px solid var(--background, #B1B1B1)",
                 width: "672px",
-                background: "var(--black-2, #3F3F3F)",
+                background:
+                  appCustomization.theme === "dark"
+                    ? "var(--black-2, #3F3F3F)"
+                    : "var(--light-mode-background, #E5E5E5)",
                 marginTop: "63px",
               }}
               placeholder="Type a message . . ."
               suffix={
                 <Button
-                  style={{ borderRadius: "6px", background: "#635B5B" }}
-                  icon={<ArrowUpOutlined />}
+                  style={{ borderRadius: "6px", background: "#00C853" }}
+                  icon={<ArrowUpOutlined style={{ color: "#FFFFFF" }} />}
                 />
               }
             />

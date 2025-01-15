@@ -16,6 +16,7 @@ import styles from "./index.module.scss";
 import ReactPlayer from "react-player";
 import {
   ArrowRightOutlined,
+  CopyOutlined,
   ExclamationCircleOutlined,
   EyeOutlined,
   HeartFilled,
@@ -25,7 +26,7 @@ import {
 } from "@ant-design/icons";
 import ITradeVideo from "../../assets/stream-1.mp4";
 // import IPouse from "../assets/pause.png";
-import IDoc from "../../assets/Document-1-Copy.png";
+// import IDoc from "../../assets/Document-1-Copy.png";
 import IPlus from "../../assets/Pluse ellipse.svg";
 import logo from "../../assets/Smoothie logo 1.png";
 import IStream1 from "../../assets/asd.png";
@@ -45,10 +46,16 @@ import Favatar4 from "../../assets/favatar4.png";
 import IStreamer from "../../assets/Streamer.png";
 import XIcon from "../../assets/X 1.png";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../store/hooks";
+// import { useAppSelector } from "../../store/hooks";
 // import IVolume from "../assets/volume.png";
 
 const LiveStreams = () => {
   const navigate = useNavigate();
+  const appCustomization = useAppSelector(
+    (state) => state.general.appCustomization
+  );
+
   return (
     <div>
       <div
@@ -63,7 +70,7 @@ const LiveStreams = () => {
             fontSize: "16px",
             fontWeight: "500",
             lineHeight: "30px",
-            color: "#FFF",
+            // color: "#FFF",
           }}
         >
           Most Shared Stream
@@ -116,7 +123,7 @@ const LiveStreams = () => {
         /> */}
             <ReactPlayer
               width="100%"
-              height="375px"
+              height="380px"
               className={styles["videoWrapper"]}
               url={ITradeVideo}
               playing
@@ -202,7 +209,10 @@ const LiveStreams = () => {
           <div
             style={{
               borderRadius: "16px",
-              background: "rgba(53, 56, 64, 0.52)",
+              background:
+                appCustomization.theme === "dark"
+                  ? "rgba(53, 56, 64, 0.52)"
+                  : "#F1F1F1",
               height: "100%",
               padding: "16px",
             }}
@@ -251,7 +261,7 @@ const LiveStreams = () => {
                     gap: "5px",
                   }}
                 >
-                  <EyeOutlined style={{ fontSize: "14px", color: "white" }} />
+                  <EyeOutlined style={{ fontSize: "14px" }} />
                   <Typography.Text>2343</Typography.Text>
                 </div>
                 <div
@@ -387,6 +397,7 @@ const LiveStreams = () => {
                               display: "flex",
                               alignItems: "center",
                               gap: "3px",
+                              justifyContent: "center",
                             }}
                             ellipsis={{
                               tooltip: "CA(?)",
@@ -410,7 +421,10 @@ const LiveStreams = () => {
                         return (
                           <div
                             style={{
-                              background: "#323232",
+                              background:
+                                appCustomization.theme === "dark"
+                                  ? "#323232"
+                                  : "#E5E5E5",
                               borderRadius: "16px",
                               padding: "2px 5px",
                               display: "flex",
@@ -418,14 +432,15 @@ const LiveStreams = () => {
                               gap: "5px",
                             }}
                           >
-                            <Image
+                            {/* <Image
                               src={IDoc}
                               preview={false}
                               style={{
                                 width: "15px",
                                 height: "15px",
                               }}
-                            />
+                            /> */}
+                            <CopyOutlined />
                             <Typography.Text
                               ellipsis={{
                                 tooltip: record.CA,
@@ -698,12 +713,14 @@ const LiveStreams = () => {
                     width: "100%",
                     borderRadius: "16px",
                     background: "#00C853",
-                    height: "25px",
+                    height: "35px",
                     display: "flex",
                     justifyContent: "center",
                   }}
                 >
-                  <Typography.Text>Go to Stream</Typography.Text>
+                  <Typography.Text style={{ color: "#FFFFFF" }}>
+                    Go to Stream
+                  </Typography.Text>
                   <div
                     style={{
                       padding: "8px",
@@ -718,7 +735,7 @@ const LiveStreams = () => {
                       right: "10px",
                     }}
                   >
-                    <ArrowRightOutlined />
+                    <ArrowRightOutlined style={{ color: "#FFFFFF" }} />
                   </div>
                 </Button>
               </div>
@@ -740,7 +757,7 @@ const LiveStreams = () => {
             fontSize: "16px",
             fontWeight: "500",
             lineHeight: "30px",
-            color: "#FFF",
+            // color: "#FFF",
           }}
         >
           Live streams
@@ -860,7 +877,9 @@ const LiveStreams = () => {
                 background: "rgba(53, 56, 64, 1)",
               }}
             >
-              <Typography.Text>{e.viewers} viewers</Typography.Text>
+              <Typography.Text style={{ color: "#FFFFFF" }}>
+                {e.viewers} viewers
+              </Typography.Text>
             </div>
             <div
               style={{
@@ -884,7 +903,7 @@ const LiveStreams = () => {
                         fontSize: "14px",
                         fontWeight: "600",
                         lineHeight: "22px",
-                        color: "#FFF",
+                        // color: "#FFF",
                       }}
                     >
                       {e.name}
@@ -895,7 +914,7 @@ const LiveStreams = () => {
                       fontSize: "12px",
                       fontWeight: "500",
                       lineHeight: "18px",
-                      color: "#FFF",
+                      // color: "#FFF",
                     }}
                   >
                     {e.description}
@@ -908,6 +927,7 @@ const LiveStreams = () => {
                   background: "#00C853",
                   borderRadius: "16px",
                   height: "20px",
+                  color: "#FFF",
                 }}
               >
                 Watch
@@ -932,7 +952,7 @@ const LiveStreams = () => {
             fontSize: "16px",
             fontWeight: "500",
             lineHeight: "30px",
-            color: "#FFF",
+            // color: "#FFF",
           }}
         >
           Finished Streams

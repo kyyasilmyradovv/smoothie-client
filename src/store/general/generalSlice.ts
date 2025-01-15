@@ -12,8 +12,8 @@ type SliceState = {
 
 const initialState: SliceState = {
   appCustomization: {
-    theme: EThemeEnum.DARK,
-    primaryColor: "#ffeef",
+    theme: EThemeEnum.LIGHT,
+    primaryColor: "",
     rowHoverBg: "#586CC6",
     fontSize: 14,
     borderRadius: 3,

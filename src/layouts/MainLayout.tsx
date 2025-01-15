@@ -14,6 +14,9 @@ import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
   const isSidebarOpen = useAppSelector((state) => state.general.isSidebarOpen);
+  const appCustomization = useAppSelector(
+    (state) => state.general.appCustomization
+  );
 
   return (
     <Layout style={{ minHeight: "100vh", padding: "16px 10px" }} id="body">
@@ -29,7 +32,8 @@ const MainLayout = () => {
         <Navbar />
         <div
           style={{
-            background: "rgb(19 19 19)",
+            background:
+              appCustomization.theme == "dark" ? "rgb(19 19 19)" : "#FFFFFF",
             borderRadius: "16px",
             marginTop: "16px",
             height: "calc(100vh - 108px)",

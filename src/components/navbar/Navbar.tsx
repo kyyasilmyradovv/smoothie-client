@@ -1,32 +1,47 @@
 import { Button, Divider, Image, Input, Typography } from "antd";
 import ISearch from "../../assets/Magnifier.png";
+import WISearch from "../../assets/WMagnifier.png";
 // import IAvatar from "../../assets/a cute minimalistic simple hedgehog side profile C (1).png";
-import IBell from "../../assets/Bell.png";
+// import IBell from "../../assets/Bell.png";
 // import IWorld from "../../assets/World.png";
 import ISon from "../../assets/Son.png";
 import HelpModal from "../modal/HelpModal";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
+  setAppCustomization,
   setIsConnectWalletModalOpen,
   setIsHelpModalOpen,
 } from "../../store/general/generalSlice";
 import ConnectWalletModal from "../modal/ConnectWalletModal";
 import {
+  BellOutlined,
   ExclamationCircleOutlined,
   // MoonOutlined,
   // SunOutlined,
 } from "@ant-design/icons";
+import { EThemeEnum, TThemePropsType } from "../../types/themePropsType";
 // import { ExclamationCircleFilled } from "@ant-design/icons";
 // import { DownOutlined } from "@ant-design/icons";
 
 const Navbar = () => {
   const dispatch = useAppDispatch();
+  const appCustomization = useAppSelector(
+    (state) => state.general.appCustomization
+  );
 
+  const handleThemeChange = () => {
+    const newTheme =
+      appCustomization.theme === "dark" ? EThemeEnum.LIGHT : EThemeEnum.DARK; // Determine the new theme based on the switch state
+    dispatch(
+      setAppCustomization({ theme: newTheme } as unknown as TThemePropsType)
+    );
+  };
   return (
     <div>
       <div
         style={{
-          background: "rgb(19 19 19)",
+          background:
+            appCustomization.theme === "dark" ? "rgb(19 19 19)" : "#FFFFFF",
           borderRadius: "16px",
           height: "60px",
           width: "100%",
@@ -41,7 +56,7 @@ const Navbar = () => {
           placeholder="Search here..."
           prefix={
             <Image
-              src={ISearch}
+              src={appCustomization.theme === "dark" ? ISearch : WISearch}
               preview={false}
               style={{ width: "20px", height: "20px", marginRight: "16px" }}
             />
@@ -122,34 +137,72 @@ const Navbar = () => {
           preview={false}
           style={{ width: "20px", height: "20px", marginRight: "12px" }}
         /> */}
-          <Image
+          {/* <Image
             src={IBell}
             preview={false}
             style={{ width: "20px", height: "20px", marginRight: "12px" }}
-          />
-          <div
+          /> */}
+          <BellOutlined
             style={{
-              borderRadius: "16px",
-              background: "#323232",
-              padding: "5px",
-              display: "flex",
+              fontSize: "18px",
               marginRight: "12px",
+              color: appCustomization.theme === "dark" ? "#FFFFFF" : "black",
             }}
-          >
-            <Image
-              src={ISon}
-              preview={false}
-              style={{ width: "20px", height: "20px", marginRight: "5px" }}
-            />
+          />
+          {appCustomization.theme === "dark" ? (
             <div
               style={{
-                width: "20px",
-                height: "20px",
-                borderRadius: "50%",
-                background: "black",
+                borderRadius: "16px",
+                background: "#323232",
+                padding: "5px",
+                display: "flex",
+                marginRight: "12px",
               }}
-            ></div>
-          </div>
+            >
+              <Image
+                src={ISon}
+                preview={false}
+                style={{ width: "20px", height: "20px", marginRight: "5px" }}
+              />
+              <div
+                onClick={handleThemeChange}
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  borderRadius: "50%",
+                  background: "black",
+                  cursor: "pointer",
+                }}
+              ></div>
+            </div>
+          ) : (
+            <div
+              style={{
+                borderRadius: "16px",
+                background: "#CBCBCB",
+                padding: "5px",
+                display: "flex",
+                marginRight: "12px",
+              }}
+            >
+              <div
+                onClick={handleThemeChange}
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  borderRadius: "50%",
+                  background: "#FFFFFF",
+                  cursor: "pointer",
+                }}
+              ></div>
+              <Image
+                src={ISon}
+                preview={false}
+                style={{ width: "20px", height: "20px", marginLeft: "5px" }}
+              />
+            </div>
+          )}
+
           {/* <Switch
             style={{
               display: "flex",
@@ -169,6 +222,7 @@ const Navbar = () => {
             style={{
               borderRadius: "16px",
               background: "linear-gradient(0deg, #f00 -52.7%, #f5af19 191.82%)",
+              color: "#FFFFFF",
             }}
             onClick={() => {
               dispatch(setIsConnectWalletModalOpen(true));

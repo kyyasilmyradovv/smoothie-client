@@ -30,8 +30,7 @@ const App: FC = () => {
       borderRadius: appCustomization.borderRadius,
       fontFamily: "Poppins, sans-serif",
       fontSize: appCustomization.fontSize,
-      colorBgContainer:
-        appCustomization.theme === "dark" ? "inherit" : "#FFFFFF",
+      colorBgContainer: "inherit",
     },
     components: {
       Typography: {
@@ -40,6 +39,10 @@ const App: FC = () => {
       },
       Table: {
         headerBg: "inherit",
+        rowHoverBg: appCustomization.theme === "dark" ? undefined : "#FFFFFF",
+      },
+      Layout: {
+        bodyBg: appCustomization.theme === "dark" ? "#090909" : "#B1B1B1",
       },
     },
   };

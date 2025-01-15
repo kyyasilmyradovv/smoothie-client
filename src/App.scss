@@ -91,6 +91,14 @@ body {
   background: linear-gradient(0deg, #f00 -52.7%, #f5af19 191.82%);
   border-radius: 16px;
 }
+.ant-menu-light .ant-menu-item-selected,
+:where(.css-dev-only-do-not-override-1ivua89).ant-menu-dark
+  > .ant-menu
+  .ant-menu-item-selected {
+  background: linear-gradient(0deg, #f00 -52.7%, #f5af19 191.82%);
+  border-radius: 16px;
+  color: #ffffff;
+}
 .ant-menu-inline-collapsed > .ant-menu-item,
 :where(.css-dev-only-do-not-override-1ivua89).ant-menu-inline-collapsed
   > .ant-menu-item-group

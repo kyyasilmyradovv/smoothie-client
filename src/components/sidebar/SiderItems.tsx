@@ -1,15 +1,25 @@
 import { Image, MenuProps } from "antd";
 import { useTranslation } from "react-i18next";
 import React from "react";
-import logo1 from "../../assets/Signal.svg";
+// import logo1 from "../../assets/Signal.svg";
 import logo2 from "../../assets/Calendar.png";
+import Wlogo2 from "../../assets/WCalendar.png";
 import logo3 from "../../assets/type of icon=flag.png";
+import Wlogo3 from "../../assets/Wtype of icon=flag.png";
 import logo4 from "../../assets/type of icon=analyse.png";
+import Wlogo4 from "../../assets/Wtype of icon=analyse.png";
+import { useAppSelector } from "../../store/hooks";
+import { HiOutlineSignal } from "react-icons/hi2";
+
+// import CalendarIcon from "../../icons/CalendarIcon";
 
 export type MenuItem = Required<MenuProps>["items"][number];
 
 const SiderItems: () => MenuItem[] = () => {
   const { t } = useTranslation();
+  const appCustomization = useAppSelector(
+    (state) => state.general.appCustomization
+  );
 
   function getItem(
     label: React.ReactNode,
@@ -37,11 +47,22 @@ const SiderItems: () => MenuItem[] = () => {
       "/",
       true,
       <div style={{ display: "flex", alignItems: " center" }}>
-        <Image
+        {/* <Image
           src={logo1}
           preview={false}
           style={{ width: "20px", height: "20px" }}
-        />
+        /> */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "20px",
+            height: "20px",
+          }}
+        >
+          <HiOutlineSignal style={{ fontSize: "20px" }} />
+        </div>
       </div>
     ),
     getItem(
@@ -50,10 +71,11 @@ const SiderItems: () => MenuItem[] = () => {
       true,
       <div style={{ display: "flex", alignItems: " center" }}>
         <Image
-          src={logo2}
+          src={appCustomization.theme === "dark" ? logo2 : Wlogo2}
           preview={false}
           style={{ width: "20px", height: "20px" }}
         />
+        {/* <CalendarIcon style={{ fontSize: "20px" }} /> */}
       </div>
     ),
     getItem(
@@ -62,9 +84,9 @@ const SiderItems: () => MenuItem[] = () => {
       true,
       <div style={{ display: "flex", alignItems: " center" }}>
         <Image
-          src={logo3}
+          src={appCustomization.theme === "dark" ? logo3 : Wlogo3}
           preview={false}
-          style={{ width: "20px", height: "20px" }}
+          style={{ width: "25px", height: "25px" }}
         />
       </div>
     ),
@@ -74,9 +96,9 @@ const SiderItems: () => MenuItem[] = () => {
       true,
       <div style={{ display: "flex", alignItems: " center" }}>
         <Image
-          src={logo4}
+          src={appCustomization.theme === "dark" ? logo4 : Wlogo4}
           preview={false}
-          style={{ width: "20px", height: "20px" }}
+          style={{ width: "25px", height: "25px" }}
         />
       </div>
     ),
