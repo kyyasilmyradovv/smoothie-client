@@ -42,7 +42,10 @@ const App: FC = () => {
         rowHoverBg: appCustomization.theme === "dark" ? undefined : "#FFFFFF",
       },
       Layout: {
-        bodyBg: appCustomization.theme === "dark" ? "#090909" : "#B1B1B1",
+        bodyBg:
+          appCustomization.theme === "dark"
+            ? "#090909"
+            : "var(--background-color-light-mode, #F0F2F5)",
       },
       Modal: {
         // contentBg: appCustomization.theme === "dark" ? "#010118" : "#FFF",

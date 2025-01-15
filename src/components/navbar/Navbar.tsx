@@ -158,7 +158,9 @@ const Navbar = () => {
                 padding: "5px",
                 display: "flex",
                 marginRight: "12px",
+                cursor: "pointer",
               }}
+              onClick={handleThemeChange}
             >
               <Image
                 src={ISon}
@@ -166,34 +168,32 @@ const Navbar = () => {
                 style={{ width: "20px", height: "20px", marginRight: "5px" }}
               />
               <div
-                onClick={handleThemeChange}
                 style={{
                   width: "20px",
                   height: "20px",
                   borderRadius: "50%",
                   background: "black",
-                  cursor: "pointer",
                 }}
               ></div>
             </div>
           ) : (
             <div
+              onClick={handleThemeChange}
               style={{
                 borderRadius: "16px",
                 background: "#CBCBCB",
                 padding: "5px",
                 display: "flex",
                 marginRight: "12px",
+                cursor: "pointer",
               }}
             >
               <div
-                onClick={handleThemeChange}
                 style={{
                   width: "20px",
                   height: "20px",
                   borderRadius: "50%",
                   background: "#FFFFFF",
-                  cursor: "pointer",
                 }}
               ></div>
               <Image
