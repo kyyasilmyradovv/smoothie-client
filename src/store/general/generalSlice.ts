@@ -10,6 +10,7 @@ type SliceState = {
   isConnectWalletModalOpen: boolean;
   isAddSmothieModalOpen: boolean;
   addSmothieName: string;
+  userMail: string;
 };
 
 const initialState: SliceState = {
@@ -30,6 +31,7 @@ const initialState: SliceState = {
   isConnectWalletModalOpen: false,
   isAddSmothieModalOpen: false,
   addSmothieName: "",
+  userMail: localStorage.getItem("userMail") ?? "",
 };
 
 const generalSlice = createSlice({
@@ -57,6 +59,9 @@ const generalSlice = createSlice({
     setAddSmothieName(state, action: PayloadAction<string>) {
       state.addSmothieName = action.payload;
     },
+    setUserMail(state, action: PayloadAction<string>) {
+      state.userMail = action.payload;
+    },
   },
 });
 
@@ -68,5 +73,6 @@ export const {
   setIsConnectWalletModalOpen,
   setIsAddSmothieModalOpen,
   setAddSmothieName,
+  setUserMail,
 } = generalSlice.actions;
 export default generalSlice.reducer;

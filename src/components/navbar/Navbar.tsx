@@ -1,4 +1,4 @@
-import { Button, Divider, Image, Input, Typography } from "antd";
+import { Avatar, Button, Divider, Image, Input, Typography } from "antd";
 import ISearch from "../../assets/Magnifier.png";
 import WISearch from "../../assets/WMagnifier.png";
 // import IAvatar from "../../assets/a cute minimalistic simple hedgehog side profile C (1).png";
@@ -17,6 +17,7 @@ import ConnectWalletModal from "../modal/ConnectWalletModal";
 import {
   BellOutlined,
   ExclamationCircleOutlined,
+  UserOutlined,
   // MoonOutlined,
   // SunOutlined,
 } from "@ant-design/icons";
@@ -29,7 +30,7 @@ const Navbar = () => {
   const appCustomization = useAppSelector(
     (state) => state.general.appCustomization
   );
-
+  const userMail = useAppSelector((state) => state.general.userMail);
   const handleThemeChange = () => {
     const newTheme =
       appCustomization.theme === "dark" ? EThemeEnum.LIGHT : EThemeEnum.DARK; // Determine the new theme based on the switch state
@@ -37,6 +38,7 @@ const Navbar = () => {
       setAppCustomization({ theme: newTheme } as unknown as TThemePropsType)
     );
   };
+
   return (
     <div>
       <div
@@ -218,19 +220,40 @@ const Navbar = () => {
             unCheckedChildren={<MoonOutlined style={{ fontSize: "12px" }} />}
             defaultChecked
           /> */}
-          <Button
-            size="large"
-            style={{
-              borderRadius: "16px",
-              background: "linear-gradient(0deg, #f00 -52.7%, #f5af19 191.82%)",
-              color: "#FFFFFF",
-            }}
-            onClick={() => {
-              dispatch(setIsConnectWalletModalOpen(true));
-            }}
-          >
-            Connect wallet
-          </Button>
+
+          {localStorage.getItem("userMail") === null ||
+          localStorage.getItem("userMail") === undefined ? (
+            <Button
+              size="large"
+              style={{
+                borderRadius: "16px",
+                background:
+                  "linear-gradient(0deg, #f00 -52.7%, #f5af19 191.82%)",
+                color: "#FFFFFF",
+              }}
+              onClick={() => {
+                dispatch(setIsConnectWalletModalOpen(true));
+              }}
+            >
+              Connect wallet
+            </Button>
+          ) : (
+            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+              <Divider type="vertical" style={{ margin: "0 13px 0 0" }} />
+              <Avatar size={35} icon={<UserOutlined />} />
+              <Typography.Text
+                ellipsis={{ tooltip: localStorage.getItem("userMail") }}
+                style={{
+                  fontWeight: "500",
+                  lineHeight: "18px",
+                  width: "100px",
+                }}
+              >
+                {userMail}
+              </Typography.Text>
+            </div>
+          )}
+
           {/* <div
           style={{
             borderRadius: "45px",
