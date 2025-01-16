@@ -152,6 +152,7 @@ const Navbar = () => {
               color: appCustomization.theme === "dark" ? "#FFFFFF" : "black",
             }}
           />
+
           {appCustomization.theme === "dark" ? (
             <div
               style={{
@@ -239,7 +240,7 @@ const Navbar = () => {
             </Button>
           ) : (
             <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-              <Divider type="vertical" style={{ margin: "0 13px 0 0" }} />
+              <Divider type="vertical" style={{ margin: "0 5px 0 0" }} />
               <Avatar size={35} icon={<UserOutlined />} />
               <Typography.Text
                 ellipsis={{ tooltip: localStorage.getItem("userMail") }}

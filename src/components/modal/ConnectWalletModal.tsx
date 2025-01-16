@@ -65,13 +65,13 @@ const ConnectWalletModal: React.FC = () => {
       localStorage.setItem("userMail", email);
       messageApi.open({
         type: "success",
-        content: `${email} added to Firebase database`,
+        content: `You have logged in.`,
       });
       dispatch(setIsConnectWalletModalOpen(false));
     } catch (err) {
       messageApi.open({
         type: "error",
-        content: `Error adding email`,
+        content: `Something went wrong,try again.`,
       });
       console.log(err);
     }

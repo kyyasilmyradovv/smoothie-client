@@ -932,26 +932,35 @@ const LiveStream = () => {
                 Create me a Smoothie of all tokens analysed for $500
               </Button>
             </div>
-            <Input
-              style={{
-                borderRadius: "8px",
-                height: "40px",
-                border: "0.5px solid var(--background, #B1B1B1)",
-                width: "672px",
-                background:
-                  appCustomization.theme === "dark"
-                    ? "var(--black-2, #3F3F3F)"
-                    : "var(--light-mode-background, #E5E5E5)",
-                marginTop: "63px",
-              }}
-              placeholder="Type a message . . ."
-              suffix={
-                <Button
-                  style={{ borderRadius: "6px", background: "#00C853" }}
-                  icon={<ArrowUpOutlined style={{ color: "#FFFFFF" }} />}
-                />
-              }
-            />
+            <div style={{ position: "relative" }}>
+              <Input.TextArea
+                autoSize={{ maxRows: 10, minRows: 1.4 }}
+                style={{
+                  borderRadius: "8px",
+                  height: "40px",
+                  border: "0.5px solid var(--background, #B1B1B1)",
+                  width: "672px",
+                  background:
+                    appCustomization.theme === "dark"
+                      ? "var(--black-2, #3F3F3F)"
+                      : "var(--light-mode-background, #E5E5E5)",
+                  marginTop: "63px",
+                  paddingRight: "40px",
+                }}
+                placeholder="Type a message . . ."
+              />
+
+              <Button
+                style={{
+                  borderRadius: "6px",
+                  background: "#00C853",
+                  position: "absolute",
+                  bottom: "3px",
+                  right: "7px",
+                }}
+                icon={<ArrowUpOutlined style={{ color: "#FFFFFF" }} />}
+              />
+            </div>
           </div>
         </Col>
       </Row>
