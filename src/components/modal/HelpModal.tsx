@@ -60,7 +60,7 @@ const HelpModal: React.FC = () => {
           <Paragraph>
             Users can track the performance of the streamers and the Coin
             Smoothies they create on the Smoothie platform.<br></br>
-            <Text underline>
+            <Text>
               In addition, users can add thesis to each Smoothie they create and
               as a result, create a trading/investing journal to review reasons
               they made a particular decision and import AI-created TLDR for

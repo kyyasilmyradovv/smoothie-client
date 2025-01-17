@@ -680,54 +680,6 @@ const LiveStream = () => {
                     );
                   },
                 },
-                {
-                  title: (
-                    <Tooltip
-                      placement="topLeft"
-                      title={"Fully diluted valuation during the analysis."}
-                    >
-                      <Typography.Text
-                        style={{
-                          fontSize: "10px",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "3px",
-                          justifyContent: "center",
-                        }}
-                        ellipsis={{
-                          tooltip: "FDV(?)",
-                        }}
-                      >
-                        FDV
-                        <ExclamationCircleOutlined />
-                      </Typography.Text>
-                    </Tooltip>
-                  ),
-                  width: 220,
-                  dataIndex: "Rating",
-                  key: "Rating",
-                  onHeaderCell: () => ({
-                    style: { textAlign: "center" },
-                  }),
-                  onCell: () => ({
-                    style: { textAlign: "center" },
-                  }),
-                  render: (_: any, record: any) => {
-                    return (
-                      <Typography.Text
-                        ellipsis={{
-                          tooltip: record.Rating,
-                        }}
-                        style={{
-                          fontSize: "10px",
-                        }}
-                      >
-                        ${record.FDV}
-                      </Typography.Text>
-                    );
-                  },
-                },
 
                 {
                   title: (
@@ -777,6 +729,54 @@ const LiveStream = () => {
                         }}
                       >
                         {record.Rating}
+                      </Typography.Text>
+                    );
+                  },
+                },
+                {
+                  title: (
+                    <Tooltip
+                      placement="topLeft"
+                      title={"Fully diluted valuation during the analysis."}
+                    >
+                      <Typography.Text
+                        style={{
+                          fontSize: "10px",
+                          fontWeight: "400",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "3px",
+                          justifyContent: "center",
+                        }}
+                        ellipsis={{
+                          tooltip: "FDV(?)",
+                        }}
+                      >
+                        FDV
+                        <ExclamationCircleOutlined />
+                      </Typography.Text>
+                    </Tooltip>
+                  ),
+                  width: 220,
+                  dataIndex: "Rating",
+                  key: "Rating",
+                  onHeaderCell: () => ({
+                    style: { textAlign: "center" },
+                  }),
+                  onCell: () => ({
+                    style: { textAlign: "center" },
+                  }),
+                  render: (_: any, record: any) => {
+                    return (
+                      <Typography.Text
+                        ellipsis={{
+                          tooltip: record.Rating,
+                        }}
+                        style={{
+                          fontSize: "10px",
+                        }}
+                      >
+                        ${record.FDV}
                       </Typography.Text>
                     );
                   },
