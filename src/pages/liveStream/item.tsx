@@ -416,6 +416,7 @@ const LiveStream = () => {
                   EntryPrice: "0.23",
                   Color: "#FFDD00",
                   FDV: "349m",
+                  TargetFDV: "519m",
                   Web: "https://goat.cx/",
                   Dex: " https://dexscreener.com/solana/9tb2ohu5p16bpbarqd3n27wnkf51ukfs8z1gzzldxvzw",
                 },
@@ -426,6 +427,7 @@ const LiveStream = () => {
                   EntryPrice: "1.53",
                   Color: "#FFDD00",
                   FDV: "42m",
+                  TargetFDV: "69m",
                   Web: "https://echochambers.ai/",
                   Dex: "https://dexscreener.com/solana/2ur2gzkshap8xj33qss7c5zutd9mrjvrgwohr2q7t1sv",
                 },
@@ -436,6 +438,7 @@ const LiveStream = () => {
                   EntryPrice: "0.81",
                   Color: "#00C853",
                   FDV: "434m",
+                  TargetFDV: "420m",
                   Web: "https://griffain.com/ ",
                   Dex: "https://dexscreener.com/solana/cpsmssqi3p9vmvnqxrdwvbsbcwyuhbggncrw7morbq3g",
                 },
@@ -446,6 +449,7 @@ const LiveStream = () => {
                   EntryPrice: "1.22",
                   Color: "#00C853",
                   FDV: "1bn",
+                  TargetFDV: "1.1bn",
                   Web: "https://www.infinitebackrooms.com/dreams/conversation-1721540624-scenario-terminal-of-truths-txt",
                   Dex: "https://dexscreener.com/solana/bzc9nzfmqkxr6fz1dbph7bdf9broyef6pnzesp7v5iiw",
                 },
@@ -676,14 +680,11 @@ const LiveStream = () => {
                     );
                   },
                 },
-
                 {
                   title: (
                     <Tooltip
                       placement="topLeft"
-                      title={
-                        "Price of the token at the time of the analysis Rating assigned to the token by the streamer based on performed analysis."
-                      }
+                      title={"Fully diluted valuation during the analysis."}
                     >
                       <Typography.Text
                         style={{
@@ -695,17 +696,17 @@ const LiveStream = () => {
                           justifyContent: "center",
                         }}
                         ellipsis={{
-                          tooltip: "Entry Price(?)",
+                          tooltip: "FDV(?)",
                         }}
                       >
-                        Entry Price
+                        FDV
                         <ExclamationCircleOutlined />
                       </Typography.Text>
                     </Tooltip>
                   ),
-                  width: 150,
-                  dataIndex: "EntryPrice",
-                  key: "EntryPrice",
+                  width: 220,
+                  dataIndex: "Rating",
+                  key: "Rating",
                   onHeaderCell: () => ({
                     style: { textAlign: "center" },
                   }),
@@ -716,14 +717,18 @@ const LiveStream = () => {
                     return (
                       <Typography.Text
                         ellipsis={{
-                          tooltip: record.EntryPrice,
+                          tooltip: record.Rating,
+                        }}
+                        style={{
+                          fontSize: "10px",
                         }}
                       >
-                        ${record.EntryPrice}
+                        ${record.FDV}
                       </Typography.Text>
                     );
                   },
                 },
+
                 {
                   title: (
                     <Tooltip
@@ -780,7 +785,9 @@ const LiveStream = () => {
                   title: (
                     <Tooltip
                       placement="topLeft"
-                      title={"Fully Diluted Valuation"}
+                      title={
+                        "Fully diluted valuation for potential exit from the position."
+                      }
                     >
                       <Typography.Text
                         style={{
@@ -795,7 +802,7 @@ const LiveStream = () => {
                           tooltip: "FDV(?)",
                         }}
                       >
-                        FDV
+                        Target FDV
                         <ExclamationCircleOutlined />
                       </Typography.Text>
                     </Tooltip>
@@ -819,7 +826,7 @@ const LiveStream = () => {
                           fontSize: "10px",
                         }}
                       >
-                        ${record.FDV}
+                        ${record.TargetFDV}
                       </Typography.Text>
                     );
                   },

@@ -294,17 +294,25 @@ const LiveStreams = () => {
                   dataSource={[
                     {
                       Ticker: "$GOAT",
-                      CA: "0x1C4CcA7C5DB003824208aDDA61Bd749e55F463a3",
+                      CA: "CzLSujWBLFsSjncfkh59rUFqvafWcY5tzedWJSuypump",
                       Rating: "4/10",
                       EntryPrice: "0.23",
                       Color: "#FFDD00",
+                      FDV: "349m",
+                      TargetFDV: "519m",
+                      Web: "https://goat.cx/",
+                      Dex: " https://dexscreener.com/solana/9tb2ohu5p16bpbarqd3n27wnkf51ukfs8z1gzzldxvzw",
                     },
                     {
                       Ticker: "$KINGLANAND",
-                      CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+                      CA: "HeJUFDxfJSzYFUuHLxkMqCgytU31G6mjP4wKviwqpump",
                       Rating: "9/10",
                       EntryPrice: "1.53",
-                      Color: "#00C853",
+                      Color: "#FFDD00",
+                      FDV: "42m",
+                      TargetFDV: "69m",
+                      Web: "https://echochambers.ai/",
+                      Dex: "https://dexscreener.com/solana/2ur2gzkshap8xj33qss7c5zutd9mrjvrgwohr2q7t1sv",
                     },
                     {
                       Ticker: "$GRIFFAIN",
@@ -312,13 +320,21 @@ const LiveStreams = () => {
                       Rating: "8/10",
                       EntryPrice: "0.81",
                       Color: "#00C853",
+                      FDV: "434m",
+                      TargetFDV: "420m",
+                      Web: "https://griffain.com/ ",
+                      Dex: "https://dexscreener.com/solana/cpsmssqi3p9vmvnqxrdwvbsbcwyuhbggncrw7morbq3g",
                     },
                     {
                       Ticker: "$FARTCOIN",
-                      CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+                      CA: "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
                       Rating: "9/10",
                       EntryPrice: "1.22",
                       Color: "#00C853",
+                      FDV: "1bn",
+                      TargetFDV: "1.1bn",
+                      Web: "https://www.infinitebackrooms.com/dreams/conversation-1721540624-scenario-terminal-of-truths-txt",
+                      Dex: "https://dexscreener.com/solana/bzc9nzfmqkxr6fz1dbph7bdf9broyef6pnzesp7v5iiw",
                     },
                   ]}
                   columns={[
@@ -332,6 +348,7 @@ const LiveStreams = () => {
                               display: "flex",
                               alignItems: "center",
                               gap: "3px",
+                              justifyContent: "center",
                             }}
                             ellipsis={{
                               tooltip: "Ticker(?)",
@@ -477,6 +494,7 @@ const LiveStreams = () => {
                               display: "flex",
                               alignItems: "center",
                               gap: "3px",
+                              justifyContent: "center",
                             }}
                             ellipsis={{
                               tooltip: "Rating(?)",
@@ -517,9 +535,7 @@ const LiveStreams = () => {
                       title: (
                         <Tooltip
                           placement="topLeft"
-                          title={
-                            "Price of the token at the time of the analysis Rating assigned to the token by the streamer based on performed analysis."
-                          }
+                          title={"Fully diluted valuation during the analysis."}
                         >
                           <Typography.Text
                             style={{
@@ -528,12 +544,13 @@ const LiveStreams = () => {
                               display: "flex",
                               alignItems: "center",
                               gap: "3px",
+                              justifyContent: "center",
                             }}
                             ellipsis={{
-                              tooltip: "Entry Price(?)",
+                              tooltip: "FDV(?)",
                             }}
                           >
-                            Entry Price
+                            FDV
                             <ExclamationCircleOutlined />
                           </Typography.Text>
                         </Tooltip>
@@ -553,8 +570,9 @@ const LiveStreams = () => {
                             ellipsis={{
                               tooltip: record.EntryPrice,
                             }}
+                            style={{ fontSize: "10px" }}
                           >
-                            ${record.EntryPrice}
+                            ${record.FDV}
                           </Typography.Text>
                         );
                       },
