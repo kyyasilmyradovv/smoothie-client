@@ -51,11 +51,15 @@ import {
   setAddSmothieName,
   setIsAddSmothieModalOpen,
 } from "../../store/general/generalSlice";
+import { formatPrice } from "../../functions";
 
 const LiveStream = () => {
   const dispatch = useAppDispatch();
   const appCustomization = useAppSelector(
     (state) => state.general.appCustomization
+  );
+  const settedSmothies = useAppSelector(
+    (state) => state.general.settedSmothies
   );
   return (
     <div>
@@ -166,12 +170,13 @@ const LiveStream = () => {
                 avatar: CAvatar1,
                 title: "Han Solo",
                 decription:
-                  "Amazing insights on today’s market trends! 🚀 What’s your take on Bitcoin’s potential resistance at $30k?",
+                  "$GRIFFAIN actually looks like a great buy considering Solana support and mobile integration.",
               },
               {
                 avatar: CAvatar2,
                 title: "Dimitri",
-                decription: "We supply a series of design pr...",
+                decription:
+                  "Yeah, but imo many better opportunities out there with lower mcaps..",
               },
             ]?.map((e: any) => (
               <div style={{ marginTop: "16px", display: "flex", gap: "16px" }}>
@@ -279,9 +284,7 @@ const LiveStream = () => {
                 icon={<UserOutlined />}
               />
               <div>
-                <Typography.Title level={3}>
-                  New Virtuals Agents
-                </Typography.Title>
+                <Typography.Title level={3}>Solana AI plays</Typography.Title>
                 <Typography.Text
                   style={{
                     color: "#FFF;",
@@ -309,7 +312,7 @@ const LiveStream = () => {
                       gap: "8px",
                     }}
                   >
-                    {["btc", "onlinetv", "atcoin", "trading"]?.map((e) => (
+                    {["base", "virtuals", "ai", "microcaps"]?.map((e) => (
                       <Tag
                         style={{
                           background:
@@ -404,30 +407,34 @@ const LiveStream = () => {
                 {
                   Ticker: "$GOAT",
                   CA: "0x1C4CcA7C5DB003824208aDDA61Bd749e55F463a3",
-                  Rating: "2/10",
+                  Rating: "4/10",
                   EntryPrice: "0.23",
-                  Color: "#E91916",
+                  Color: "#FFDD00",
+                  FDV: "349m",
                 },
                 {
                   Ticker: "$KINGLANAND",
                   CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
-                  Rating: "5/10",
+                  Rating: "9/10",
                   EntryPrice: "1.53",
                   Color: "#FFDD00",
+                  FDV: "42m",
                 },
                 {
                   Ticker: "$GRIFFAIN",
                   CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
-                  Rating: "4/10",
+                  Rating: "8/10",
                   EntryPrice: "0.81",
-                  Color: "#E91916",
+                  Color: "#00C853",
+                  FDV: "434m",
                 },
                 {
                   Ticker: "$FARTCOIN",
                   CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
-                  Rating: "8/10",
+                  Rating: "9/10",
                   EntryPrice: "1.22",
                   Color: "#00C853",
+                  FDV: "1bn",
                 },
               ]}
               columns={[
@@ -750,6 +757,54 @@ const LiveStream = () => {
                 },
                 {
                   title: (
+                    <Tooltip
+                      placement="topLeft"
+                      title={"Fully Diluted Valuation"}
+                    >
+                      <Typography.Text
+                        style={{
+                          fontSize: "10px",
+                          fontWeight: "400",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "3px",
+                          justifyContent: "center",
+                        }}
+                        ellipsis={{
+                          tooltip: "FDV(?)",
+                        }}
+                      >
+                        FDV
+                        <ExclamationCircleOutlined />
+                      </Typography.Text>
+                    </Tooltip>
+                  ),
+                  width: 220,
+                  dataIndex: "Rating",
+                  key: "Rating",
+                  onHeaderCell: () => ({
+                    style: { textAlign: "center" },
+                  }),
+                  onCell: () => ({
+                    style: { textAlign: "center" },
+                  }),
+                  render: (_: any, record: any) => {
+                    return (
+                      <Typography.Text
+                        ellipsis={{
+                          tooltip: record.Rating,
+                        }}
+                        style={{
+                          fontSize: "10px",
+                        }}
+                      >
+                        ${record.FDV}
+                      </Typography.Text>
+                    );
+                  },
+                },
+                {
+                  title: (
                     // <Tooltip
                     //   placement="topLeft"
                     //   title={"Decription Actions"}
@@ -784,26 +839,60 @@ const LiveStream = () => {
                             borderRadius: "16px",
                             border: "2px solid #AE1FCE",
                             padding: "2px 5px",
-                            width: "90px",
+                            width: "100%",
                             cursor: "pointer",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            maxWidth: "150px",
                           }}
                           onClick={() => {
                             dispatch(setIsAddSmothieModalOpen(true));
                             dispatch(setAddSmothieName(record?.Ticker));
                           }}
                         >
-                          <Image
-                            src={IPlus}
-                            preview={false}
-                            style={{
-                              width: "15px",
-                              height: "15px",
-                              marginRight: "5px",
-                            }}
-                          />
-                          <Typography.Text style={{ fontSize: "10px" }}>
-                            Add to
-                          </Typography.Text>
+                          {!settedSmothies[record?.Ticker]?.value ? (
+                            <Image
+                              src={IPlus}
+                              preview={false}
+                              style={{
+                                width: "15px",
+                                height: "15px",
+                                marginRight: "5px",
+                              }}
+                            />
+                          ) : (
+                            <div
+                              style={{
+                                width: "15px",
+                                height: "15px",
+                                marginRight: "5px",
+                              }}
+                            ></div>
+                          )}
+                          {settedSmothies[record?.Ticker]?.value ? (
+                            <Typography.Text
+                              ellipsis={{
+                                tooltip: `${
+                                  settedSmothies[record?.Ticker]?.type
+                                }  ${settedSmothies[record?.Ticker]?.value}`,
+                              }}
+                              style={{
+                                fontSize: "10px",
+                                width: "80px",
+                                // textAlign: "center",
+                              }}
+                            >
+                              {settedSmothies[record?.Ticker]?.type}{" "}
+                              {formatPrice(
+                                settedSmothies[record?.Ticker]?.value
+                              )}
+                            </Typography.Text>
+                          ) : (
+                            <Typography.Text style={{ fontSize: "10px" }}>
+                              Add to
+                            </Typography.Text>
+                          )}
                           <Image
                             src={logo}
                             preview={false}

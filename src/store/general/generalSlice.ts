@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { EThemeEnum, TThemePropsType } from "../../types/themePropsType";
@@ -11,6 +12,8 @@ type SliceState = {
   isAddSmothieModalOpen: boolean;
   addSmothieName: string;
   userMail: string;
+  smothies: { [key: string]: { type: string; value: number } };
+  settedSmothies: { [key: string]: { type: string; value: number } };
 };
 
 const initialState: SliceState = {
@@ -32,6 +35,18 @@ const initialState: SliceState = {
   isAddSmothieModalOpen: false,
   addSmothieName: "",
   userMail: localStorage.getItem("userMail") ?? "",
+  smothies: {
+    $GOAT: { type: "USDT", value: 3500.45 },
+    $KINGLANAND: { type: "USDT", value: 3500.45 },
+    $GRIFFAIN: { type: "USDT", value: 3500.45 },
+    $FARTCOIN: { type: "USDT", value: 3500.45 },
+  },
+  settedSmothies: {
+    // $GOAT: { type: "USDT", value: 3500.45 },
+    // $KINGLANAND: { type: "USDT", value: 3500.45 },
+    // $GRIFFAIN: { type: "USDT", value: 3500.45 },
+    // $FARTCOIN: { type: "USDT", value: 3500.45 },
+  },
 };
 
 const generalSlice = createSlice({
@@ -62,6 +77,28 @@ const generalSlice = createSlice({
     setUserMail(state, action: PayloadAction<string>) {
       state.userMail = action.payload;
     },
+    setSettedSmothies(
+      state,
+      action: PayloadAction<{ [key: string]: { type: string; value: number } }>
+    ) {
+      state.settedSmothies = action.payload;
+    },
+    updateSmothies(
+      state,
+      action: PayloadAction<{ [key: string]: { type: string; value: number } }>
+    ) {
+      state.smothies = action.payload;
+    },
+    setSmothies(
+      state,
+      action: PayloadAction<{ [key: string]: { type: string; value: number } }>
+    ) {
+      const updkey = Object.keys(action.payload)[0];
+      const updValue = action.payload[updkey];
+      let smothies = state.smothies;
+      smothies[updkey] = updValue;
+      state.smothies = smothies;
+    },
   },
 });
 
@@ -74,5 +111,8 @@ export const {
   setIsAddSmothieModalOpen,
   setAddSmothieName,
   setUserMail,
+  setSmothies,
+  setSettedSmothies,
+  updateSmothies,
 } = generalSlice.actions;
 export default generalSlice.reducer;

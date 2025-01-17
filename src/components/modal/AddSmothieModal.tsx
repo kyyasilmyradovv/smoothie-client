@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Image, InputNumber, Modal, Select, Typography } from "antd";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { setIsAddSmothieModalOpen } from "../../store/general/generalSlice";
+import {
+  setIsAddSmothieModalOpen,
+  setSettedSmothies,
+  setSmothies,
+  updateSmothies,
+} from "../../store/general/generalSlice";
 import logo from "../../assets/logo.png";
 import { styled } from "styled-components";
 
@@ -20,10 +25,28 @@ const AddSmothieModal: React.FC = () => {
   const addSmothieName = useAppSelector(
     (state) => state.general.addSmothieName
   );
+  const smothies = useAppSelector((state) => state.general.smothies);
+  const settedSmothies = useAppSelector(
+    (state) => state.general.settedSmothies
+  );
 
   const handleCancel = () => {
     dispatch(setIsAddSmothieModalOpen(false));
   };
+
+  useEffect(() => {
+    dispatch(
+      updateSmothies({
+        ...settedSmothies,
+        [addSmothieName]: settedSmothies[addSmothieName]?.value
+          ? settedSmothies[addSmothieName]
+          : {
+              type: "USDT",
+              value: 3500.45,
+            },
+      })
+    );
+  }, [settedSmothies, isAddSmothieModalOpen]);
 
   return (
     <>
@@ -44,7 +67,7 @@ const AddSmothieModal: React.FC = () => {
           }}
         >
           <Typography.Title level={3} style={{ display: "flex" }}>
-            Add{" "}
+            Add
             <Typography.Title
               level={3}
               style={{ margin: "0 5px", color: "#00C853" }}
@@ -68,8 +91,19 @@ const AddSmothieModal: React.FC = () => {
             <Select
               size="large"
               defaultValue="USDC"
+              placeholder="USDC"
               style={{ width: "100px" }}
-              // onChange={handleChange}
+              onChange={(e) => {
+                dispatch(
+                  setSmothies({
+                    [addSmothieName]: {
+                      type: e,
+                      value: smothies[addSmothieName]?.value ?? 3500.45,
+                    },
+                  })
+                );
+              }}
+              value={smothies[addSmothieName]?.type}
               options={[
                 { value: "USDC", label: "USDC" },
                 { value: "USDT", label: "USDT" },
@@ -82,13 +116,28 @@ const AddSmothieModal: React.FC = () => {
               controls
               size="large"
               min={0}
+              placeholder="3500.45"
               // max={100000}
               defaultValue={3500.45}
               style={{ width: "150px" }}
-              // onChange={onChange}
+              value={smothies[addSmothieName]?.value}
+              onChange={(e) => {
+                dispatch(
+                  setSmothies({
+                    [addSmothieName]: {
+                      type: smothies[addSmothieName]?.type ?? "USDT",
+                      value: e!,
+                    },
+                  })
+                );
+              }}
             />
           </div>
           <Button
+            onClick={() => {
+              dispatch(setSettedSmothies(smothies));
+              dispatch(setIsAddSmothieModalOpen(false));
+            }}
             style={{
               width: "400px",
               height: "28px",

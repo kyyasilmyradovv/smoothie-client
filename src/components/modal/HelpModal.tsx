@@ -58,7 +58,13 @@ const HelpModal: React.FC = () => {
 
           <Paragraph>
             Users can track the performance of the streamers and the Coin
-            Smoothies they create on the Smoothie platform.
+            Smoothies they create on the Smoothie platform.<br></br>
+            <Text underline>
+              In addition, users can add thesis to each Smoothie they create and
+              as a result, create a trading/investing journal to review reasons
+              they made a particular decision and import AI-created TLDR for
+              each token analysis done by the streamer to the journal.
+            </Text>
           </Paragraph>
 
           <Text>Our goal is to:</Text>
@@ -68,8 +74,8 @@ const HelpModal: React.FC = () => {
             dataSource={[
               "a) simplify the creation of portfolios",
               "b) simplify tracking specific portfolios",
-              "c) enable tracking the performance of analysts",
-              "d) give tools to streamers to monetise their work",
+              "c) enable tracking the performance of analysts, and",
+              "d) give tools to streamers to monetise their work. ",
             ]}
             renderItem={(item) => (
               <List.Item style={{ padding: "0" }}>
@@ -79,7 +85,7 @@ const HelpModal: React.FC = () => {
           />
 
           <Paragraph style={{ marginTop: "10px" }}>
-            Unlike <Text strong>pump dot fun</Text> and its equivalents, our
+            Unlike <Text strong>pump dot fun</Text> its equivalents, our
             platform is not permissionless. We only allow streamers who have
             managed to grow an audience and are reputable KOLs or are
             recommended by reputable KOLs/builders as valuable voices in the

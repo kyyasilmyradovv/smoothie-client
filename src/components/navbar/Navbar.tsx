@@ -1,4 +1,12 @@
-import { Avatar, Button, Divider, Image, Input, Typography } from "antd";
+import {
+  Avatar,
+  Button,
+  Divider,
+  Image,
+  Input,
+  // Switch,
+  Typography,
+} from "antd";
 import ISearch from "../../assets/Magnifier.png";
 import WISearch from "../../assets/WMagnifier.png";
 // import IAvatar from "../../assets/a cute minimalistic simple hedgehog side profile C (1).png";
@@ -22,6 +30,7 @@ import {
   // SunOutlined,
 } from "@ant-design/icons";
 import { EThemeEnum, TThemePropsType } from "../../types/themePropsType";
+import Switch from "../Switch";
 // import { ExclamationCircleFilled } from "@ant-design/icons";
 // import { DownOutlined } from "@ant-design/icons";
 
@@ -152,8 +161,10 @@ const Navbar = () => {
               color: appCustomization.theme === "dark" ? "#FFFFFF" : "black",
             }}
           />
-
-          {appCustomization.theme === "dark" ? (
+          <div style={{ marginRight: "12px" }}>
+            <Switch />
+          </div>
+          {/* {appCustomization.theme === "dark" ? (
             <div
               style={{
                 borderRadius: "16px",
@@ -205,7 +216,7 @@ const Navbar = () => {
                 style={{ width: "20px", height: "20px", marginLeft: "5px" }}
               />
             </div>
-          )}
+          )} */}
 
           {/* <Switch
             style={{

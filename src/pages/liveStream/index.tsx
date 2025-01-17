@@ -50,7 +50,9 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   setAddSmothieName,
   setIsAddSmothieModalOpen,
+  setSmothies,
 } from "../../store/general/generalSlice";
+import { formatPrice } from "../../functions";
 // import { useAppSelector } from "../../store/hooks";
 // import IVolume from "../assets/volume.png";
 
@@ -59,6 +61,9 @@ const LiveStreams = () => {
   const navigate = useNavigate();
   const appCustomization = useAppSelector(
     (state) => state.general.appCustomization
+  );
+  const settedSmothies = useAppSelector(
+    (state) => state.general.settedSmothies
   );
 
   return (
@@ -223,7 +228,7 @@ const LiveStreams = () => {
             }}
           >
             <div style={{ marginBottom: "12px" }}>
-              <Typography.Title level={3}>New Virtuals Agents</Typography.Title>
+              <Typography.Title level={3}>Solana AI plays</Typography.Title>
             </div>
             <div
               style={{
@@ -291,28 +296,28 @@ const LiveStreams = () => {
                     {
                       Ticker: "$GOAT",
                       CA: "0x1C4CcA7C5DB003824208aDDA61Bd749e55F463a3",
-                      Rating: "2/10",
+                      Rating: "4/10",
                       EntryPrice: "0.23",
-                      Color: "#E91916",
+                      Color: "#FFDD00",
                     },
                     {
                       Ticker: "$KINGLANAND",
                       CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
-                      Rating: "5/10",
+                      Rating: "9/10",
                       EntryPrice: "1.53",
-                      Color: "#FFDD00",
+                      Color: "#00C853",
                     },
                     {
                       Ticker: "$GRIFFAIN",
                       CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
-                      Rating: "4/10",
+                      Rating: "8/10",
                       EntryPrice: "0.81",
-                      Color: "#E91916",
+                      Color: "#00C853",
                     },
                     {
                       Ticker: "$FARTCOIN",
                       CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
-                      Rating: "8/10",
+                      Rating: "9/10",
                       EntryPrice: "1.22",
                       Color: "#00C853",
                     },
@@ -579,6 +584,7 @@ const LiveStreams = () => {
                       onCell: () => ({
                         style: { textAlign: "center" },
                       }),
+                      width: 120,
                       render: (_: any, record: any) => {
                         return (
                           <div
@@ -586,26 +592,49 @@ const LiveStreams = () => {
                               borderRadius: "16px",
                               border: "2px solid #AE1FCE",
                               padding: "2px 5px",
-                              width: "90px",
+                              width: "100%",
                               cursor: "pointer",
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
                             }}
                             onClick={() => {
                               dispatch(setIsAddSmothieModalOpen(true));
                               dispatch(setAddSmothieName(record?.Ticker));
                             }}
                           >
-                            <Image
-                              src={IPlus}
-                              preview={false}
-                              style={{
-                                width: "15px",
-                                height: "15px",
-                                marginRight: "5px",
-                              }}
-                            />
-                            <Typography.Text style={{ fontSize: "10px" }}>
-                              Add to
-                            </Typography.Text>
+                            {!settedSmothies[record?.Ticker]?.value && (
+                              <Image
+                                src={IPlus}
+                                preview={false}
+                                style={{
+                                  width: "15px",
+                                  height: "15px",
+                                  marginRight: "5px",
+                                }}
+                              />
+                            )}
+
+                            {settedSmothies[record?.Ticker]?.value ? (
+                              <Typography.Text
+                                ellipsis={{
+                                  tooltip: `${
+                                    settedSmothies[record?.Ticker]?.type
+                                  }  ${settedSmothies[record?.Ticker]?.value}`,
+                                }}
+                                style={{ fontSize: "10px", width: "80px" }}
+                              >
+                                {settedSmothies[record?.Ticker]?.type}{" "}
+                                {formatPrice(
+                                  settedSmothies[record?.Ticker]?.value
+                                )}
+                              </Typography.Text>
+                            ) : (
+                              <Typography.Text style={{ fontSize: "10px" }}>
+                                Add to
+                              </Typography.Text>
+                            )}
+
                             <Image
                               src={logo}
                               preview={false}
