@@ -3,6 +3,7 @@ import { Button, Image, InputNumber, Modal, Select, Typography } from "antd";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   setIsAddSmothieModalOpen,
+  setLastEditedSmothieName,
   setSettedSmothies,
   setSmothies,
   updateSmothies,
@@ -42,7 +43,7 @@ const AddSmothieModal: React.FC = () => {
           ? settedSmothies[addSmothieName]
           : {
               type: "USDT",
-              value: 3500.45,
+              value: 100,
             },
       })
     );
@@ -98,7 +99,7 @@ const AddSmothieModal: React.FC = () => {
                   setSmothies({
                     [addSmothieName]: {
                       type: e,
-                      value: smothies[addSmothieName]?.value ?? 3500.45,
+                      value: smothies[addSmothieName]?.value ?? 100,
                     },
                   })
                 );
@@ -116,9 +117,9 @@ const AddSmothieModal: React.FC = () => {
               controls
               size="large"
               min={0}
-              placeholder="3500.45"
+              placeholder="100"
               // max={100000}
-              defaultValue={3500.45}
+              defaultValue={100}
               style={{ width: "150px" }}
               value={smothies[addSmothieName]?.value}
               onChange={(e) => {
@@ -137,6 +138,7 @@ const AddSmothieModal: React.FC = () => {
             onClick={() => {
               dispatch(setSettedSmothies(smothies));
               dispatch(setIsAddSmothieModalOpen(false));
+              dispatch(setLastEditedSmothieName(addSmothieName));
             }}
             style={{
               width: "400px",

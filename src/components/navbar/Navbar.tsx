@@ -12,12 +12,11 @@ import WISearch from "../../assets/WMagnifier.png";
 // import IAvatar from "../../assets/a cute minimalistic simple hedgehog side profile C (1).png";
 // import IBell from "../../assets/Bell.png";
 // import IWorld from "../../assets/World.png";
-import ISon from "../../assets/Son.png";
-import IMoon from "../../assets/Moon.png";
+
 import HelpModal from "../modal/HelpModal";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
-  setAppCustomization,
+  // setAppCustomization,
   setIsConnectWalletModalOpen,
   setIsHelpModalOpen,
 } from "../../store/general/generalSlice";
@@ -29,7 +28,7 @@ import {
   // MoonOutlined,
   // SunOutlined,
 } from "@ant-design/icons";
-import { EThemeEnum, TThemePropsType } from "../../types/themePropsType";
+// import { EThemeEnum, TThemePropsType } from "../../types/themePropsType";
 import Switch from "../Switch";
 // import { ExclamationCircleFilled } from "@ant-design/icons";
 // import { DownOutlined } from "@ant-design/icons";
@@ -40,13 +39,13 @@ const Navbar = () => {
     (state) => state.general.appCustomization
   );
   const userMail = useAppSelector((state) => state.general.userMail);
-  const handleThemeChange = () => {
-    const newTheme =
-      appCustomization.theme === "dark" ? EThemeEnum.LIGHT : EThemeEnum.DARK; // Determine the new theme based on the switch state
-    dispatch(
-      setAppCustomization({ theme: newTheme } as unknown as TThemePropsType)
-    );
-  };
+  // const handleThemeChange = () => {
+  //   const newTheme =
+  //     appCustomization.theme === "dark" ? EThemeEnum.LIGHT : EThemeEnum.DARK; // Determine the new theme based on the switch state
+  //   dispatch(
+  //     setAppCustomization({ theme: newTheme } as unknown as TThemePropsType)
+  //   );
+  // };
 
   return (
     <div>

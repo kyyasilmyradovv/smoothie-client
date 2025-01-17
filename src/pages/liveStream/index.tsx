@@ -50,7 +50,6 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   setAddSmothieName,
   setIsAddSmothieModalOpen,
-  setSmothies,
 } from "../../store/general/generalSlice";
 import { formatPrice } from "../../functions";
 // import { useAppSelector } from "../../store/hooks";

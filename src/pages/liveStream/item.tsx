@@ -39,12 +39,14 @@ import {
   DownOutlined,
   ExclamationCircleOutlined,
   EyeOutlined,
+  GlobalOutlined,
   HeartFilled,
   HeartOutlined,
   LikeOutlined,
   MoreOutlined,
   SmileOutlined,
   UserOutlined,
+  WarningOutlined,
 } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
@@ -60,6 +62,9 @@ const LiveStream = () => {
   );
   const settedSmothies = useAppSelector(
     (state) => state.general.settedSmothies
+  );
+  const lastEditedSmothieName = useAppSelector(
+    (state) => state.general.lastEditedSmothieName
   );
   return (
     <div>
@@ -406,19 +411,23 @@ const LiveStream = () => {
               dataSource={[
                 {
                   Ticker: "$GOAT",
-                  CA: "0x1C4CcA7C5DB003824208aDDA61Bd749e55F463a3",
+                  CA: "CzLSujWBLFsSjncfkh59rUFqvafWcY5tzedWJSuypump",
                   Rating: "4/10",
                   EntryPrice: "0.23",
                   Color: "#FFDD00",
                   FDV: "349m",
+                  Web: "https://goat.cx/",
+                  Dex: " https://dexscreener.com/solana/9tb2ohu5p16bpbarqd3n27wnkf51ukfs8z1gzzldxvzw",
                 },
                 {
                   Ticker: "$KINGLANAND",
-                  CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+                  CA: "HeJUFDxfJSzYFUuHLxkMqCgytU31G6mjP4wKviwqpump",
                   Rating: "9/10",
                   EntryPrice: "1.53",
                   Color: "#FFDD00",
                   FDV: "42m",
+                  Web: "https://echochambers.ai/",
+                  Dex: "https://dexscreener.com/solana/2ur2gzkshap8xj33qss7c5zutd9mrjvrgwohr2q7t1sv",
                 },
                 {
                   Ticker: "$GRIFFAIN",
@@ -427,14 +436,18 @@ const LiveStream = () => {
                   EntryPrice: "0.81",
                   Color: "#00C853",
                   FDV: "434m",
+                  Web: "https://griffain.com/ ",
+                  Dex: "https://dexscreener.com/solana/cpsmssqi3p9vmvnqxrdwvbsbcwyuhbggncrw7morbq3g",
                 },
                 {
                   Ticker: "$FARTCOIN",
-                  CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+                  CA: "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
                   Rating: "9/10",
                   EntryPrice: "1.22",
                   Color: "#00C853",
                   FDV: "1bn",
+                  Web: "https://www.infinitebackrooms.com/dreams/conversation-1721540624-scenario-terminal-of-truths-txt",
+                  Dex: "https://dexscreener.com/solana/bzc9nzfmqkxr6fz1dbph7bdf9broyef6pnzesp7v5iiw",
                 },
               ]}
               columns={[
@@ -552,6 +565,10 @@ const LiveStream = () => {
                             display: "flex",
                             alignItems: "center",
                           }}
+                          onClick={() => {
+                            const url = record.Web;
+                            window.open(url, "_blank");
+                          }}
                           icon={
                             <Image
                               src={
@@ -569,6 +586,10 @@ const LiveStream = () => {
                           style={{
                             display: "flex",
                             alignItems: "center",
+                          }}
+                          onClick={() => {
+                            const url = record.Dex;
+                            window.open(url, "_blank");
                           }}
                           icon={
                             <Image
@@ -935,7 +956,7 @@ const LiveStream = () => {
                   ? "rgba(53, 56, 64, 0.52)"
                   : "#F1F1F1",
               borderRadius: "16px",
-              padding: "19px 68px",
+              padding: "19px 68px 10px 68px",
               display: "flex",
               // justifyContent: "center",
               flexDirection: "column",
@@ -980,47 +1001,116 @@ const LiveStream = () => {
                 </Button>
               </Tooltip>
             </div>
-            <div style={{ marginTop: "63px", display: "flex", gap: "8px" }}>
-              <Button
-                icon={
-                  <Image
-                    width="15px"
-                    height="15px"
-                    src={XNewIcon}
-                    preview={false}
-                  />
-                }
-              >
-                What are people saying on X?
-              </Button>
 
-              <Button
-                icon={
-                  <Image
-                    width="15px"
-                    height="15px"
-                    src={IChart}
-                    preview={false}
-                  />
-                }
+            {/* --------------------------------------- */}
+            {!lastEditedSmothieName ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
               >
-                Technical analysis of each token
-              </Button>
-            </div>
-            <div style={{ marginTop: "13px" }}>
-              <Button
-                icon={
-                  <Image
-                    width="15px"
-                    height="15px"
-                    src={IChart2}
-                    preview={false}
-                  />
-                }
-              >
-                Create me a Smoothie of all tokens analysed for $500
-              </Button>
-            </div>
+                <div style={{ marginTop: "10px", display: "flex", gap: "8px" }}>
+                  <Button
+                    icon={
+                      <Image
+                        width="15px"
+                        height="15px"
+                        src={XNewIcon}
+                        preview={false}
+                      />
+                    }
+                  >
+                    What are people saying on X?
+                  </Button>
+
+                  <Button
+                    icon={
+                      <Image
+                        width="15px"
+                        height="15px"
+                        src={IChart}
+                        preview={false}
+                      />
+                    }
+                  >
+                    Technical analysis of each token
+                  </Button>
+                </div>
+                <div style={{ marginTop: "13px" }}>
+                  <Button
+                    icon={
+                      <Image
+                        width="15px"
+                        height="15px"
+                        src={IChart2}
+                        preview={false}
+                      />
+                    }
+                  >
+                    Create me a Smoothie of all tokens analysed for $500
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div style={{ marginTop: "10px", display: "flex", gap: "8px" }}>
+                  <Button
+                    icon={<WarningOutlined style={{ fontSize: "16px" }} />}
+                  >
+                    What are the biggest risks associated with{" "}
+                    {lastEditedSmothieName} right now?
+                  </Button>
+
+                  <Button
+                    icon={
+                      <Image
+                        width="15px"
+                        height="15px"
+                        src={IChart}
+                        preview={false}
+                      />
+                    }
+                  >
+                    Compare {lastEditedSmothieName}’s market cap, volume, and
+                    volatility to similar tokens.
+                  </Button>
+                </div>
+                <div
+                  style={{
+                    marginTop: "13px",
+                    gap: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Button
+                    icon={<GlobalOutlined style={{ fontSize: "16px" }} />}
+                  >
+                    What are the latest trends and opinions about{" "}
+                    {lastEditedSmothieName}?
+                  </Button>
+                  <Button
+                    icon={
+                      <Image
+                        width="15px"
+                        height="15px"
+                        src={IChart2}
+                        preview={false}
+                      />
+                    }
+                  >
+                    What are the key resistance and support levels for{" "}
+                    {lastEditedSmothieName} this week?
+                  </Button>
+                </div>
+              </div>
+            )}
+            {/* -----------------after edits---------------------- */}
+
+            {/* --------------------------------------- */}
             <div style={{ position: "relative" }}>
               <Input.TextArea
                 autoSize={{ maxRows: 10, minRows: 1.4 }}

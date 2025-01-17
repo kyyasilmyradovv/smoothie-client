@@ -11,6 +11,7 @@ type SliceState = {
   isConnectWalletModalOpen: boolean;
   isAddSmothieModalOpen: boolean;
   addSmothieName: string;
+  lastEditedSmothieName: string;
   userMail: string;
   smothies: { [key: string]: { type: string; value: number } };
   settedSmothies: { [key: string]: { type: string; value: number } };
@@ -34,18 +35,19 @@ const initialState: SliceState = {
   isConnectWalletModalOpen: false,
   isAddSmothieModalOpen: false,
   addSmothieName: "",
+  lastEditedSmothieName: "",
   userMail: localStorage.getItem("userMail") ?? "",
   smothies: {
-    $GOAT: { type: "USDT", value: 3500.45 },
-    $KINGLANAND: { type: "USDT", value: 3500.45 },
-    $GRIFFAIN: { type: "USDT", value: 3500.45 },
-    $FARTCOIN: { type: "USDT", value: 3500.45 },
+    $GOAT: { type: "USDT", value: 100 },
+    $KINGLANAND: { type: "USDT", value: 100 },
+    $GRIFFAIN: { type: "USDT", value: 100 },
+    $FARTCOIN: { type: "USDT", value: 100 },
   },
   settedSmothies: {
-    // $GOAT: { type: "USDT", value: 3500.45 },
-    // $KINGLANAND: { type: "USDT", value: 3500.45 },
-    // $GRIFFAIN: { type: "USDT", value: 3500.45 },
-    // $FARTCOIN: { type: "USDT", value: 3500.45 },
+    // $GOAT: { type: "USDT", value: 100 },
+    // $KINGLANAND: { type: "USDT", value: 100 },
+    // $GRIFFAIN: { type: "USDT", value: 100 },
+    // $FARTCOIN: { type: "USDT", value: 100 },
   },
 };
 
@@ -73,6 +75,9 @@ const generalSlice = createSlice({
     },
     setAddSmothieName(state, action: PayloadAction<string>) {
       state.addSmothieName = action.payload;
+    },
+    setLastEditedSmothieName(state, action: PayloadAction<string>) {
+      state.lastEditedSmothieName = action.payload;
     },
     setUserMail(state, action: PayloadAction<string>) {
       state.userMail = action.payload;
@@ -114,5 +119,6 @@ export const {
   setSmothies,
   setSettedSmothies,
   updateSmothies,
+  setLastEditedSmothieName,
 } = generalSlice.actions;
 export default generalSlice.reducer;

@@ -30,6 +30,7 @@ const HelpModal: React.FC = () => {
             padding: "20px",
           },
         }}
+        centered
         width={800}
         open={isHelpModalOpen}
         onCancel={handleCancel}
