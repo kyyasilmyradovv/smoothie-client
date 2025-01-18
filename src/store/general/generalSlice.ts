@@ -16,6 +16,11 @@ type SliceState = {
   smothies: { [key: string]: { type: string; value: number } };
   settedSmothies: { [key: string]: { type: string; value: number } };
   aiButtonValue: string;
+  chats: {
+    id?: number;
+    request: string;
+    response: string;
+  }[];
 };
 
 const initialState: SliceState = {
@@ -51,6 +56,7 @@ const initialState: SliceState = {
     // $FARTCOIN: { type: "USDT", value: 100 },
   },
   aiButtonValue: "",
+  chats: [],
 };
 
 const generalSlice = createSlice({
@@ -109,6 +115,18 @@ const generalSlice = createSlice({
       smothies[updkey] = updValue;
       state.smothies = smothies;
     },
+    setChats(
+      state,
+      action: PayloadAction<
+        {
+          id?: number;
+          request: string;
+          response: string;
+        }[]
+      >
+    ) {
+      state.chats = action.payload;
+    },
   },
 });
 
@@ -126,5 +144,6 @@ export const {
   updateSmothies,
   setLastEditedSmothieName,
   setAiButtonValue,
+  setChats,
 } = generalSlice.actions;
 export default generalSlice.reducer;
