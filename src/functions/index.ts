@@ -11,3 +11,13 @@ export const formatPrice = (number: any): string => {
   }
   return number.toString();
 };
+
+export const getCA = (name: string) => {
+  const data: { [key: string]: string } = {
+    $GOAT: "CzLSujWBLFsSjncfkh59rUFqvafWcY5tzedWJSuypump",
+    $GRIFFAIN: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
+    $GNON: "HeJUFDxfJSzYFUuHLxkMqCgytU31G6mjP4wKviwqpump",
+    $FARTCOIN: "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
+  };
+  return data?.[name];
+};

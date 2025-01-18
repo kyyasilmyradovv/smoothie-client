@@ -55,6 +55,7 @@ import {
 } from "../../store/general/generalSlice";
 import { formatPrice } from "../../functions";
 import RatingTags from "../../components/RatingTags";
+import AiChat from "../../components/AiChat/AiChat";
 
 const LiveStream = () => {
   const dispatch = useAppDispatch();
@@ -941,16 +942,13 @@ const LiveStream = () => {
                     ) ? (
                     <Typography.Text style={{ marginRight: "20px" }}>
                       Total: {"  "}$
-                      {/* {formatPrice(
-                        Object.values(settedSmothies ?? {})
-                          .map((e) => e.value ?? 0)
-                          .reduce(
-                            (accumulator, currentValue) =>
-                              accumulator + currentValue,
-                            0
-                          ) 
-                      )} */}
-                      {formatPrice(124532)}
+                      {Object.values(settedSmothies ?? {})
+                        .map((e) => (e.value ?? 0) + 120)
+                        .reduce(
+                          (accumulator, currentValue) =>
+                            accumulator + currentValue,
+                          0
+                        )}
                     </Typography.Text>
                   ) : (
                     ""
@@ -976,200 +974,7 @@ const LiveStream = () => {
         </Col>
       </Row>
       <Row gutter={[16, 16]} style={{ marginTop: "22px" }}>
-        <Col span={24}>
-          <div
-            style={{
-              background:
-                appCustomization.theme === "dark"
-                  ? "rgba(53, 56, 64, 0.52)"
-                  : "#F1F1F1",
-              borderRadius: "16px",
-              padding: "19px 68px 10px 68px",
-              display: "flex",
-              // justifyContent: "center",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                gap: "10px",
-              }}
-            >
-              <Image
-                src={logo1}
-                preview={false}
-                style={{
-                  width: "50px",
-                  height: "50px",
-                }}
-              />
-              <Typography.Title level={3}>
-                Create Your Smoothie
-              </Typography.Title>
-
-              <Tooltip
-                placement="topRight"
-                title={"Chat with Smoothie AI to execute your transactions"}
-              >
-                <Button type="text">
-                  <Typography.Title
-                    style={{ fontWeight: "400", fontSize: "14px" }}
-                    italic
-                    level={4}
-                  >
-                    Insert a prompt
-                  </Typography.Title>
-                  <ExclamationCircleOutlined
-                    style={{ fontSize: "12px", marginLeft: "3px" }}
-                  />
-                </Button>
-              </Tooltip>
-            </div>
-
-            {/* --------------------------------------- */}
-            {!lastEditedSmothieName ? (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <div style={{ marginTop: "10px", display: "flex", gap: "8px" }}>
-                  <Button
-                    icon={
-                      <Image
-                        width="15px"
-                        height="15px"
-                        src={XNewIcon}
-                        preview={false}
-                      />
-                    }
-                  >
-                    What are people saying on X?
-                  </Button>
-
-                  <Button
-                    icon={
-                      <Image
-                        width="15px"
-                        height="15px"
-                        src={IChart}
-                        preview={false}
-                      />
-                    }
-                  >
-                    Technical analysis of each token
-                  </Button>
-                </div>
-                <div style={{ marginTop: "13px" }}>
-                  <Button
-                    icon={
-                      <Image
-                        width="15px"
-                        height="15px"
-                        src={IChart2}
-                        preview={false}
-                      />
-                    }
-                  >
-                    Create me a Smoothie of all tokens analysed for $500
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <div>
-                <div style={{ marginTop: "10px", display: "flex", gap: "8px" }}>
-                  <Button
-                    icon={<WarningOutlined style={{ fontSize: "16px" }} />}
-                  >
-                    What are the biggest risks associated with{" "}
-                    {lastEditedSmothieName} right now?
-                  </Button>
-
-                  <Button
-                    icon={
-                      <Image
-                        width="15px"
-                        height="15px"
-                        src={IChart}
-                        preview={false}
-                      />
-                    }
-                  >
-                    Compare {lastEditedSmothieName}’s market cap, volume, and
-                    volatility to similar tokens.
-                  </Button>
-                </div>
-                <div
-                  style={{
-                    marginTop: "13px",
-                    gap: "8px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Button
-                    icon={<GlobalOutlined style={{ fontSize: "16px" }} />}
-                  >
-                    What are the latest trends and opinions about{" "}
-                    {lastEditedSmothieName}?
-                  </Button>
-                  <Button
-                    icon={
-                      <Image
-                        width="15px"
-                        height="15px"
-                        src={IChart2}
-                        preview={false}
-                      />
-                    }
-                  >
-                    What are the key resistance and support levels for{" "}
-                    {lastEditedSmothieName} this week?
-                  </Button>
-                </div>
-              </div>
-            )}
-            {/* -----------------after edits---------------------- */}
-
-            {/* --------------------------------------- */}
-            <div style={{ position: "relative" }}>
-              <Input.TextArea
-                autoSize={{ maxRows: 10, minRows: 1.4 }}
-                style={{
-                  borderRadius: "8px",
-                  height: "40px",
-                  border: "0.5px solid var(--background, #B1B1B1)",
-                  width: "672px",
-                  background:
-                    appCustomization.theme === "dark"
-                      ? "var(--black-2, #3F3F3F)"
-                      : "var(--light-mode-background, #E5E5E5)",
-                  marginTop: "63px",
-                  paddingRight: "40px",
-                }}
-                placeholder="Type a message . . ."
-              />
-
-              <Button
-                style={{
-                  borderRadius: "6px",
-                  background: "#00C853",
-                  position: "absolute",
-                  bottom: "3px",
-                  right: "7px",
-                }}
-                icon={<ArrowUpOutlined style={{ color: "#FFFFFF" }} />}
-              />
-            </div>
-          </div>
-        </Col>
+        <AiChat />
       </Row>
     </div>
   );

@@ -15,6 +15,7 @@ type SliceState = {
   userMail: string;
   smothies: { [key: string]: { type: string; value: number } };
   settedSmothies: { [key: string]: { type: string; value: number } };
+  aiButtonValue: string;
 };
 
 const initialState: SliceState = {
@@ -40,7 +41,7 @@ const initialState: SliceState = {
   smothies: {
     $GOAT: { type: "USDT", value: 100 },
     $KINGLANAND: { type: "USDT", value: 100 },
-    $GRIFFAIN: { type: "USDT", value: 100 },
+    $GNON: { type: "USDT", value: 100 },
     $FARTCOIN: { type: "USDT", value: 100 },
   },
   settedSmothies: {
@@ -49,6 +50,7 @@ const initialState: SliceState = {
     // $GRIFFAIN: { type: "USDT", value: 100 },
     // $FARTCOIN: { type: "USDT", value: 100 },
   },
+  aiButtonValue: "",
 };
 
 const generalSlice = createSlice({
@@ -81,6 +83,9 @@ const generalSlice = createSlice({
     },
     setUserMail(state, action: PayloadAction<string>) {
       state.userMail = action.payload;
+    },
+    setAiButtonValue(state, action: PayloadAction<string>) {
+      state.aiButtonValue = action.payload;
     },
     setSettedSmothies(
       state,
@@ -120,5 +125,6 @@ export const {
   setSettedSmothies,
   updateSmothies,
   setLastEditedSmothieName,
+  setAiButtonValue,
 } = generalSlice.actions;
 export default generalSlice.reducer;

@@ -664,7 +664,7 @@ const LiveStreams = () => {
                       }}
                     >
                       {Object.values(settedSmothies ?? {})
-                        .map((e) => e.value ?? 0)
+                        .map((e) => (e.value ?? 0) + 120)
                         .reduce(
                           (accumulator, currentValue) =>
                             accumulator + currentValue,
@@ -672,16 +672,14 @@ const LiveStreams = () => {
                         ) ? (
                         <Typography.Text style={{ marginRight: "20px" }}>
                           Total: {"  "}$
-                          {/* {formatPrice(
-                            Object.values(settedSmothies ?? {})
-                              .map((e) => e.value ?? 0)
-                              .reduce(
-                                (accumulator, currentValue) =>
-                                  accumulator + currentValue,
-                                0
-                              ) 
-                          )} */}
-                          {formatPrice(124532)}
+                          {Object.values(settedSmothies ?? {})
+                            .map((e) => (e.value ?? 0) + 120)
+                            .reduce(
+                              (accumulator, currentValue) =>
+                                accumulator + currentValue,
+                              0
+                            )}
+                          {/* {formatPrice(124532)} */}
                         </Typography.Text>
                       ) : (
                         ""

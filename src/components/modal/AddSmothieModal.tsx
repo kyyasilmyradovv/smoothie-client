@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Button, Image, InputNumber, Modal, Select, Typography } from "antd";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
+  setAiButtonValue,
   setIsAddSmothieModalOpen,
   setLastEditedSmothieName,
   setSettedSmothies,
@@ -10,6 +11,7 @@ import {
 } from "../../store/general/generalSlice";
 import logo from "../../assets/logo.png";
 import { styled } from "styled-components";
+import { getCA } from "../../functions";
 
 const StyledModal = styled(Modal)`
   .ant-modal-content {
@@ -139,6 +141,20 @@ const AddSmothieModal: React.FC = () => {
               dispatch(setSettedSmothies(smothies));
               dispatch(setIsAddSmothieModalOpen(false));
               dispatch(setLastEditedSmothieName(addSmothieName));
+              //Swap 100 USDT to $GOAT, CA:
+              dispatch(
+                setAiButtonValue(
+                  Object.entries(smothies)
+                    ?.map(
+                      (e) =>
+                        `Swap ${e?.[1].value} ${e?.[1].type} to ${
+                          e?.[0]
+                        }, ${getCA(e?.[0])}`
+                    )
+                    .map((item) => `${item},`)
+                    .join("\n")
+                )
+              );
             }}
             style={{
               width: "400px",

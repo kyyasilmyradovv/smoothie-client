@@ -1,0 +1,136 @@
+import styles from "./AiChat.module.scss";
+import { Button, Col, Image, Input, Row, Tooltip, Typography } from "antd";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { ArrowUpOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import logo1 from "../../assets/logo.png";
+import InitialPrompts from "./components/InitialPrompts";
+import { getCA } from "../../functions";
+import { setAiButtonValue } from "../../store/general/generalSlice";
+
+const AiChat = () => {
+  const dispatch = useAppDispatch();
+  const appCustomization = useAppSelector(
+    (state) => state.general.appCustomization
+  );
+  const settedSmothies = useAppSelector(
+    (state) => state.general.settedSmothies
+  );
+  const lastEditedSmothieName = useAppSelector(
+    (state) => state.general.lastEditedSmothieName
+  );
+  const aiButtonValue = useAppSelector((state) => state.general.aiButtonValue);
+
+  return (
+    <Col span={24}>
+      <div
+        className={styles.container}
+        style={{
+          background:
+            appCustomization.theme === "dark"
+              ? "rgba(53, 56, 64, 0.52)"
+              : "#F1F1F1",
+        }}
+      >
+        {/* header */}
+        <div className={styles.header}>
+          <Image src={logo1} preview={false} width={50} height={50} />
+          <Typography.Title level={3}>Create Your Smoothie</Typography.Title>
+
+          <Tooltip
+            placement="topRight"
+            title={"Chat with Smoothie AI to execute your transactions"}
+          >
+            <Button type="text">
+              <Typography.Title
+                style={{ fontWeight: "400", fontSize: "14px" }}
+                italic
+                level={4}
+              >
+                Insert a prompt
+              </Typography.Title>
+              <ExclamationCircleOutlined
+                style={{ fontSize: "12px", marginLeft: "3px" }}
+              />
+            </Button>
+          </Tooltip>
+        </div>
+        {/* prompts */}
+        <div className={styles.initPromptsContainer}>
+          {/* {settedSmothies} */}
+          {!lastEditedSmothieName ? (
+            <InitialPrompts />
+          ) : (
+            <Row gutter={[10, 10]} style={{ marginTop: "10px", width: "auto" }}>
+              {Object.entries(settedSmothies)
+                ?.map((e) => ({
+                  text: `Swap ${e?.[1].value} ${e?.[1].type} to ${
+                    e?.[0]
+                  }, ${getCA(e?.[0])}`,
+                  icon: (
+                    <Image
+                      width="15px"
+                      height="15px"
+                      src={logo1}
+                      preview={false}
+                    />
+                  ),
+                }))
+                .map((e, index, data) => (
+                  <Col
+                    style={
+                      index % 2 === 0 && index === data.length - 1
+                        ? {
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }
+                        : {}
+                    }
+                    span={
+                      index % 2 === 0 && index === data.length - 1 ? 24 : 12
+                    }
+                  >
+                    <Button
+                      onClick={() => dispatch(setAiButtonValue(e.text))}
+                      style={{
+                        width: "auto",
+                        float: index % 2 === 0 ? "right" : "left",
+                      }}
+                      icon={e.icon}
+                    >
+                      <Typography.Text>{e.text}</Typography.Text>
+                    </Button>
+                  </Col>
+                ))}
+            </Row>
+          )}
+        </div>
+
+        {/* --------------------------------------- */}
+        <div className={styles.buttonContainer}>
+          <Input.TextArea
+            onPressEnter={() => {}}
+            onChange={(e) => dispatch(setAiButtonValue(e.target.value))}
+            value={aiButtonValue}
+            autoSize={{ maxRows: 10, minRows: 1.4 }}
+            className={styles.textArea}
+            style={{
+              background:
+                appCustomization.theme === "dark"
+                  ? "var(--black-2, #3F3F3F)"
+                  : "var(--light-mode-background, #E5E5E5)",
+            }}
+            placeholder="Type a message . . ."
+          />
+
+          <Button
+            className={styles.button}
+            icon={<ArrowUpOutlined style={{ color: "#FFFFFF" }} />}
+          />
+        </div>
+      </div>
+    </Col>
+  );
+};
+
+export default AiChat;
