@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Divider, Typography } from "antd";
 import logo1 from "../../../assets/logo.png";

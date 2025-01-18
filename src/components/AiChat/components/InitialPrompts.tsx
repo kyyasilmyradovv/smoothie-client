@@ -2,8 +2,11 @@ import { Button, Col, Image, Row, Typography } from "antd";
 import XNewIcon from "../../../assets/XNew.png";
 import IChart from "../../../assets/IChart.png";
 import IChart2 from "../../../assets/IChart2.png";
+import { setAiButtonValue } from "../../../store/general/generalSlice";
+import { useAppDispatch } from "../../../store/hooks";
 
 const InitialPrompts = () => {
+  const dispatch = useAppDispatch();
   return (
     <Row gutter={[10, 10]} style={{ marginTop: "10px", width: "auto" }}>
       {[
@@ -39,6 +42,9 @@ const InitialPrompts = () => {
           span={index % 2 === 0 && index === data.length - 1 ? 24 : 12}
         >
           <Button
+            onClick={() => {
+              dispatch(setAiButtonValue(e.text));
+            }}
             style={{
               width: "auto",
               float: index % 2 === 0 ? "right" : "left",

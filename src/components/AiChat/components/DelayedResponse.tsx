@@ -35,8 +35,8 @@ const DelayedResponse = () => {
         <Typography.Text
           style={{
             marginTop: "5px",
-            fontSize: "16px",
-            fontWeight: "600",
+            fontSize: "14px",
+            fontWeight: "500",
           }}
         >
           Smoothie

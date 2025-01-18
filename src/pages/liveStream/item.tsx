@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Avatar,
@@ -23,10 +22,6 @@ import IStreamer from "../../assets/Streamer.png";
 // import IDoc from "../../assets/Document-1-Copy.png";
 import IPlus from "../../assets/Pluse ellipse.svg";
 import logo from "../../assets/Smoothie logo 1.png";
-import logo1 from "../../assets/logo.png";
-import XNewIcon from "../../assets/XNew.png";
-import IChart from "../../assets/IChart.png";
-import IChart2 from "../../assets/IChart2.png";
 import IWeb from "../../assets/website logo.png";
 import WIWeb from "../../assets/Wwebsite logo.png";
 import IDex from "../../assets/dexscreener logo 8.png";
@@ -39,14 +34,12 @@ import {
   DownOutlined,
   ExclamationCircleOutlined,
   EyeOutlined,
-  GlobalOutlined,
   HeartFilled,
   HeartOutlined,
   LikeOutlined,
   MoreOutlined,
   SmileOutlined,
   UserOutlined,
-  WarningOutlined,
 } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
@@ -65,9 +58,7 @@ const LiveStream = () => {
   const settedSmothies = useAppSelector(
     (state) => state.general.settedSmothies
   );
-  const lastEditedSmothieName = useAppSelector(
-    (state) => state.general.lastEditedSmothieName
-  );
+
   return (
     <div>
       <div

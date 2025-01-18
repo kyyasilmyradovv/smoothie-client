@@ -154,6 +154,12 @@ const AiChat = () => {
           />
 
           <Button
+            onClick={() => {
+              dispatch(
+                setChats([...chats, { request: aiButtonValue, response: "" }])
+              );
+              dispatch(setAiButtonValue(""));
+            }}
             className={styles.button}
             icon={<ArrowUpOutlined style={{ color: "#FFFFFF" }} />}
           />
