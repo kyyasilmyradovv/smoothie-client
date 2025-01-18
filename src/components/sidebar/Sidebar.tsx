@@ -106,12 +106,16 @@ const Sidebar = () => {
         }}
       >
         <Image
+          onClick={() => {
+            navigate("/");
+          }}
           src={logo}
           preview={false}
           style={{
             width: isSidebarOpen ? "100px" : "70px",
             height: isSidebarOpen ? "100px" : "70px",
             marginBottom: "20px",
+            cursor: "pointer",
           }}
         />
       </div>

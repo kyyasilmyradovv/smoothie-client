@@ -54,6 +54,7 @@ import {
   setIsAddSmothieModalOpen,
 } from "../../store/general/generalSlice";
 import { formatPrice } from "../../functions";
+import RatingTags from "../../components/RatingTags";
 
 const LiveStream = () => {
   const dispatch = useAppDispatch();
@@ -128,7 +129,7 @@ const LiveStream = () => {
             </div>
             <ReactPlayer
               width="100%"
-              height="375px"
+              height="422px"
               className={styles["videoWrapper"]}
               url={ITradeVideo}
               playing
@@ -420,17 +421,7 @@ const LiveStream = () => {
                   Web: "https://goat.cx/",
                   Dex: " https://dexscreener.com/solana/9tb2ohu5p16bpbarqd3n27wnkf51ukfs8z1gzzldxvzw",
                 },
-                {
-                  Ticker: "$KINGLANAND",
-                  CA: "HeJUFDxfJSzYFUuHLxkMqCgytU31G6mjP4wKviwqpump",
-                  Rating: "9/10",
-                  EntryPrice: "1.53",
-                  Color: "#FFDD00",
-                  FDV: "42m",
-                  TargetFDV: "69m",
-                  Web: "https://echochambers.ai/",
-                  Dex: "https://dexscreener.com/solana/2ur2gzkshap8xj33qss7c5zutd9mrjvrgwohr2q7t1sv",
-                },
+
                 {
                   Ticker: "$GRIFFAIN",
                   CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
@@ -441,6 +432,17 @@ const LiveStream = () => {
                   TargetFDV: "420m",
                   Web: "https://griffain.com/ ",
                   Dex: "https://dexscreener.com/solana/cpsmssqi3p9vmvnqxrdwvbsbcwyuhbggncrw7morbq3g",
+                },
+                {
+                  Ticker: "$GNON",
+                  CA: "HeJUFDxfJSzYFUuHLxkMqCgytU31G6mjP4wKviwqpump",
+                  Rating: "5/10",
+                  EntryPrice: "1.53",
+                  Color: "#FFDD00",
+                  FDV: "42m",
+                  TargetFDV: "69m",
+                  Web: "https://echochambers.ai/",
+                  Dex: "https://dexscreener.com/solana/2ur2gzkshap8xj33qss7c5zutd9mrjvrgwohr2q7t1sv",
                 },
                 {
                   Ticker: "$FARTCOIN",
@@ -717,20 +719,7 @@ const LiveStream = () => {
                     style: { textAlign: "center" },
                   }),
                   render: (_: any, record: any) => {
-                    return (
-                      <Typography.Text
-                        ellipsis={{
-                          tooltip: record.Rating,
-                        }}
-                        type="success"
-                        style={{
-                          fontSize: "10px",
-                          color: record?.Color,
-                        }}
-                      >
-                        {record.Rating}
-                      </Typography.Text>
-                    );
+                    return <RatingTags value={record.Rating} />;
                   },
                 },
                 {
@@ -758,8 +747,8 @@ const LiveStream = () => {
                     </Tooltip>
                   ),
                   width: 220,
-                  dataIndex: "Rating",
-                  key: "Rating",
+                  dataIndex: "FDV",
+                  key: "FDV",
                   onHeaderCell: () => ({
                     style: { textAlign: "center" },
                   }),
@@ -936,8 +925,40 @@ const LiveStream = () => {
                   },
                 },
               ]}
+              footer={() => (
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  {Object.values(settedSmothies ?? {})
+                    .map((e) => e.value ?? 0)
+                    .reduce(
+                      (accumulator, currentValue) => accumulator + currentValue,
+                      0
+                    ) ? (
+                    <Typography.Text style={{ marginRight: "20px" }}>
+                      Total: {"  "}$
+                      {/* {formatPrice(
+                        Object.values(settedSmothies ?? {})
+                          .map((e) => e.value ?? 0)
+                          .reduce(
+                            (accumulator, currentValue) =>
+                              accumulator + currentValue,
+                            0
+                          ) 
+                      )} */}
+                      {formatPrice(124532)}
+                    </Typography.Text>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              )}
             />
-            <div style={{ marginTop: "10px" }}>
+            <div>
               <div
                 style={{
                   display: "flex",

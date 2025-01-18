@@ -39,6 +39,7 @@ const App: FC = () => {
       },
       Table: {
         headerBg: "inherit",
+        footerBg: "inherit",
         rowHoverBg: appCustomization.theme === "dark" ? undefined : "#FFFFFF",
       },
       Layout: {

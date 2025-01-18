@@ -52,6 +52,7 @@ import {
   setIsAddSmothieModalOpen,
 } from "../../store/general/generalSlice";
 import { formatPrice } from "../../functions";
+import RatingTags from "../../components/RatingTags";
 // import { useAppSelector } from "../../store/hooks";
 // import IVolume from "../assets/volume.png";
 
@@ -132,7 +133,7 @@ const LiveStreams = () => {
         /> */}
             <ReactPlayer
               width="100%"
-              height="380px"
+              height="422px"
               className={styles["videoWrapper"]}
               url={ITradeVideo}
               playing
@@ -303,17 +304,7 @@ const LiveStreams = () => {
                       Web: "https://goat.cx/",
                       Dex: " https://dexscreener.com/solana/9tb2ohu5p16bpbarqd3n27wnkf51ukfs8z1gzzldxvzw",
                     },
-                    {
-                      Ticker: "$KINGLANAND",
-                      CA: "HeJUFDxfJSzYFUuHLxkMqCgytU31G6mjP4wKviwqpump",
-                      Rating: "9/10",
-                      EntryPrice: "1.53",
-                      Color: "#FFDD00",
-                      FDV: "42m",
-                      TargetFDV: "69m",
-                      Web: "https://echochambers.ai/",
-                      Dex: "https://dexscreener.com/solana/2ur2gzkshap8xj33qss7c5zutd9mrjvrgwohr2q7t1sv",
-                    },
+
                     {
                       Ticker: "$GRIFFAIN",
                       CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
@@ -324,6 +315,17 @@ const LiveStreams = () => {
                       TargetFDV: "420m",
                       Web: "https://griffain.com/ ",
                       Dex: "https://dexscreener.com/solana/cpsmssqi3p9vmvnqxrdwvbsbcwyuhbggncrw7morbq3g",
+                    },
+                    {
+                      Ticker: "$GNON",
+                      CA: "HeJUFDxfJSzYFUuHLxkMqCgytU31G6mjP4wKviwqpump",
+                      Rating: "5/10",
+                      EntryPrice: "1.53",
+                      Color: "#FFDD00",
+                      FDV: "42m",
+                      TargetFDV: "69m",
+                      Web: "https://echochambers.ai/",
+                      Dex: "https://dexscreener.com/solana/2ur2gzkshap8xj33qss7c5zutd9mrjvrgwohr2q7t1sv",
                     },
                     {
                       Ticker: "$FARTCOIN",
@@ -515,20 +517,7 @@ const LiveStreams = () => {
                         style: { textAlign: "center" },
                       }),
                       render: (_: any, record: any) => {
-                        return (
-                          <Typography.Text
-                            ellipsis={{
-                              tooltip: record.Rating,
-                            }}
-                            type="success"
-                            style={{
-                              fontSize: "10px",
-                              color: record?.Color,
-                            }}
-                          >
-                            {record.Rating}
-                          </Typography.Text>
-                        );
+                        return <RatingTags value={record.Rating} />;
                       },
                     },
                     {
@@ -666,100 +655,40 @@ const LiveStreams = () => {
                       },
                     },
                   ]}
-                />
-                {/* {[
-              {
-                name: "$GOAT",
-                copy: "da4g...54t76",
-                number: "9/10",
-              },
-              {
-                name: "$KINGLAND",
-                copy: "434g...h4t5f1",
-                number: "5/10",
-              },
-              {
-                name: "$NICK",
-                copy: "424u...54t7f9",
-                number: "2/10",
-              },
-            ].map((e) => (
-              <div>
-                <Divider style={{ margin: "5px 0" }} />
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography.Text
-                    ellipsis
-                    style={{ fontSize: "10px", width: "15%" }}
-                  >
-                    {e.name}
-                  </Typography.Text>
-                  <div
-                    style={{
-                      background: "#323232",
-                      borderRadius: "16px",
-                      padding: "2px 10px",
-                      margin: "0 20px 0 50px",
-                    }}
-                  >
-                    <Image
-                      src={IDoc}
-                      preview={false}
+                  footer={() => (
+                    <div
                       style={{
-                        width: "15px",
-                        height: "15px",
-                        marginRight: "5px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "flex-end",
                       }}
-                    />
-                    <Typography.Text style={{ fontSize: "10px" }}>
-                      {e.copy}
-                    </Typography.Text>
-                  </div>
-                  <div>
-                    <Typography.Text
-                      type="success"
-                      style={{ fontSize: "10px" }}
                     >
-                      {e.number}
-                    </Typography.Text>
-                  </div>
-                  <div
-                    style={{
-                      borderRadius: "16px",
-                      border: "1px solid #AE1FCE",
-                      padding: "2px 5px",
-                      marginLeft: "auto",
-                    }}
-                  >
-                    <Image
-                      src={IPlus}
-                      preview={false}
-                      style={{
-                        width: "15px",
-                        height: "15px",
-                        marginRight: "5px",
-                      }}
-                    />
-                    <Typography.Text style={{ fontSize: "10px" }}>
-                      Add to
-                    </Typography.Text>
-                    <Image
-                      src={logo}
-                      preview={false}
-                      style={{
-                        width: "15px",
-                        height: "15px",
-                        marginLeft: "5px",
-                      }}
-                    />
-                  </div>
-                </div>
-              </div>
-            ))} */}
+                      {Object.values(settedSmothies ?? {})
+                        .map((e) => e.value ?? 0)
+                        .reduce(
+                          (accumulator, currentValue) =>
+                            accumulator + currentValue,
+                          0
+                        ) ? (
+                        <Typography.Text style={{ marginRight: "20px" }}>
+                          Total: {"  "}$
+                          {/* {formatPrice(
+                            Object.values(settedSmothies ?? {})
+                              .map((e) => e.value ?? 0)
+                              .reduce(
+                                (accumulator, currentValue) =>
+                                  accumulator + currentValue,
+                                0
+                              ) 
+                          )} */}
+                          {formatPrice(124532)}
+                        </Typography.Text>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  )}
+                />
 
                 <Button
                   onClick={() => navigate(`/liveStreams/1`)}
