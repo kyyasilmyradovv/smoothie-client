@@ -20,10 +20,14 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 //components
 import SiderItems from "./SiderItems";
-import { setIsSidebarOpen } from "../../store/general/generalSlice";
+import {
+  setIsHelpModalOpen,
+  setIsSidebarOpen,
+} from "../../store/general/generalSlice";
 import {
   ArrowLeftOutlined,
   ArrowRightOutlined,
+  ExclamationCircleOutlined,
   LikeOutlined,
   RightOutlined,
   UserOutlined,
@@ -489,6 +493,59 @@ const Sidebar = () => {
             {" "}
             Follow your Favorites
           </Typography.Text>
+        </div>
+        <Divider
+          style={{
+            margin: "15px 0",
+            background:
+              appCustomization.theme === "dark"
+                ? "rgba(255, 255, 255, 0.50)"
+                : "black",
+          }}
+        />
+        <div style={{ display: "flex" }}>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Button
+              onClick={() => {
+                const url = `https://fr9lr27d5om.typeform.com/to/ABFoOUOp`;
+                window.open(url, "_blank");
+              }}
+              type="text"
+              style={{
+                // marginRight: "12px",
+                borderRadius: "16px",
+                display: "flex",
+                alignItems: "center",
+              }}
+              // icon={}
+            >
+              <Typography.Text
+                style={{ fontWeight: "500", lineHeight: "18px" }}
+              >
+                Become an analyst
+              </Typography.Text>
+            </Button>
+            <Divider type="vertical" style={{ margin: "0 5px" }} />
+          </div>
+
+          <Button
+            type="text"
+            style={{
+              marginRight: "12px",
+              borderRadius: "16px",
+              display: "flex",
+              alignItems: "center",
+            }}
+            onClick={() => {
+              dispatch(setIsHelpModalOpen(true));
+            }}
+          >
+            <Typography.Text style={{ fontWeight: "500", lineHeight: "18px" }}>
+              How it works
+            </Typography.Text>
+            <ExclamationCircleOutlined />
+            {/* <ExclamationCircleFilled style={{ fontSize: "14px" }} /> */}
+          </Button>
         </div>
       </div>
     </StyledDrawer>

@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Modal, Typography } from "antd";
+import { Grid, List, Modal, Typography } from "antd";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setIsHelpModalOpen } from "../../store/general/generalSlice";
 import styled from "styled-components";
@@ -10,7 +10,9 @@ const StyledModal = styled(Modal)`
     border-radius: 16px;
   }
 `;
+const { useBreakpoint } = Grid;
 const HelpModal: React.FC = () => {
+  const screens = useBreakpoint();
   const dispatch = useAppDispatch();
   const isHelpModalOpen = useAppSelector(
     (state) => state.general.isHelpModalOpen
@@ -25,7 +27,7 @@ const HelpModal: React.FC = () => {
       <StyledModal
         styles={{
           body: {
-            // height: "530px",
+            height: screens.lg ? "undefined" : "530px",
             overflow: "auto",
             padding: "20px",
           },
