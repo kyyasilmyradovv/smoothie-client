@@ -1,6 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import styles from "./AiChat.module.scss";
-import { Button, Col, Image, Input, Row, Tooltip, Typography } from "antd";
+import {
+  Button,
+  Col,
+  Grid,
+  Image,
+  Input,
+  Row,
+  Tooltip,
+  Typography,
+} from "antd";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { ArrowUpOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
 import logo1 from "../../assets/logo.png";
@@ -8,9 +17,10 @@ import InitialPrompts from "./components/InitialPrompts";
 import { getCA } from "../../functions";
 import { setAiButtonValue, setChats } from "../../store/general/generalSlice";
 import Chatting from "./components/Chatting";
-
+const { useBreakpoint } = Grid;
 const AiChat = () => {
   const dispatch = useAppDispatch();
+  const screens = useBreakpoint();
   const appCustomization = useAppSelector(
     (state) => state.general.appCustomization
   );
@@ -36,13 +46,16 @@ const AiChat = () => {
           display: chats?.length ? "flex" : undefined,
           flexDirection: chats?.length ? "column" : undefined,
           justifyContent: chats?.length ? "space-between" : undefined,
+          padding: screens.lg ? "19px 68px 10px 68px" : "19px 20px 10px 20px",
         }}
       >
         {/* header */}
         {!chats?.length ? (
           <div className={styles.header}>
             <Image src={logo1} preview={false} width={50} height={50} />
-            <Typography.Title level={3}>Create Your Smoothie</Typography.Title>
+            <Typography.Title level={3} style={{ textAlign: "center" }}>
+              Create Your Smoothie
+            </Typography.Title>
 
             <Tooltip
               placement="topRight"
@@ -94,27 +107,43 @@ const AiChat = () => {
                   .map((e, index, data) => (
                     <Col
                       style={
-                        index % 2 === 0 && index === data.length - 1
-                          ? {
+                        screens.lg
+                          ? index % 2 === 0 && index === data.length - 1
+                            ? {
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                              }
+                            : {}
+                          : {
                               display: "flex",
-                              justifyContent: "center",
+                              flexDirection: "column",
                               alignItems: "center",
                             }
-                          : {}
                       }
                       span={
-                        index % 2 === 0 && index === data.length - 1 ? 24 : 12
+                        !screens.lg
+                          ? 24
+                          : index % 2 === 0 && index === data.length - 1
+                          ? 24
+                          : 12
                       }
                     >
                       <Button
                         onClick={() => dispatch(setAiButtonValue(e.text))}
                         style={{
-                          width: "auto",
+                          width: screens.lg ? "auto" : "300px",
                           float: index % 2 === 0 ? "right" : "left",
                         }}
                         icon={e.icon}
                       >
-                        <Typography.Text>{e.text}</Typography.Text>
+                        <Typography.Text
+                          ellipsis={
+                            screens.lg ? undefined : { tooltip: e.text }
+                          }
+                        >
+                          {e.text}
+                        </Typography.Text>
                       </Button>
                     </Col>
                   ))}
@@ -149,6 +178,7 @@ const AiChat = () => {
                 appCustomization.theme === "dark"
                   ? "var(--black-2, #3F3F3F)"
                   : "var(--light-mode-background, #E5E5E5)",
+              width: screens.lg ? "672px" : "300px",
             }}
             placeholder="Type a message . . ."
           />

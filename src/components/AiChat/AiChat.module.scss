@@ -1,6 +1,6 @@
 .container {
   border-radius: 16px;
-  padding: 19px 68px 10px 68px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,7 +23,6 @@
     border-radius: 8px;
     height: 40px;
     border: 0.5px solid var(--background, #b1b1b1);
-    width: 672px;
     margin-top: 40px;
     padding-right: 40px;
   }

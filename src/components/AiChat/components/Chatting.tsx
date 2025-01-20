@@ -1,14 +1,15 @@
 import { useEffect, useRef } from "react";
 import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Divider, Typography } from "antd";
+import { Avatar, Divider, Grid, Typography } from "antd";
 import logo1 from "../../../assets/logo.png";
 import { useAppSelector } from "../../../store/hooks";
 import DelayedResponse from "./DelayedResponse";
+const { useBreakpoint } = Grid;
 
 const Chatting = () => {
   const chats = useAppSelector((state) => state.general.chats);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-
+  const screens = useBreakpoint();
   // Scroll to the bottom whenever chats update
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -37,6 +38,7 @@ const Chatting = () => {
                 marginTop: "5px",
                 fontSize: "14px",
                 fontWeight: "200",
+                width: "80%",
               }}
             >
               {e.request}
@@ -45,7 +47,9 @@ const Chatting = () => {
           <Divider />
           <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
             <Avatar size={35} icon={<UserOutlined />} src={logo1} />
-            <DelayedResponse />
+            <div style={{ width: screens.lg ? "auto" : "80%" }}>
+              <DelayedResponse />
+            </div>
           </div>
         </div>
       ))}

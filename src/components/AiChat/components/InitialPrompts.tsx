@@ -1,12 +1,13 @@
-import { Button, Col, Image, Row, Typography } from "antd";
+import { Button, Col, Grid, Image, Row, Typography } from "antd";
 import XNewIcon from "../../../assets/XNew.png";
 import IChart from "../../../assets/IChart.png";
 import IChart2 from "../../../assets/IChart2.png";
 import { setAiButtonValue } from "../../../store/general/generalSlice";
 import { useAppDispatch } from "../../../store/hooks";
-
+const { useBreakpoint } = Grid;
 const InitialPrompts = () => {
   const dispatch = useAppDispatch();
+  const screens = useBreakpoint();
   return (
     <Row gutter={[10, 10]} style={{ marginTop: "10px", width: "auto" }}>
       {[
@@ -31,15 +32,27 @@ const InitialPrompts = () => {
       ].map((e, index, data) => (
         <Col
           style={
-            index % 2 === 0 && index === data.length - 1
-              ? {
+            screens.lg
+              ? index % 2 === 0 && index === data.length - 1
+                ? {
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }
+                : {}
+              : {
                   display: "flex",
-                  justifyContent: "center",
+                  flexDirection: "column",
                   alignItems: "center",
                 }
-              : {}
           }
-          span={index % 2 === 0 && index === data.length - 1 ? 24 : 12}
+          span={
+            !screens.lg
+              ? 24
+              : index % 2 === 0 && index === data.length - 1
+              ? 24
+              : 12
+          }
         >
           <Button
             onClick={() => {

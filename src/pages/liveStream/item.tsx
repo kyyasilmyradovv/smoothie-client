@@ -3,6 +3,7 @@ import {
   Avatar,
   Button,
   Col,
+  Grid,
   Image,
   Input,
   Row,
@@ -49,9 +50,10 @@ import {
 import { formatPrice } from "../../functions";
 import RatingTags from "../../components/RatingTags";
 import AiChat from "../../components/AiChat/AiChat";
-
+const { useBreakpoint } = Grid;
 const LiveStream = () => {
   const dispatch = useAppDispatch();
+  const screens = useBreakpoint();
   const appCustomization = useAppSelector(
     (state) => state.general.appCustomization
   );
@@ -80,10 +82,15 @@ const LiveStream = () => {
         </Typography.Text>
       </div>
       <Row gutter={[16, 16]}>
-        <Col span={16}>
+        <Col lg={16} xs={24}>
           <div
             className={styles["videoWrapper"]}
-            style={{ position: "relative" }}
+            style={{
+              position: "relative",
+              cursor: "pointer",
+              height: screens.lg ? "422px" : "auto",
+              borderRadius: "16px",
+            }}
           >
             <div
               style={{
@@ -96,7 +103,7 @@ const LiveStream = () => {
                 position: "absolute",
                 top: "5px",
                 left: "5px",
-                zIndex: "1000000",
+                zIndex: "1000",
               }}
             >
               <div
@@ -121,7 +128,7 @@ const LiveStream = () => {
             </div>
             <ReactPlayer
               width="100%"
-              height="422px"
+              height={screens.lg ? "422px" : "auto"}
               className={styles["videoWrapper"]}
               url={ITradeVideo}
               playing
@@ -136,10 +143,144 @@ const LiveStream = () => {
             </div>
           </div>
         </Col>
-        <Col span={8}>
+
+        {!screens.lg && (
+          <Col span={24}>
+            <Typography.Title level={3}>Solana AI plays</Typography.Title>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginTop: "10px",
+                width: "100%",
+              }}
+            >
+              <div
+                style={{ display: "flex", gap: "10px", alignItems: "center" }}
+              >
+                <Avatar
+                  src={IStreamer}
+                  size={70}
+                  shape="circle"
+                  icon={<UserOutlined />}
+                />
+                <div>
+                  <Typography.Text
+                    style={{
+                      color: "#FFF;",
+                      fontSize: "14px",
+                    }}
+                    underline
+                  >
+                    Recrent
+                  </Typography.Text>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "30px",
+                    }}
+                  >
+                    <Typography.Text
+                      type="secondary"
+                      style={{
+                        fontSize: "14px",
+                      }}
+                    >
+                      34K followers
+                    </Typography.Text>
+                  </div>
+                </div>
+              </div>
+
+              <Button
+                icon={<HeartOutlined />}
+                style={{
+                  borderRadius: "16px",
+                  border: "1px solid var(--red-danger, #E91916)",
+                  background: "linear-gradient(96deg, #F00 0%, #FB430A 100%)",
+                  color: "#FFFFFF",
+                }}
+              >
+                Follow
+              </Button>
+            </div>
+
+            <Col
+              span={24}
+              style={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "2px",
+                  marginTop: "15px",
+                  width: "190px",
+                  overflow: "auto",
+                }}
+              >
+                {["base", "virtuals", "ai"]?.map((e) => (
+                  <Tag
+                    style={{
+                      background:
+                        appCustomization.theme === "dark"
+                          ? "var(--black-2, #3F3F3F)"
+                          : "#E5E7EB",
+                      borderRadius: "4px",
+                    }}
+                  >
+                    #{e}
+                  </Tag>
+                ))}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "5px",
+                  marginTop: "10px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
+                  }}
+                >
+                  <EyeOutlined style={{ fontSize: "14px" }} />
+                  <Typography.Text>2343</Typography.Text>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
+                  }}
+                >
+                  <HeartFilled style={{ color: "red", fontSize: "14px" }} />
+                  <Typography.Text>242</Typography.Text>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    // gap: "5px",
+                  }}
+                >
+                  {/* <Image src={IMenu} preview={false} style={{ height: "15px" }} /> */}
+                  <MoreOutlined style={{ fontSize: "16px" }} />
+                </div>
+              </div>
+            </Col>
+          </Col>
+        )}
+
+        <Col lg={8} xs={24}>
           <div
             style={{
-              height: "100%",
+              height: screens.lg ? "100%" : "320px",
               width: "100%",
               background:
                 appCustomization.theme === "dark"
@@ -155,7 +296,7 @@ const LiveStream = () => {
           >
             <Typography.Text
               style={{
-                fontSize: "16px",
+                fontSize: screens.lg ? "16px" : "14px",
                 fontWeight: "500",
                 lineHeight: "30px",
                 // color: "#FFF",
@@ -197,7 +338,7 @@ const LiveStream = () => {
                   <div style={{ marginTop: "4px", width: "250px" }}>
                     <Typography.Text
                       style={{
-                        fontSize: "14px",
+                        fontSize: screens.lg ? "14px" : "12px",
                         lineHeight: "20px",
                         // color: "#FFF",
                       }}
@@ -265,126 +406,136 @@ const LiveStream = () => {
           </div>
         </Col>
       </Row>
+
       <Row gutter={[16, 16]} style={{ marginTop: "12px" }}>
         <Col span={24}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-              <Avatar
-                src={IStreamer}
-                size={70}
-                shape="circle"
-                icon={<UserOutlined />}
-              />
-              <div>
-                <Typography.Title level={3}>Solana AI plays</Typography.Title>
-                <Typography.Text
-                  style={{
-                    color: "#FFF;",
-                    fontSize: "14px",
-                  }}
-                  underline
-                >
-                  Recrent
-                </Typography.Text>
-                <div
-                  style={{ display: "flex", alignItems: "center", gap: "30px" }}
-                >
+          {screens.lg && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <div
+                style={{ display: "flex", gap: "10px", alignItems: "center" }}
+              >
+                <Avatar
+                  src={IStreamer}
+                  size={70}
+                  shape="circle"
+                  icon={<UserOutlined />}
+                />
+                <div>
+                  <Typography.Title level={3}>Solana AI plays</Typography.Title>
                   <Typography.Text
-                    type="secondary"
                     style={{
+                      color: "#FFF;",
                       fontSize: "14px",
                     }}
+                    underline
                   >
-                    34K followers
+                    Recrent
                   </Typography.Text>
                   <div
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      gap: "8px",
+                      gap: "30px",
                     }}
                   >
-                    {["base", "virtuals", "ai", "microcaps"]?.map((e) => (
-                      <Tag
-                        style={{
-                          background:
-                            appCustomization.theme === "dark"
-                              ? "var(--black-2, #3F3F3F)"
-                              : "#E5E7EB",
-                          borderRadius: "4px",
-                        }}
-                      >
-                        #{e}
-                      </Tag>
-                    ))}
+                    <Typography.Text
+                      type="secondary"
+                      style={{
+                        fontSize: "14px",
+                      }}
+                    >
+                      34K followers
+                    </Typography.Text>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "8px",
+                      }}
+                    >
+                      {["base", "virtuals", "ai", "microcaps"]?.map((e) => (
+                        <Tag
+                          style={{
+                            background:
+                              appCustomization.theme === "dark"
+                                ? "var(--black-2, #3F3F3F)"
+                                : "#E5E7EB",
+                            borderRadius: "4px",
+                          }}
+                        >
+                          #{e}
+                        </Tag>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "15px",
-              }}
-            >
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: "5px",
+                  gap: "15px",
                 }}
               >
-                <Button
-                  icon={<HeartOutlined />}
+                <div
                   style={{
-                    borderRadius: "16px",
-                    border: "1px solid var(--red-danger, #E91916)",
-                    background: "linear-gradient(96deg, #F00 0%, #FB430A 100%)",
-                    color: "#FFFFFF",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
                   }}
                 >
-                  Follow
-                </Button>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "5px",
-                }}
-              >
-                <EyeOutlined style={{ fontSize: "14px" }} />
-                <Typography.Text>2343</Typography.Text>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "5px",
-                }}
-              >
-                <HeartFilled style={{ color: "red", fontSize: "14px" }} />
-                <Typography.Text>242</Typography.Text>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "5px",
-                }}
-              >
-                {/* <Image src={IMenu} preview={false} style={{ height: "15px" }} /> */}
-                <MoreOutlined style={{ fontSize: "16px" }} />
+                  <Button
+                    icon={<HeartOutlined />}
+                    style={{
+                      borderRadius: "16px",
+                      border: "1px solid var(--red-danger, #E91916)",
+                      background:
+                        "linear-gradient(96deg, #F00 0%, #FB430A 100%)",
+                      color: "#FFFFFF",
+                    }}
+                  >
+                    Follow
+                  </Button>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
+                  }}
+                >
+                  <EyeOutlined style={{ fontSize: "14px" }} />
+                  <Typography.Text>2343</Typography.Text>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
+                  }}
+                >
+                  <HeartFilled style={{ color: "red", fontSize: "14px" }} />
+                  <Typography.Text>242</Typography.Text>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
+                  }}
+                >
+                  {/* <Image src={IMenu} preview={false} style={{ height: "15px" }} /> */}
+                  <MoreOutlined style={{ fontSize: "16px" }} />
+                </div>
               </div>
             </div>
-          </div>
+          )}
           <div
             style={{
               marginTop: "20px",
@@ -629,7 +780,7 @@ const LiveStream = () => {
                       </Typography.Text>
                     </Tooltip>
                   ),
-                  // width: 350,
+                  width: 350,
                   dataIndex: "CA",
                   key: "CA",
                   onHeaderCell: () => ({
@@ -828,15 +979,15 @@ const LiveStream = () => {
                     </Typography.Text>
                     // </Tooltip>
                   ),
-                  width: "50",
+                  width: 120,
                   dataIndex: "CreateSmoothie",
                   key: "CreateSmoothie",
-                  fixed: "right",
+                  // fixed: "right",
                   onHeaderCell: () => ({
                     style: { textAlign: "center" },
                   }),
                   onCell: () => ({
-                    style: { textAlign: "center" },
+                    style: { textAlign: "center", zIndex: "100000" },
                   }),
                   render: (_: any, record: any) => {
                     return (

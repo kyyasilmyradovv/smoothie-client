@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Button, Card, Typography } from "antd";
+import { Button, Card, Grid, Typography } from "antd";
 import { useEffect, useState } from "react";
 // import Loader from "../../Loader";
 // import { UserOutlined } from "@ant-design/icons";
-
+const { useBreakpoint } = Grid;
 const DelayedResponse = () => {
+  const screens = useBreakpoint();
   const [showResponse, setShowResponse] = useState(false);
   const [showThinking, setShowThinking] = useState(true);
 
@@ -48,6 +49,7 @@ const DelayedResponse = () => {
               style={{
                 fontSize: "14px",
                 fontWeight: "200",
+                width: screens.lg ? "auto" : "80%",
               }}
             >
               You’re creating a Smoothie with 4 tokens worth of $455

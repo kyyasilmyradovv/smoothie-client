@@ -3,7 +3,17 @@
 //packages
 import React from "react";
 // import { useNavigate } from "react-router-dom";
-import { Avatar, Badge, Button, Divider, Image, Menu, Typography } from "antd";
+import {
+  Avatar,
+  Badge,
+  Button,
+  Divider,
+  Drawer,
+  Grid,
+  Image,
+  Menu,
+  Typography,
+} from "antd";
 import Sider from "antd/es/layout/Sider";
 //hooks
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -25,17 +35,25 @@ import log1 from "../../assets/portfolio 1 (1).png";
 // import log4 from "../../assets/likes 1.png";
 import log5 from "../../assets/follow (2) 1.png";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
 
+const StyledDrawer = styled(Drawer)`
+  & .ant-drawer-body {
+    padding: 0 10px;
+    position: relative;
+  }
+`;
 export const activeMode = () => {
   return location.pathname.split("/").splice(0, 3).join("/");
 };
-
+const { useBreakpoint } = Grid;
 const Sidebar = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const appCustomization = useAppSelector(
     (state) => state.general.appCustomization
   );
+  const screens = useBreakpoint();
   const isSidebarOpen = useAppSelector((state) => state.general.isSidebarOpen);
   const menuSection = () => {
     return (
@@ -57,7 +75,7 @@ const Sidebar = () => {
     );
   };
 
-  return (
+  return screens.lg ? (
     <Sider
       breakpoint="lg"
       width={250}
@@ -292,6 +310,188 @@ const Sidebar = () => {
         </div>
       )}
     </Sider>
+  ) : (
+    <StyledDrawer
+      styles={{
+        header: { display: "none" },
+      }}
+      placement="left"
+      closable={true}
+      onClose={() => {
+        dispatch(setIsSidebarOpen(false));
+      }}
+      closeIcon={null}
+      width={280}
+      open={isSidebarOpen}
+    >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: "50px",
+        }}
+      >
+        <Image
+          onClick={() => {
+            navigate("/");
+          }}
+          src={logo}
+          preview={false}
+          style={{
+            width: "100px",
+            height: "100px",
+            marginBottom: "20px",
+            cursor: "pointer",
+          }}
+        />
+      </div>
+
+      {menuSection()}
+      <Button
+        style={{
+          marginLeft: "22px",
+          marginTop: "10px",
+        }}
+        type="text"
+        size="small"
+        icon={
+          <Image
+            src={log1}
+            preview={false}
+            style={{ width: "20px", height: "20px" }}
+          />
+        }
+      >
+        {isSidebarOpen && (
+          <div
+            style={{
+              background:
+                "linear-gradient(91deg, #FF512F 0.44%, #F09819 99.74%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              marginLeft: "10px",
+            }}
+          >
+            Coin Smoothies
+          </div>
+        )}
+      </Button>
+      <Divider
+        style={{
+          margin: "15px 0",
+          background:
+            appCustomization.theme === "dark"
+              ? "rgba(255, 255, 255, 0.50)"
+              : "black",
+        }}
+      />
+
+      <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography.Text style={{ fontSize: "12px" }}>
+            Best Performing Streamers 24h
+          </Typography.Text>
+          <RightOutlined style={{ color: "#1832D6" }} />
+        </div>
+        {[
+          { name: "Grant Blocmates", value: "1,925" },
+          { name: "notthreadguy", value: "980" },
+          { name: "Taiki", value: "834" },
+        ]?.map((e: any) => (
+          <div
+            style={{
+              marginTop: "20px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <div>
+              <Badge dot offset={[-5, 22]} status="success">
+                <Avatar size={25} shape="circle" icon={<UserOutlined />} />
+              </Badge>
+              <Typography.Text
+                style={{
+                  color: "color: #FFF;",
+                  fontSize: "10px",
+                  marginLeft: "12px",
+                }}
+              >
+                {e.name}
+              </Typography.Text>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background:
+                  appCustomization.theme === "dark" ? "#282828" : "#E9E9E9",
+                borderRadius: "12px",
+                padding: "2px 6px",
+                color: "#00C853",
+                fontSize: "10px",
+              }}
+            >
+              +{e.value}%
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <Divider
+        style={{
+          margin: "15px 0",
+          background:
+            appCustomization.theme === "dark"
+              ? "rgba(255, 255, 255, 0.50)"
+              : "black",
+        }}
+      />
+
+      <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography.Text
+            style={{ color: "rgba(255, 255, 255, 0.60)", fontSize: "12px" }}
+          >
+            Followed streamers
+          </Typography.Text>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: "15px",
+          }}
+        >
+          <Image
+            src={log5}
+            preview={false}
+            style={{ width: "50px", height: "50px" }}
+          />
+          <Typography.Text
+            style={{ color: "#373737", fontWeight: 500, lineHeight: "36px" }}
+          >
+            {" "}
+            Follow your Favorites
+          </Typography.Text>
+        </div>
+      </div>
+    </StyledDrawer>
   );
 };
 export default React.memo(Sidebar);

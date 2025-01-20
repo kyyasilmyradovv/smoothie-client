@@ -2,6 +2,7 @@ import {
   Avatar,
   Button,
   Divider,
+  Grid,
   Image,
   Input,
   // Switch,
@@ -19,9 +20,11 @@ import {
   // setAppCustomization,
   setIsConnectWalletModalOpen,
   setIsHelpModalOpen,
+  setIsSidebarOpen,
 } from "../../store/general/generalSlice";
 import ConnectWalletModal from "../modal/ConnectWalletModal";
 import {
+  BarsOutlined,
   BellOutlined,
   ExclamationCircleOutlined,
   UserOutlined,
@@ -32,20 +35,14 @@ import {
 import Switch from "../Switch";
 // import { ExclamationCircleFilled } from "@ant-design/icons";
 // import { DownOutlined } from "@ant-design/icons";
-
+const { useBreakpoint } = Grid;
 const Navbar = () => {
   const dispatch = useAppDispatch();
   const appCustomization = useAppSelector(
     (state) => state.general.appCustomization
   );
   const userMail = useAppSelector((state) => state.general.userMail);
-  // const handleThemeChange = () => {
-  //   const newTheme =
-  //     appCustomization.theme === "dark" ? EThemeEnum.LIGHT : EThemeEnum.DARK; // Determine the new theme based on the switch state
-  //   dispatch(
-  //     setAppCustomization({ theme: newTheme } as unknown as TThemePropsType)
-  //   );
-  // };
+  const screens = useBreakpoint();
 
   return (
     <div>
@@ -62,24 +59,35 @@ const Navbar = () => {
           padding: "24px 16px",
         }}
       >
-        <Input
-          size="small"
-          placeholder="Search here..."
-          prefix={
-            <Image
-              src={appCustomization.theme === "dark" ? ISearch : WISearch}
-              preview={false}
-              style={{ width: "20px", height: "20px", marginRight: "16px" }}
-            />
-          }
-          style={{
-            borderRadius: "45px",
-            width: "400px",
-            padding: "7px 25px",
-            border: "0.5px solid #B1B1B1",
-            background: "inherit",
-          }}
-        />
+        {screens.lg ? (
+          <Input
+            size="small"
+            placeholder="Search here..."
+            prefix={
+              <Image
+                src={appCustomization.theme === "dark" ? ISearch : WISearch}
+                preview={false}
+                style={{ width: "20px", height: "20px", marginRight: "16px" }}
+              />
+            }
+            style={{
+              borderRadius: "45px",
+              width: "400px",
+              padding: "7px 25px",
+              border: "0.5px solid #B1B1B1",
+              background: "inherit",
+            }}
+          />
+        ) : (
+          <Button
+            onClick={() => {
+              dispatch(setIsSidebarOpen(true));
+            }}
+            style={{ marginRight: "12px" }}
+            type="text"
+            icon={<BarsOutlined style={{ fontSize: "22px" }} />}
+          />
+        )}
         <div
           style={{
             display: "flex",
@@ -87,72 +95,69 @@ const Navbar = () => {
             justifyContent: "center",
           }}
         >
-          {/* <div
-          style={{
-            background: "#F00",
-            borderRadius: "16px",
-            padding: "7px 14px",
-            marginRight: "12px",
-          }}
-        >
-          <Typography.Text style={{ fontWeight: "500", lineHeight: "18px" }}>
-            How it works
-          </Typography.Text>
-          <Image
-            src={IQues}
-            preview={false}
-            style={{ width: "15px", height: "15px", marginLeft: "5px" }}
-          />
-        </div> */}
-          <Button
-            onClick={() => {
-              const url = `https://fr9lr27d5om.typeform.com/to/ABFoOUOp`;
-              window.open(url, "_blank");
-            }}
-            type="text"
-            style={{
-              // marginRight: "12px",
-              borderRadius: "16px",
-              display: "flex",
-              alignItems: "center",
-            }}
-            // icon={}
-          >
-            <Typography.Text style={{ fontWeight: "500", lineHeight: "18px" }}>
-              Become an analyst
-            </Typography.Text>
-          </Button>
-          <Divider type="vertical" style={{ margin: "0 5px" }} />
+          {screens.lg && (
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Button
+                onClick={() => {
+                  const url = `https://fr9lr27d5om.typeform.com/to/ABFoOUOp`;
+                  window.open(url, "_blank");
+                }}
+                type="text"
+                style={{
+                  // marginRight: "12px",
+                  borderRadius: "16px",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+                // icon={}
+              >
+                <Typography.Text
+                  style={{ fontWeight: "500", lineHeight: "18px" }}
+                >
+                  Become an analyst
+                </Typography.Text>
+              </Button>
+              <Divider type="vertical" style={{ margin: "0 5px" }} />
+            </div>
+          )}
 
-          <Button
-            type="text"
-            style={{
-              marginRight: "12px",
-              borderRadius: "16px",
-              display: "flex",
-              alignItems: "center",
-            }}
-            onClick={() => {
-              dispatch(setIsHelpModalOpen(true));
-            }}
-          >
-            <Typography.Text style={{ fontWeight: "500", lineHeight: "18px" }}>
-              How it works
-            </Typography.Text>
-            <ExclamationCircleOutlined />
-            {/* <ExclamationCircleFilled style={{ fontSize: "14px" }} /> */}
-          </Button>
+          {screens.lg && (
+            <Button
+              type="text"
+              style={{
+                marginRight: "12px",
+                borderRadius: "16px",
+                display: "flex",
+                alignItems: "center",
+              }}
+              onClick={() => {
+                dispatch(setIsHelpModalOpen(true));
+              }}
+            >
+              <Typography.Text
+                style={{ fontWeight: "500", lineHeight: "18px" }}
+              >
+                How it works
+              </Typography.Text>
+              <ExclamationCircleOutlined />
+              {/* <ExclamationCircleFilled style={{ fontSize: "14px" }} /> */}
+            </Button>
+          )}
 
-          {/* <Image
-          src={IWorld}
-          preview={false}
-          style={{ width: "20px", height: "20px", marginRight: "12px" }}
-        /> */}
-          {/* <Image
-            src={IBell}
-            preview={false}
-            style={{ width: "20px", height: "20px", marginRight: "12px" }}
-          /> */}
+          {!screens.lg && (
+            <Button
+              style={{ marginRight: "12px" }}
+              type="text"
+              icon={
+                <Image
+                  src={appCustomization.theme === "dark" ? ISearch : WISearch}
+                  preview={false}
+                  style={{ width: "20px", height: "20px" }}
+                />
+              }
+            />
+          )}
+
           <BellOutlined
             style={{
               fontSize: "18px",
@@ -163,74 +168,6 @@ const Navbar = () => {
           <div style={{ marginRight: "12px" }}>
             <Switch />
           </div>
-          {/* {appCustomization.theme === "dark" ? (
-            <div
-              style={{
-                borderRadius: "16px",
-                background: "#323232",
-                padding: "5px",
-                display: "flex",
-                marginRight: "12px",
-                cursor: "pointer",
-              }}
-              onClick={handleThemeChange}
-            >
-              <Image
-                src={ISon}
-                preview={false}
-                style={{ width: "20px", height: "20px", marginRight: "5px" }}
-              />
-              <div
-                style={{
-                  width: "20px",
-                  height: "20px",
-                  borderRadius: "50%",
-                  background: "black",
-                }}
-              ></div>
-            </div>
-          ) : (
-            <div
-              onClick={handleThemeChange}
-              style={{
-                borderRadius: "16px",
-                background: "#CBCBCB",
-                padding: "5px",
-                display: "flex",
-                marginRight: "12px",
-                cursor: "pointer",
-              }}
-            >
-              <div
-                style={{
-                  width: "20px",
-                  height: "20px",
-                  borderRadius: "50%",
-                  background: "#FFFFFF",
-                }}
-              ></div>
-              <Image
-                src={IMoon}
-                preview={false}
-                style={{ width: "20px", height: "20px", marginLeft: "5px" }}
-              />
-            </div>
-          )} */}
-
-          {/* <Switch
-            style={{
-              display: "flex",
-              marginRight: "12px",
-              height: "26px",
-              alignItems: "center",
-              background: "#323232",
-              borderRadius: "16px",
-              // padding: "5px",
-            }}
-            checkedChildren={<SunOutlined style={{ fontSize: "12px" }} />}
-            unCheckedChildren={<MoonOutlined style={{ fontSize: "12px" }} />}
-            defaultChecked
-          /> */}
 
           {localStorage.getItem("userMail") === null ||
           localStorage.getItem("userMail") === undefined ? (

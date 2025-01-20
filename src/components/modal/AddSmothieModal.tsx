@@ -1,5 +1,13 @@
 import React, { useEffect } from "react";
-import { Button, Image, InputNumber, Modal, Select, Typography } from "antd";
+import {
+  Button,
+  Grid,
+  Image,
+  InputNumber,
+  Modal,
+  Select,
+  Typography,
+} from "antd";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   setAiButtonValue,
@@ -16,12 +24,13 @@ import { getCA } from "../../functions";
 const StyledModal = styled(Modal)`
   .ant-modal-content {
     border-radius: 16px;
+    z-index: 1000;
   }
 `;
-
+const { useBreakpoint } = Grid;
 const AddSmothieModal: React.FC = () => {
   const dispatch = useAppDispatch();
-
+  const screens = useBreakpoint();
   const isAddSmothieModalOpen = useAppSelector(
     (state) => state.general.isAddSmothieModalOpen
   );
@@ -157,7 +166,7 @@ const AddSmothieModal: React.FC = () => {
               );
             }}
             style={{
-              width: "400px",
+              width: screens.lg ? "400px" : "100%",
               height: "28px",
               background:
                 "var(--linear-gradient, linear-gradient(91deg, #F09819 0.44%, #FF512F 99.74%))",

@@ -6,6 +6,7 @@ import {
   Button,
   Col,
   Divider,
+  Grid,
   Image,
   Row,
   Table,
@@ -55,7 +56,7 @@ import { formatPrice } from "../../functions";
 import RatingTags from "../../components/RatingTags";
 // import { useAppSelector } from "../../store/hooks";
 // import IVolume from "../assets/volume.png";
-
+const { useBreakpoint } = Grid;
 const LiveStreams = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -65,6 +66,7 @@ const LiveStreams = () => {
   const settedSmothies = useAppSelector(
     (state) => state.general.settedSmothies
   );
+  const screens = useBreakpoint();
 
   return (
     <div>
@@ -119,103 +121,63 @@ const LiveStreams = () => {
         </div>
       </div>
       <Row gutter={[16, 16]}>
-        <Col span={14}>
+        <Col lg={14} sm={24}>
           <div
             className={styles["videoWrapper"]}
-            style={{ position: "relative" }}
+            style={{
+              position: "relative",
+              cursor: "pointer",
+              height: screens.lg ? "422px" : "auto",
+              borderRadius: "16px",
+            }}
           >
-            {/* <Image
-          className={styles["tradeVideo"]}
-          width="100%"
-          height="375px"
-          src={ITrade}
-          preview={false}
-        /> */}
             <ReactPlayer
               width="100%"
-              height="422px"
+              height={screens.lg ? "422px" : "auto"}
               className={styles["videoWrapper"]}
               url={ITradeVideo}
               playing
               loop
               controls
               muted
-              style={{ objectFit: "cover" }}
-            />
-            {/* <Image
-          style={{
-            position: "absolute",
-            bottom: "130px",
-            left: "10px",
-            zIndex: "1000",
-          }}
-          width="80px"
-          height="80px"
-          src={IStreamer}
-          preview={false}
-        /> */}
-            <div className={styles["videoController"]}>
-              <div className={styles.blur}></div>
-              {/* <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              zIndex: "1000",
-            }}
-          >
-            <Image
-              src={IPouse}
-              preview={false}
               style={{
-                width: "20px",
-                height: "20px",
+                objectFit: "cover",
+                cursor: "pointer",
+                height: screens.lg ? "422px" : "auto",
+                borderRadius: "16px",
               }}
             />
-            <Typography.Text type="secondary">01:35:45</Typography.Text>
-            <Image
-              src={IVolume}
-              preview={false}
-              width="15px"
-              height="15px"
-              style={{
-                // marginRight: "10px",
-                marginBottom: "5px",
-                opacity: "0.6",
-              }}
-            />
-          </div> */}
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  // gap: "10px",
-                  width: "100%",
-                  justifyContent: "space-between",
-                  // marginLeft: "auto",
-                }}
-              >
-                <Button
-                  // size="small"
-                  shape="circle"
-                  icon={<LeftOutlined style={{ fontSize: "10px" }} />}
+            {screens.lg && (
+              <div className={styles["videoController"]}>
+                <div className={styles.blur}></div>
+                <div
                   style={{
-                    background: "rgba(255, 255, 255, 0.20)",
+                    display: "flex",
+                    alignItems: "center",
+                    width: "100%",
+                    justifyContent: "space-between",
                   }}
-                ></Button>
-                <Button
-                  // size="small"
-                  shape="circle"
-                  icon={<RightOutlined style={{ fontSize: "10px" }} />}
-                  style={{
-                    background: "rgba(255, 255, 255, 0.20)",
-                  }}
-                ></Button>
+                >
+                  <Button
+                    shape="circle"
+                    icon={<LeftOutlined style={{ fontSize: "10px" }} />}
+                    style={{
+                      background: "rgba(255, 255, 255, 0.20)",
+                    }}
+                  ></Button>
+                  <Button
+                    shape="circle"
+                    icon={<RightOutlined style={{ fontSize: "10px" }} />}
+                    style={{
+                      background: "rgba(255, 255, 255, 0.20)",
+                    }}
+                  ></Button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </Col>
-        <Col span={10}>
+        <Col lg={10} sm={24}>
           <div
             style={{
               borderRadius: "16px",
@@ -289,6 +251,7 @@ const LiveStreams = () => {
             <div style={{ marginTop: "10px" }}>
               <div>
                 <Table
+                  size="small"
                   scroll={{ y: "auto" }}
                   tableLayout="fixed"
                   pagination={false}
@@ -568,10 +531,6 @@ const LiveStreams = () => {
                     },
                     {
                       title: (
-                        // <Tooltip
-                        //   placement="topLeft"
-                        //   title={"Decription Actions"}
-                        // >
                         <Typography.Text
                           style={{ fontSize: "10px", fontWeight: "400" }}
                           ellipsis={{
@@ -580,7 +539,6 @@ const LiveStreams = () => {
                         >
                           Create Smoothie
                         </Typography.Text>
-                        // </Tooltip>
                       ),
                       dataIndex: "CreateSmoothie",
                       key: "CreateSmoothie",
