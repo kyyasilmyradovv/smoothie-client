@@ -939,6 +939,7 @@ const LiveStreams = () => {
             performance: "+5353",
             title: "Coinstrack",
             color: "#00C853",
+            date: "18.01.2024 15:52",
           },
           {
             avatar: Favatar2,
@@ -947,6 +948,7 @@ const LiveStreams = () => {
             performance: "+412",
             title: "ZCoin",
             color: "#00C853",
+            date: "19.01.2024 01:32",
           },
           {
             avatar: Favatar3,
@@ -955,6 +957,7 @@ const LiveStreams = () => {
             performance: "-33",
             title: "BTC45",
             color: "#E91916",
+            date: "19.01.2024 16:00",
           },
           {
             avatar: Favatar4,
@@ -963,6 +966,7 @@ const LiveStreams = () => {
             performance: "-35",
             title: "Coinstrack",
             color: "#E91916",
+            date: "19.01.2024 18:10",
           },
         ].map((e) => (
           <div
@@ -976,28 +980,38 @@ const LiveStreams = () => {
           >
             <div
               style={{
-                padding: "15px 0 0 15px",
                 display: "flex",
                 alignItems: "center",
+                padding: "15px 15px 0 15px",
+                justifyContent: "space-between",
+                width: "100%",
               }}
             >
-              <Avatar
-                size={35}
-                shape="circle"
-                icon={<UserOutlined />}
-                src={e.avatar}
-              />
-              <Typography.Text
+              <div
                 style={{
-                  fontSize: "14px",
-                  fontWeight: "600",
-                  lineHeight: "26spx",
-                  color: "#FFF",
-                  marginLeft: "15px",
+                  display: "flex",
+                  alignItems: "center",
                 }}
               >
-                {e.title}
-              </Typography.Text>
+                <Avatar
+                  size={35}
+                  shape="circle"
+                  icon={<UserOutlined />}
+                  src={e.avatar}
+                />
+                <Typography.Text
+                  style={{
+                    fontSize: "14px",
+                    fontWeight: "600",
+                    lineHeight: "26spx",
+                    color: "#FFF",
+                    marginLeft: "15px",
+                  }}
+                >
+                  {e.title}
+                </Typography.Text>
+              </div>
+              <Typography.Text type="secondary">{e.date}</Typography.Text>
             </div>
             <Divider style={{ margin: "15px 0" }} />
             <div
