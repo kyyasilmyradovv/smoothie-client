@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Avatar,
@@ -25,7 +24,7 @@ import {
   RightOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import ITradeVideo from "/stream-1.mp4";
+import ITradeVideo from "../../assets/stream-1.mp4";
 // import IPouse from "../assets/pause.png";
 // import IDoc from "../../assets/Document-1-Copy.png";
 import IPlus from "../../assets/Pluse ellipse.svg";
@@ -47,18 +46,13 @@ import Favatar4 from "../../assets/favatar4.png";
 import IStreamer from "../../assets/Streamer.png";
 import XIcon from "../../assets/X 1.png";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import {
-  setAddSmothieName,
-  setIsAddSmothieModalOpen,
-} from "../../store/general/generalSlice";
+import { useAppSelector } from "../../store/hooks";
 import { formatPrice, getUSDValue } from "../../functions";
 import RatingTags from "../../components/RatingTags";
 // import { useAppSelector } from "../../store/hooks";
 // import IVolume from "../assets/volume.png";
 const { useBreakpoint } = Grid;
 const LiveStreams = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const appCustomization = useAppSelector(
     (state) => state.general.appCustomization
@@ -136,10 +130,10 @@ const LiveStreams = () => {
               height={screens.lg ? "422px" : "auto"}
               className={styles["videoWrapper"]}
               url={ITradeVideo}
-              playing
-              loop
-              controls
-              muted
+              playing={screens.lg}
+              loop={screens.lg}
+              controls={screens.lg}
+              muted={screens.lg}
               style={{
                 objectFit: "cover",
                 cursor: "pointer",
@@ -563,8 +557,9 @@ const LiveStreams = () => {
                               justifyContent: "space-between",
                             }}
                             onClick={() => {
-                              dispatch(setIsAddSmothieModalOpen(true));
-                              dispatch(setAddSmothieName(record?.Ticker));
+                              navigate(`/liveStreams/1`);
+                              // dispatch(setIsAddSmothieModalOpen(true));
+                              // dispatch(setAddSmothieName(record?.Ticker));
                             }}
                           >
                             {!settedSmothies[record?.Ticker]?.value && (
