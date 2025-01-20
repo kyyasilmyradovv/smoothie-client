@@ -599,212 +599,216 @@ const LiveStream = () => {
                   Dex: "https://dexscreener.com/solana/bzc9nzfmqkxr6fz1dbph7bdf9broyef6pnzesp7v5iiw",
                 },
               ]}
-              columns={[
-                {
-                  title: (
-                    <Tooltip placement="topLeft" title={"Token symbol"}>
-                      <Typography.Text
-                        style={{
-                          fontSize: "10px",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "3px",
-                          justifyContent: "center",
-                        }}
-                        ellipsis={{
-                          tooltip: "Ticker(?)",
-                        }}
-                      >
-                        Ticker
-                        <ExclamationCircleOutlined />
-                      </Typography.Text>
-                    </Tooltip>
-                  ),
-                  dataIndex: "Ticker",
-                  key: "Ticker",
-                  width: 220,
-                  onHeaderCell: () => ({
-                    style: { textAlign: "center" },
-                  }),
-                  onCell: () => ({
-                    style: { textAlign: "left" },
-                  }),
-                  render: (_: any, record: any) => {
-                    return (
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <Typography.Text
-                          ellipsis={{
-                            tooltip: record.Ticker,
-                          }}
-                        >
-                          {record.Ticker}
-                        </Typography.Text>
-                      </div>
-                    );
-                  },
-                },
-                {
-                  title: (
-                    <Typography.Text
-                      style={{
-                        fontSize: "10px",
-                        fontWeight: "400",
-                      }}
-                      ellipsis={{
-                        tooltip: "Links",
-                      }}
-                    >
-                      Links
-                    </Typography.Text>
-                  ),
-                  dataIndex: "Links",
-                  key: "Links",
-                  width: 80,
-                  onHeaderCell: () => ({
-                    style: { textAlign: "center" },
-                  }),
-                  onCell: () => ({
-                    style: { textAlign: "center" },
-                  }),
-                  render: (_: any, record: any) => {
-                    return (
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          // justifyContent: "center",
-                          // gap: "6px",
-                          // width: "50%",
-                        }}
-                      >
-                        <Button
-                          type="link"
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                          onClick={() => {
-                            const url = `https://x.com/search?q=${record.Ticker}`;
-                            window.open(url, "_blank");
-                          }}
-                          icon={
-                            <Image
-                              src={
-                                appCustomization.theme === "dark"
-                                  ? ITwitTab
-                                  : WITwitTab
-                              }
-                              preview={false}
-                              style={{ width: "12px", height: "12px" }}
-                            />
-                          }
-                        >
-                          {/* */}
-                        </Button>
-                        <Button
-                          type="link"
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                          onClick={() => {
-                            const url = record.Web;
-                            window.open(url, "_blank");
-                          }}
-                          icon={
-                            <Image
-                              src={
-                                appCustomization.theme === "dark" ? IWeb : WIWeb
-                              }
-                              preview={false}
-                              style={{ width: "18px", height: "18px" }}
-                            />
-                          }
-                        >
-                          {/* */}
-                        </Button>
-                        <Button
-                          type="link"
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                          onClick={() => {
-                            const url = record.Dex;
-                            window.open(url, "_blank");
-                          }}
-                          icon={
-                            <Image
-                              src={IDex}
-                              preview={false}
-                              style={{ width: "15px", height: "15px" }}
-                            />
-                          }
-                        >
-                          {/* */}
-                        </Button>
-                      </div>
-                    );
-                  },
-                },
-                {
-                  title: (
-                    <Tooltip
-                      placement="topLeft"
-                      title={
-                        "Each token has unique contract address for identification"
-                      }
-                    >
-                      <Typography.Text
-                        style={{
-                          fontSize: "10px",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "3px",
-                          justifyContent: "center",
-                        }}
-                        ellipsis={{
-                          tooltip: "CA(?)",
-                        }}
-                      >
-                        CA
-                        <ExclamationCircleOutlined />
-                      </Typography.Text>
-                    </Tooltip>
-                  ),
-                  width: 350,
-                  dataIndex: "CA",
-                  key: "CA",
-                  onHeaderCell: () => ({
-                    style: { textAlign: "center" },
-                  }),
-                  onCell: () => ({
-                    style: { textAlign: "left" },
-                  }),
-                  render: (_: any, record: any) => {
-                    return (
-                      <div
-                        style={{
-                          background:
-                            appCustomization.theme === "dark"
-                              ? "#323232"
-                              : "#E5E7EB",
-                          borderRadius: "16px",
-                          padding: "2px 5px",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "5px",
-                        }}
-                      >
-                        {/* <Image
+              columns={
+                screens.lg
+                  ? [
+                      {
+                        title: (
+                          <Tooltip placement="topLeft" title={"Token symbol"}>
+                            <Typography.Text
+                              style={{
+                                fontSize: "10px",
+                                fontWeight: "400",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "3px",
+                                justifyContent: "center",
+                              }}
+                              ellipsis={{
+                                tooltip: "Ticker(?)",
+                              }}
+                            >
+                              Ticker
+                              <ExclamationCircleOutlined />
+                            </Typography.Text>
+                          </Tooltip>
+                        ),
+                        dataIndex: "Ticker",
+                        key: "Ticker",
+                        width: 100,
+                        onHeaderCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        onCell: () => ({
+                          style: { textAlign: "left" },
+                        }),
+                        render: (_: any, record: any) => {
+                          return (
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <Typography.Text
+                                ellipsis={{
+                                  tooltip: record.Ticker,
+                                }}
+                              >
+                                {record.Ticker}
+                              </Typography.Text>
+                            </div>
+                          );
+                        },
+                      },
+                      {
+                        title: (
+                          <Typography.Text
+                            style={{
+                              fontSize: "10px",
+                              fontWeight: "400",
+                            }}
+                            ellipsis={{
+                              tooltip: "Links",
+                            }}
+                          >
+                            Links
+                          </Typography.Text>
+                        ),
+                        dataIndex: "Links",
+                        key: "Links",
+                        width: 80,
+                        onHeaderCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        onCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        render: (_: any, record: any) => {
+                          return (
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                // justifyContent: "center",
+                                // gap: "6px",
+                                // width: "50%",
+                              }}
+                            >
+                              <Button
+                                type="link"
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                                onClick={() => {
+                                  const url = `https://x.com/search?q=${record.Ticker}`;
+                                  window.open(url, "_blank");
+                                }}
+                                icon={
+                                  <Image
+                                    src={
+                                      appCustomization.theme === "dark"
+                                        ? ITwitTab
+                                        : WITwitTab
+                                    }
+                                    preview={false}
+                                    style={{ width: "12px", height: "12px" }}
+                                  />
+                                }
+                              >
+                                {/* */}
+                              </Button>
+                              <Button
+                                type="link"
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                                onClick={() => {
+                                  const url = record.Web;
+                                  window.open(url, "_blank");
+                                }}
+                                icon={
+                                  <Image
+                                    src={
+                                      appCustomization.theme === "dark"
+                                        ? IWeb
+                                        : WIWeb
+                                    }
+                                    preview={false}
+                                    style={{ width: "18px", height: "18px" }}
+                                  />
+                                }
+                              >
+                                {/* */}
+                              </Button>
+                              <Button
+                                type="link"
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                                onClick={() => {
+                                  const url = record.Dex;
+                                  window.open(url, "_blank");
+                                }}
+                                icon={
+                                  <Image
+                                    src={IDex}
+                                    preview={false}
+                                    style={{ width: "15px", height: "15px" }}
+                                  />
+                                }
+                              >
+                                {/* */}
+                              </Button>
+                            </div>
+                          );
+                        },
+                      },
+                      {
+                        title: (
+                          <Tooltip
+                            placement="topLeft"
+                            title={
+                              "Each token has unique contract address for identification"
+                            }
+                          >
+                            <Typography.Text
+                              style={{
+                                fontSize: "10px",
+                                fontWeight: "400",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "3px",
+                                justifyContent: "center",
+                              }}
+                              ellipsis={{
+                                tooltip: "CA(?)",
+                              }}
+                            >
+                              CA
+                              <ExclamationCircleOutlined />
+                            </Typography.Text>
+                          </Tooltip>
+                        ),
+                        width: 350,
+                        dataIndex: "CA",
+                        key: "CA",
+                        onHeaderCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        onCell: () => ({
+                          style: { textAlign: "left" },
+                        }),
+                        render: (_: any, record: any) => {
+                          return (
+                            <div
+                              style={{
+                                background:
+                                  appCustomization.theme === "dark"
+                                    ? "#323232"
+                                    : "#E5E7EB",
+                                borderRadius: "16px",
+                                padding: "2px 5px",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "5px",
+                              }}
+                            >
+                              {/* <Image
                           src={IDoc}
                           preview={false}
                           style={{
@@ -812,262 +816,748 @@ const LiveStream = () => {
                             height: "15px",
                           }}
                         /> */}
-                        <CopyOutlined />
-                        <Typography.Text
-                          ellipsis={{
-                            tooltip: record.CA,
-                          }}
-                          style={{ fontSize: "10px" }}
-                        >
-                          {record.CA}
-                        </Typography.Text>
-                      </div>
-                    );
-                  },
-                },
+                              <CopyOutlined />
+                              <Typography.Text
+                                ellipsis={{
+                                  tooltip: record.CA,
+                                }}
+                                style={{ fontSize: "10px" }}
+                              >
+                                {record.CA}
+                              </Typography.Text>
+                            </div>
+                          );
+                        },
+                      },
 
-                {
-                  title: (
-                    <Tooltip
-                      placement="topLeft"
-                      title={
-                        "Positive rating does not constitute as a financial advice and you MUST do your own due diligence for any investment decisions."
-                      }
-                    >
-                      <Typography.Text
-                        style={{
-                          fontSize: "10px",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "3px",
-                          justifyContent: "center",
-                        }}
-                        ellipsis={{
-                          tooltip: "Rating(?)",
-                        }}
-                      >
-                        Rating
-                        <ExclamationCircleOutlined />
-                      </Typography.Text>
-                    </Tooltip>
-                  ),
-                  width: 220,
-                  dataIndex: "Rating",
-                  key: "Rating",
-                  onHeaderCell: () => ({
-                    style: { textAlign: "center" },
-                  }),
-                  onCell: () => ({
-                    style: { textAlign: "center" },
-                  }),
-                  render: (_: any, record: any) => {
-                    return <RatingTags value={record.Rating} />;
-                  },
-                },
-                {
-                  title: (
-                    <Tooltip
-                      placement="topLeft"
-                      title={"Fully diluted valuation during the analysis."}
-                    >
-                      <Typography.Text
-                        style={{
-                          fontSize: "10px",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "3px",
-                          justifyContent: "center",
-                        }}
-                        ellipsis={{
-                          tooltip: "FDV(?)",
-                        }}
-                      >
-                        FDV
-                        <ExclamationCircleOutlined />
-                      </Typography.Text>
-                    </Tooltip>
-                  ),
-                  width: 220,
-                  dataIndex: "FDV",
-                  key: "FDV",
-                  onHeaderCell: () => ({
-                    style: { textAlign: "center" },
-                  }),
-                  onCell: () => ({
-                    style: { textAlign: "center" },
-                  }),
-                  render: (_: any, record: any) => {
-                    return (
-                      <Typography.Text
-                        ellipsis={{
-                          tooltip: record.Rating,
-                        }}
-                        style={{
-                          fontSize: "10px",
-                        }}
-                      >
-                        ${record.FDV}
-                      </Typography.Text>
-                    );
-                  },
-                },
-                {
-                  title: (
-                    <Tooltip
-                      placement="topLeft"
-                      title={
-                        "Fully diluted valuation for potential exit from the position."
-                      }
-                    >
-                      <Typography.Text
-                        style={{
-                          fontSize: "10px",
-                          fontWeight: "400",
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "3px",
-                          justifyContent: "center",
-                        }}
-                        ellipsis={{
-                          tooltip: "FDV(?)",
-                        }}
-                      >
-                        Target FDV
-                        <ExclamationCircleOutlined />
-                      </Typography.Text>
-                    </Tooltip>
-                  ),
-                  width: 220,
-                  dataIndex: "Rating",
-                  key: "Rating",
-                  onHeaderCell: () => ({
-                    style: { textAlign: "center" },
-                  }),
-                  onCell: () => ({
-                    style: { textAlign: "center" },
-                  }),
-                  render: (_: any, record: any) => {
-                    return (
-                      <Typography.Text
-                        ellipsis={{
-                          tooltip: record.Rating,
-                        }}
-                        style={{
-                          fontSize: "10px",
-                        }}
-                      >
-                        ${record.TargetFDV}
-                      </Typography.Text>
-                    );
-                  },
-                },
-                {
-                  title: (
-                    // <Tooltip
-                    //   placement="topLeft"
-                    //   title={"Decription Actions"}
-                    // >
-                    <Typography.Text
-                      style={{ fontSize: "10px", fontWeight: "400" }}
-                      ellipsis={{
-                        tooltip: "Create Smoothie",
-                      }}
-                    >
-                      Create Smoothie
-                    </Typography.Text>
-                    // </Tooltip>
-                  ),
-                  width: 120,
-                  dataIndex: "CreateSmoothie",
-                  key: "CreateSmoothie",
-                  // fixed: "right",
-                  onHeaderCell: () => ({
-                    style: { textAlign: "center" },
-                  }),
-                  onCell: () => ({
-                    style: { textAlign: "center" },
-                  }),
-                  render: (_: any, record: any) => {
-                    return (
-                      <div
-                        style={{ display: "flex", justifyContent: "center" }}
-                      >
-                        <div
-                          style={{
-                            borderRadius: "16px",
-                            border: "2px solid #AE1FCE",
-                            padding: "2px 5px",
-                            width: "100%",
-                            cursor: "pointer",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            maxWidth: "150px",
-                          }}
-                          onClick={() => {
-                            dispatch(setIsAddSmothieModalOpen(true));
-                            dispatch(setAddSmothieName(record?.Ticker));
-                          }}
-                        >
-                          {!settedSmothies[record?.Ticker]?.value ? (
-                            <Image
-                              src={IPlus}
-                              preview={false}
+                      {
+                        title: (
+                          <Tooltip
+                            placement="topLeft"
+                            title={
+                              "Positive rating does not constitute as a financial advice and you MUST do your own due diligence for any investment decisions."
+                            }
+                          >
+                            <Typography.Text
                               style={{
-                                width: "15px",
-                                height: "15px",
-                                marginRight: "5px",
+                                fontSize: "10px",
+                                fontWeight: "400",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "3px",
+                                justifyContent: "center",
                               }}
-                            />
-                          ) : (
-                            <div
+                              ellipsis={{
+                                tooltip: "Rating(?)",
+                              }}
+                            >
+                              Rating
+                              <ExclamationCircleOutlined />
+                            </Typography.Text>
+                          </Tooltip>
+                        ),
+                        width: 220,
+                        dataIndex: "Rating",
+                        key: "Rating",
+                        onHeaderCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        onCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        render: (_: any, record: any) => {
+                          return <RatingTags value={record.Rating} />;
+                        },
+                      },
+                      {
+                        title: (
+                          <Tooltip
+                            placement="topLeft"
+                            title={
+                              "Fully diluted valuation during the analysis."
+                            }
+                          >
+                            <Typography.Text
                               style={{
-                                width: "15px",
-                                height: "15px",
-                                marginRight: "5px",
+                                fontSize: "10px",
+                                fontWeight: "400",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "3px",
+                                justifyContent: "center",
                               }}
-                            ></div>
-                          )}
-                          {settedSmothies[record?.Ticker]?.value ? (
+                              ellipsis={{
+                                tooltip: "FDV(?)",
+                              }}
+                            >
+                              FDV
+                              <ExclamationCircleOutlined />
+                            </Typography.Text>
+                          </Tooltip>
+                        ),
+                        width: 220,
+                        dataIndex: "FDV",
+                        key: "FDV",
+                        onHeaderCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        onCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        render: (_: any, record: any) => {
+                          return (
                             <Typography.Text
                               ellipsis={{
-                                tooltip: `${
-                                  settedSmothies[record?.Ticker]?.type
-                                }  ${settedSmothies[record?.Ticker]?.value}`,
+                                tooltip: record.Rating,
                               }}
                               style={{
                                 fontSize: "10px",
-                                width: "80px",
-                                // textAlign: "center",
                               }}
                             >
-                              {settedSmothies[record?.Ticker]?.type}{" "}
-                              {formatPrice(
-                                settedSmothies[record?.Ticker]?.value
-                              )}
+                              ${record.FDV}
                             </Typography.Text>
-                          ) : (
-                            <Typography.Text style={{ fontSize: "10px" }}>
-                              Add to
+                          );
+                        },
+                      },
+                      {
+                        title: (
+                          <Tooltip
+                            placement="topLeft"
+                            title={
+                              "Fully diluted valuation for potential exit from the position."
+                            }
+                          >
+                            <Typography.Text
+                              style={{
+                                fontSize: "10px",
+                                fontWeight: "400",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "3px",
+                                justifyContent: "center",
+                              }}
+                              ellipsis={{
+                                tooltip: "FDV(?)",
+                              }}
+                            >
+                              Target FDV
+                              <ExclamationCircleOutlined />
                             </Typography.Text>
-                          )}
-                          <Image
-                            src={logo}
-                            preview={false}
-                            style={{
-                              width: "15px",
-                              height: "15px",
-                              marginLeft: "5px",
+                          </Tooltip>
+                        ),
+                        width: 220,
+                        dataIndex: "Rating",
+                        key: "Rating",
+                        onHeaderCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        onCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        render: (_: any, record: any) => {
+                          return (
+                            <Typography.Text
+                              ellipsis={{
+                                tooltip: record.Rating,
+                              }}
+                              style={{
+                                fontSize: "10px",
+                              }}
+                            >
+                              ${record.TargetFDV}
+                            </Typography.Text>
+                          );
+                        },
+                      },
+                      {
+                        title: (
+                          // <Tooltip
+                          //   placement="topLeft"
+                          //   title={"Decription Actions"}
+                          // >
+                          <Typography.Text
+                            style={{ fontSize: "10px", fontWeight: "400" }}
+                            ellipsis={{
+                              tooltip: "Create Smoothie",
                             }}
-                          />
-                        </div>
-                      </div>
-                    );
-                  },
-                },
-              ]}
+                          >
+                            Create Smoothie
+                          </Typography.Text>
+                          // </Tooltip>
+                        ),
+                        width: 120,
+                        dataIndex: "CreateSmoothie",
+                        key: "CreateSmoothie",
+                        // fixed: "right",
+                        onHeaderCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        onCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        render: (_: any, record: any) => {
+                          return (
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  borderRadius: "16px",
+                                  border: "2px solid #AE1FCE",
+                                  padding: "2px 5px",
+                                  width: "100%",
+                                  cursor: "pointer",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "space-between",
+                                  maxWidth: "150px",
+                                }}
+                                onClick={() => {
+                                  dispatch(setIsAddSmothieModalOpen(true));
+                                  dispatch(setAddSmothieName(record?.Ticker));
+                                }}
+                              >
+                                {!settedSmothies[record?.Ticker]?.value ? (
+                                  <Image
+                                    src={IPlus}
+                                    preview={false}
+                                    style={{
+                                      width: "15px",
+                                      height: "15px",
+                                      marginRight: "5px",
+                                    }}
+                                  />
+                                ) : (
+                                  <div
+                                    style={{
+                                      width: "15px",
+                                      height: "15px",
+                                      marginRight: "5px",
+                                    }}
+                                  ></div>
+                                )}
+                                {settedSmothies[record?.Ticker]?.value ? (
+                                  <Typography.Text
+                                    ellipsis={{
+                                      tooltip: `${
+                                        settedSmothies[record?.Ticker]?.type
+                                      }  ${
+                                        settedSmothies[record?.Ticker]?.value
+                                      }`,
+                                    }}
+                                    style={{
+                                      fontSize: "10px",
+                                      width: "80px",
+                                      // textAlign: "center",
+                                    }}
+                                  >
+                                    {settedSmothies[record?.Ticker]?.type}{" "}
+                                    {formatPrice(
+                                      settedSmothies[record?.Ticker]?.value
+                                    )}
+                                  </Typography.Text>
+                                ) : (
+                                  <Typography.Text style={{ fontSize: "10px" }}>
+                                    Add to
+                                  </Typography.Text>
+                                )}
+                                <Image
+                                  src={logo}
+                                  preview={false}
+                                  style={{
+                                    width: "15px",
+                                    height: "15px",
+                                    marginLeft: "5px",
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          );
+                        },
+                      },
+                    ]
+                  : [
+                      {
+                        title: (
+                          <Tooltip placement="topLeft" title={"Token symbol"}>
+                            <Typography.Text
+                              style={{
+                                fontSize: "10px",
+                                fontWeight: "400",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "3px",
+                                justifyContent: "center",
+                              }}
+                              ellipsis={{
+                                tooltip: "Ticker(?)",
+                              }}
+                            >
+                              Ticker
+                              <ExclamationCircleOutlined />
+                            </Typography.Text>
+                          </Tooltip>
+                        ),
+                        dataIndex: "Ticker",
+                        key: "Ticker",
+                        width: 80,
+                        onHeaderCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        onCell: () => ({
+                          style: { textAlign: "left" },
+                        }),
+                        render: (_: any, record: any) => {
+                          return (
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <Typography.Text
+                                ellipsis={{
+                                  tooltip: record.Ticker,
+                                }}
+                              >
+                                {record.Ticker}
+                              </Typography.Text>
+                            </div>
+                          );
+                        },
+                      },
+                      {
+                        title: (
+                          <Typography.Text
+                            style={{
+                              fontSize: "10px",
+                              fontWeight: "400",
+                            }}
+                            ellipsis={{
+                              tooltip: "Links",
+                            }}
+                          >
+                            Links
+                          </Typography.Text>
+                        ),
+                        dataIndex: "Links",
+                        key: "Links",
+                        width: 80,
+                        onHeaderCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        onCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        render: (_: any, record: any) => {
+                          return (
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                // justifyContent: "center",
+                                // gap: "6px",
+                                // width: "50%",
+                              }}
+                            >
+                              <Button
+                                type="link"
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                                onClick={() => {
+                                  const url = `https://x.com/search?q=${record.Ticker}`;
+                                  window.open(url, "_blank");
+                                }}
+                                icon={
+                                  <Image
+                                    src={
+                                      appCustomization.theme === "dark"
+                                        ? ITwitTab
+                                        : WITwitTab
+                                    }
+                                    preview={false}
+                                    style={{ width: "12px", height: "12px" }}
+                                  />
+                                }
+                              >
+                                {/* */}
+                              </Button>
+                              <Button
+                                type="link"
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                                onClick={() => {
+                                  const url = record.Web;
+                                  window.open(url, "_blank");
+                                }}
+                                icon={
+                                  <Image
+                                    src={
+                                      appCustomization.theme === "dark"
+                                        ? IWeb
+                                        : WIWeb
+                                    }
+                                    preview={false}
+                                    style={{ width: "18px", height: "18px" }}
+                                  />
+                                }
+                              >
+                                {/* */}
+                              </Button>
+                              <Button
+                                type="link"
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                                onClick={() => {
+                                  const url = record.Dex;
+                                  window.open(url, "_blank");
+                                }}
+                                icon={
+                                  <Image
+                                    src={IDex}
+                                    preview={false}
+                                    style={{ width: "15px", height: "15px" }}
+                                  />
+                                }
+                              >
+                                {/* */}
+                              </Button>
+                            </div>
+                          );
+                        },
+                      },
+
+                      {
+                        title: (
+                          <Tooltip
+                            placement="topLeft"
+                            title={
+                              "Positive rating does not constitute as a financial advice and you MUST do your own due diligence for any investment decisions."
+                            }
+                          >
+                            <Typography.Text
+                              style={{
+                                fontSize: "10px",
+                                fontWeight: "400",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "3px",
+                                justifyContent: "center",
+                              }}
+                              ellipsis={{
+                                tooltip: "Rating(?)",
+                              }}
+                            >
+                              Rating
+                              <ExclamationCircleOutlined />
+                            </Typography.Text>
+                          </Tooltip>
+                        ),
+                        width: 80,
+                        dataIndex: "Rating",
+                        key: "Rating",
+                        onHeaderCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        onCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        render: (_: any, record: any) => {
+                          return <RatingTags value={record.Rating} />;
+                        },
+                      },
+                      {
+                        title: (
+                          // <Tooltip
+                          //   placement="topLeft"
+                          //   title={"Decription Actions"}
+                          // >
+                          <Typography.Text
+                            style={{ fontSize: "10px", fontWeight: "400" }}
+                            ellipsis={{
+                              tooltip: "Create Smoothie",
+                            }}
+                          >
+                            Create Smoothie
+                          </Typography.Text>
+                          // </Tooltip>
+                        ),
+                        width: 120,
+                        dataIndex: "CreateSmoothie",
+                        key: "CreateSmoothie",
+                        // fixed: "right",
+                        onHeaderCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        onCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        render: (_: any, record: any) => {
+                          return (
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                            >
+                              <div
+                                style={{
+                                  borderRadius: "16px",
+                                  border: "2px solid #AE1FCE",
+                                  padding: "2px 5px",
+                                  width: "100%",
+                                  cursor: "pointer",
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "space-between",
+                                  maxWidth: "150px",
+                                }}
+                                onClick={() => {
+                                  dispatch(setIsAddSmothieModalOpen(true));
+                                  dispatch(setAddSmothieName(record?.Ticker));
+                                }}
+                              >
+                                {!settedSmothies[record?.Ticker]?.value ? (
+                                  <Image
+                                    src={IPlus}
+                                    preview={false}
+                                    style={{
+                                      width: "15px",
+                                      height: "15px",
+                                      marginRight: "5px",
+                                    }}
+                                  />
+                                ) : (
+                                  <div
+                                    style={{
+                                      width: "15px",
+                                      height: "15px",
+                                      marginRight: "5px",
+                                    }}
+                                  ></div>
+                                )}
+                                {settedSmothies[record?.Ticker]?.value ? (
+                                  <Typography.Text
+                                    ellipsis={{
+                                      tooltip: `${
+                                        settedSmothies[record?.Ticker]?.type
+                                      }  ${
+                                        settedSmothies[record?.Ticker]?.value
+                                      }`,
+                                    }}
+                                    style={{
+                                      fontSize: "10px",
+                                      width: "80px",
+                                      // textAlign: "center",
+                                    }}
+                                  >
+                                    {settedSmothies[record?.Ticker]?.type}{" "}
+                                    {formatPrice(
+                                      settedSmothies[record?.Ticker]?.value
+                                    )}
+                                  </Typography.Text>
+                                ) : (
+                                  <Typography.Text style={{ fontSize: "10px" }}>
+                                    Add to
+                                  </Typography.Text>
+                                )}
+                                <Image
+                                  src={logo}
+                                  preview={false}
+                                  style={{
+                                    width: "15px",
+                                    height: "15px",
+                                    marginLeft: "5px",
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          );
+                        },
+                      },
+                      {
+                        title: (
+                          <Tooltip
+                            placement="topLeft"
+                            title={
+                              "Fully diluted valuation during the analysis."
+                            }
+                          >
+                            <Typography.Text
+                              style={{
+                                fontSize: "10px",
+                                fontWeight: "400",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "3px",
+                                justifyContent: "center",
+                              }}
+                              ellipsis={{
+                                tooltip: "FDV(?)",
+                              }}
+                            >
+                              FDV
+                              <ExclamationCircleOutlined />
+                            </Typography.Text>
+                          </Tooltip>
+                        ),
+                        width: 100,
+                        dataIndex: "FDV",
+                        key: "FDV",
+                        onHeaderCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        onCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        render: (_: any, record: any) => {
+                          return (
+                            <Typography.Text
+                              ellipsis={{
+                                tooltip: record.Rating,
+                              }}
+                              style={{
+                                fontSize: "10px",
+                              }}
+                            >
+                              ${record.FDV}
+                            </Typography.Text>
+                          );
+                        },
+                      },
+                      {
+                        title: (
+                          <Tooltip
+                            placement="topLeft"
+                            title={
+                              "Fully diluted valuation for potential exit from the position."
+                            }
+                          >
+                            <Typography.Text
+                              style={{
+                                fontSize: "10px",
+                                fontWeight: "400",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "3px",
+                                justifyContent: "center",
+                              }}
+                              ellipsis={{
+                                tooltip: "FDV(?)",
+                              }}
+                            >
+                              Target FDV
+                              <ExclamationCircleOutlined />
+                            </Typography.Text>
+                          </Tooltip>
+                        ),
+                        width: 100,
+                        dataIndex: "Rating",
+                        key: "Rating",
+                        onHeaderCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        onCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        render: (_: any, record: any) => {
+                          return (
+                            <Typography.Text
+                              ellipsis={{
+                                tooltip: record.Rating,
+                              }}
+                              style={{
+                                fontSize: "10px",
+                              }}
+                            >
+                              ${record.TargetFDV}
+                            </Typography.Text>
+                          );
+                        },
+                      },
+                      {
+                        title: (
+                          <Tooltip
+                            placement="topLeft"
+                            title={
+                              "Each token has unique contract address for identification"
+                            }
+                          >
+                            <Typography.Text
+                              style={{
+                                fontSize: "10px",
+                                fontWeight: "400",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "3px",
+                                justifyContent: "center",
+                              }}
+                              ellipsis={{
+                                tooltip: "CA(?)",
+                              }}
+                            >
+                              CA
+                              <ExclamationCircleOutlined />
+                            </Typography.Text>
+                          </Tooltip>
+                        ),
+                        width: 350,
+                        dataIndex: "CA",
+                        key: "CA",
+                        onHeaderCell: () => ({
+                          style: { textAlign: "center" },
+                        }),
+                        onCell: () => ({
+                          style: { textAlign: "left" },
+                        }),
+                        render: (_: any, record: any) => {
+                          return (
+                            <div
+                              style={{
+                                background:
+                                  appCustomization.theme === "dark"
+                                    ? "#323232"
+                                    : "#E5E7EB",
+                                borderRadius: "16px",
+                                padding: "2px 5px",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "5px",
+                              }}
+                            >
+                              {/* <Image
+                          src={IDoc}
+                          preview={false}
+                          style={{
+                            width: "15px",
+                            height: "15px",
+                          }}
+                        /> */}
+                              <CopyOutlined />
+                              <Typography.Text
+                                ellipsis={{
+                                  tooltip: record.CA,
+                                }}
+                                style={{ fontSize: "10px" }}
+                              >
+                                {record.CA}
+                              </Typography.Text>
+                            </div>
+                          );
+                        },
+                      },
+                    ]
+              }
               footer={() => (
                 <div
                   style={{

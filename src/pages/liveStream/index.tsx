@@ -130,10 +130,10 @@ const LiveStreams = () => {
               height={screens.lg ? "422px" : "auto"}
               className={styles["videoWrapper"]}
               url={ITradeVideo}
-              playing={screens.lg}
-              loop={screens.lg}
-              controls={screens.lg}
-              muted={screens.lg}
+              playing
+              loop
+              controls
+              muted
               style={{
                 objectFit: "cover",
                 cursor: "pointer",
