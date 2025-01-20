@@ -1011,7 +1011,15 @@ const LiveStreams = () => {
                   {e.title}
                 </Typography.Text>
               </div>
-              <Typography.Text type="secondary">{e.date}</Typography.Text>
+              <Typography.Text
+                type="secondary"
+                style={{
+                  color:
+                    appCustomization.theme === "dark" ? "undefined" : "#FFF",
+                }}
+              >
+                {e.date}
+              </Typography.Text>
             </div>
             <Divider style={{ margin: "15px 0" }} />
             <div
