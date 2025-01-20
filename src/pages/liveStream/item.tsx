@@ -14,7 +14,7 @@ import {
 } from "antd";
 import styles from "./index.module.scss";
 import ReactPlayer from "react-player";
-import ITradeVideo from "../../assets/stream-1.mp4";
+import ITradeVideo from "/stream-1.mp4";
 // import ISmile from "../../assets/ISmile.png";
 import CAvatar2 from "../../assets/CAvatar.png";
 import CAvatar1 from "../../assets/CAvatar1.png";

@@ -25,7 +25,7 @@ import {
   RightOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import ITradeVideo from "../../assets/stream-1.mp4";
+import ITradeVideo from "/stream-1.mp4";
 // import IPouse from "../assets/pause.png";
 // import IDoc from "../../assets/Document-1-Copy.png";
 import IPlus from "../../assets/Pluse ellipse.svg";
