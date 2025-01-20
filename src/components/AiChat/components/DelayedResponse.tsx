@@ -57,13 +57,14 @@ const DelayedResponse = () => {
               display: "flex",
               flexDirection: "column",
               marginTop: "10px",
+              textAlign: "center",
             }}
           >
             <Typography.Text
               style={{
                 fontSize: "14px",
                 fontWeight: "200",
-                width: screens.lg ? "auto" : "80%",
+                width: screens.lg ? "auto" : "100%",
               }}
             >
               You’re creating a Smoothie with 4 tokens worth of $455
