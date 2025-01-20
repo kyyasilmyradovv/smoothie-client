@@ -21,3 +21,12 @@ export const getCA = (name: string) => {
   };
   return data?.[name];
 };
+export const getUSDValue = (name: string) => {
+  const data: { [key: string]: number } = {
+    USDC: 1,
+    USDT: 1,
+    ETH: 3348.04,
+    SOL: 0.27,
+  };
+  return data?.[name];
+};

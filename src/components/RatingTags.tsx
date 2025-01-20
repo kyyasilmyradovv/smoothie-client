@@ -1,11 +1,10 @@
-import { Tag, Typography } from "antd";
-import { useAppSelector } from "../store/hooks";
+import { Tag } from "antd";
 
 const RatingTags = (props: { value: string }) => {
   const { value } = props;
-  const appCustomization = useAppSelector(
-    (state) => state.general.appCustomization
-  );
+  // const appCustomization = useAppSelector(
+  //   (state) => state.general.appCustomization
+  // );
 
   const renderingColor = (value: string) => {
     const gettedValue = Number(value[0]);
@@ -20,21 +19,26 @@ const RatingTags = (props: { value: string }) => {
       return "";
     }
   };
-  return appCustomization.theme === "dark" ? (
-    <div>
-      <Typography.Text
-        ellipsis={{
-          tooltip: value,
-        }}
-        style={{
-          color: renderingColor(value),
-          fontSize: "10px",
-        }}
-      >
-        {value}
-      </Typography.Text>
-    </div>
-  ) : (
+  // return appCustomization.theme === "dark" ? (
+  //   <div>
+  //     <Typography.Text
+  //       ellipsis={{
+  //         tooltip: value,
+  //       }}
+  //       style={{
+  //         color: renderingColor(value),
+  //         fontSize: "10px",
+  //       }}
+  //     >
+  //       {value}
+  //     </Typography.Text>
+  //   </div>
+  // ) : (
+  //   <Tag color={renderingColor(value)} style={{ fontSize: "10px" }}>
+  //     {value}
+  //   </Tag>
+  // );
+  return (
     <Tag color={renderingColor(value)} style={{ fontSize: "10px" }}>
       {value}
     </Tag>

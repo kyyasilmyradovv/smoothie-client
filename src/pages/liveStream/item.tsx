@@ -47,7 +47,7 @@ import {
   setAddSmothieName,
   setIsAddSmothieModalOpen,
 } from "../../store/general/generalSlice";
-import { formatPrice } from "../../functions";
+import { formatPrice, getUSDValue } from "../../functions";
 import RatingTags from "../../components/RatingTags";
 import AiChat from "../../components/AiChat/AiChat";
 const { useBreakpoint } = Grid;
@@ -987,7 +987,7 @@ const LiveStream = () => {
                     style: { textAlign: "center" },
                   }),
                   onCell: () => ({
-                    style: { textAlign: "center", zIndex: "100000" },
+                    style: { textAlign: "center" },
                   }),
                   render: (_: any, record: any) => {
                     return (
@@ -1082,16 +1082,34 @@ const LiveStream = () => {
                       (accumulator, currentValue) => accumulator + currentValue,
                       0
                     ) ? (
-                    <Typography.Text style={{ marginRight: "20px" }}>
-                      Total: {"  "}$
-                      {Object.values(settedSmothies ?? {})
-                        .map((e) => (e.value ?? 0) + 120)
-                        .reduce(
-                          (accumulator, currentValue) =>
-                            accumulator + currentValue,
-                          0
-                        )}
-                    </Typography.Text>
+                    <Tooltip
+                      placement="topLeft"
+                      title={
+                        "The shown total is currently a static placeholder."
+                      }
+                    >
+                      <Typography.Text
+                        style={{
+                          marginRight: "20px",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "3px",
+                          justifyContent: "center",
+                        }}
+                      >
+                        Total: {"  "}$
+                        {Object.values(settedSmothies ?? {})
+                          .map(
+                            (e) => (e.value ?? 0) * (getUSDValue(e.type) ?? 1)
+                          )
+                          .reduce(
+                            (accumulator, currentValue) =>
+                              accumulator + currentValue,
+                            0
+                          )}
+                        <ExclamationCircleOutlined />
+                      </Typography.Text>
+                    </Tooltip>
                   ) : (
                     ""
                   )}

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Button, Card, Grid, Typography } from "antd";
+import { Button, Card, Grid, Image, Typography } from "antd";
 import { useEffect, useState } from "react";
+import logo1 from "../../../assets/logo.png";
 // import Loader from "../../Loader";
 // import { UserOutlined } from "@ant-design/icons";
 const { useBreakpoint } = Grid;
@@ -43,8 +44,21 @@ const DelayedResponse = () => {
           Smoothie
         </Typography.Text>
 
-        <Card bordered style={{ marginTop: "10px" }}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
+        <Card
+          bordered
+          style={{
+            marginTop: "10px",
+            textAlign: "center",
+          }}
+        >
+          <Image src={logo1} preview={false} width={50} height={50} />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginTop: "10px",
+            }}
+          >
             <Typography.Text
               style={{
                 fontSize: "14px",
@@ -54,7 +68,15 @@ const DelayedResponse = () => {
             >
               You’re creating a Smoothie with 4 tokens worth of $455
             </Typography.Text>
-            <Button style={{ marginTop: "10px" }}>
+            <Button
+              style={{
+                borderRadius: "16px",
+                background:
+                  "linear-gradient(0deg, #f00 -52.7%, #f5af19 191.82%)",
+                marginTop: "10px",
+                color: "#FFFFFF",
+              }}
+            >
               Confirm the transaction
             </Button>
           </div>
