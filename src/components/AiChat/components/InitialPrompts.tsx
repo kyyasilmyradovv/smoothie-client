@@ -59,12 +59,14 @@ const InitialPrompts = () => {
               dispatch(setAiButtonValue(e.text));
             }}
             style={{
-              width: "auto",
               float: index % 2 === 0 ? "right" : "left",
+              width: screens.lg ? "auto" : "300px",
             }}
             icon={e.icon}
           >
-            <Typography.Text>{e.text}</Typography.Text>
+            <Typography.Text ellipsis={{ tooltip: e.text }}>
+              {e.text}
+            </Typography.Text>
           </Button>
         </Col>
       ))}
