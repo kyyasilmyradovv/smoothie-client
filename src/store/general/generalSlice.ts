@@ -8,8 +8,10 @@ type SliceState = {
   language: string;
   isSidebarOpen: boolean;
   isHelpModalOpen: boolean;
+  helpModalOpened: boolean;
   isConnectWalletModalOpen: boolean;
   isAddSmothieModalOpen: boolean;
+  isConfirmModalOpen: boolean;
   addSmothieName: string;
   lastEditedSmothieName: string;
   userMail: string;
@@ -37,8 +39,10 @@ const initialState: SliceState = {
   },
   language: localStorage.getItem("I18N_LANGUAGE") ?? "en",
   isSidebarOpen: false,
+  helpModalOpened: !!sessionStorage.getItem("helpModalOpened"),
   isHelpModalOpen: false,
   isConnectWalletModalOpen: false,
+  isConfirmModalOpen: false,
   isAddSmothieModalOpen: false,
   addSmothieName: "",
   lastEditedSmothieName: "",
@@ -78,6 +82,9 @@ const generalSlice = createSlice({
     setIsConnectWalletModalOpen(state, action: PayloadAction<boolean>) {
       state.isConnectWalletModalOpen = action.payload;
     },
+    setIsConfirmModalOpen(state, action: PayloadAction<boolean>) {
+      state.isConfirmModalOpen = action.payload;
+    },
     setIsAddSmothieModalOpen(state, action: PayloadAction<boolean>) {
       state.isAddSmothieModalOpen = action.payload;
     },
@@ -86,6 +93,9 @@ const generalSlice = createSlice({
     },
     setLastEditedSmothieName(state, action: PayloadAction<string>) {
       state.lastEditedSmothieName = action.payload;
+    },
+    setHelpModalOpened(state, action: PayloadAction<boolean>) {
+      state.helpModalOpened = action.payload;
     },
     setUserMail(state, action: PayloadAction<string>) {
       state.userMail = action.payload;
@@ -145,5 +155,7 @@ export const {
   setLastEditedSmothieName,
   setAiButtonValue,
   setChats,
+  setIsConfirmModalOpen,
+  setHelpModalOpened,
 } = generalSlice.actions;
 export default generalSlice.reducer;

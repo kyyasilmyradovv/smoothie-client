@@ -2,10 +2,18 @@
 import { Button, Card, Grid, Image, Typography } from "antd";
 import { useEffect, useState } from "react";
 import logo1 from "../../../assets/logo.png";
+import { getUSDValue } from "../../../functions";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { setIsConfirmModalOpen } from "../../../store/general/generalSlice";
+import ConfirmModal from "../../modal/ConfirmModal";
 // import Loader from "../../Loader";
 // import { UserOutlined } from "@ant-design/icons";
 const { useBreakpoint } = Grid;
 const DelayedResponse = () => {
+  const dispatch = useAppDispatch();
+  const settedSmothies = useAppSelector(
+    (state) => state.general.settedSmothies
+  );
   const screens = useBreakpoint();
   const [showResponse, setShowResponse] = useState(false);
   const [showThinking, setShowThinking] = useState(true);
@@ -67,9 +75,16 @@ const DelayedResponse = () => {
                 width: screens.lg ? "auto" : "100%",
               }}
             >
-              You’re creating a Smoothie with 4 tokens worth of $455
+              You’re creating a Smoothie with 4 tokens worth of $
+              {Object.values(settedSmothies ?? {})
+                .map((e) => (e.value ?? 0) * (getUSDValue(e.type) ?? 1))
+                .reduce(
+                  (accumulator, currentValue) => accumulator + currentValue,
+                  0
+                )}
             </Typography.Text>
             <Button
+              onClick={() => dispatch(setIsConfirmModalOpen(true))}
               style={{
                 borderRadius: "16px",
                 background:
@@ -80,6 +95,7 @@ const DelayedResponse = () => {
             >
               Confirm the transaction
             </Button>
+            <ConfirmModal />
           </div>
         </Card>
       </div>

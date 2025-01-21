@@ -221,7 +221,7 @@ const LiveStream = () => {
                   overflow: "auto",
                 }}
               >
-                {["base", "virtuals", "ai"]?.map((e) => (
+                {["Solana", "AI", "griffain"]?.map((e) => (
                   <Tag
                     style={{
                       background:
@@ -459,7 +459,7 @@ const LiveStream = () => {
                         gap: "8px",
                       }}
                     >
-                      {["base", "virtuals", "ai", "microcaps"]?.map((e) => (
+                      {["Solana", "AI", "griffain"]?.map((e) => (
                         <Tag
                           style={{
                             background:
@@ -1575,7 +1575,7 @@ const LiveStream = () => {
                     <Tooltip
                       placement="topLeft"
                       title={
-                        "The shown total is currently a static placeholder."
+                        "The shown total is not a correct calculation based on market rates"
                       }
                     >
                       <Typography.Text

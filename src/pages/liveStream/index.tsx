@@ -46,21 +46,39 @@ import Favatar4 from "../../assets/favatar4.png";
 import IStreamer from "../../assets/Streamer.png";
 import XIcon from "../../assets/X 1.png";
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { formatPrice, getUSDValue } from "../../functions";
 import RatingTags from "../../components/RatingTags";
+import { useEffect } from "react";
+import {
+  setHelpModalOpened,
+  setIsHelpModalOpen,
+} from "../../store/general/generalSlice";
+import ReactPlayer from "react-player";
 // import { useAppSelector } from "../../store/hooks";
 // import IVolume from "../assets/volume.png";
 const { useBreakpoint } = Grid;
 const LiveStreams = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const appCustomization = useAppSelector(
     (state) => state.general.appCustomization
+  );
+  const helpModalOpened = useAppSelector(
+    (state) => state.general.helpModalOpened
   );
   const settedSmothies = useAppSelector(
     (state) => state.general.settedSmothies
   );
   const screens = useBreakpoint();
+
+  useEffect(() => {
+    if (!helpModalOpened) {
+      dispatch(setIsHelpModalOpen(true));
+      dispatch(setHelpModalOpened(true));
+      sessionStorage.setItem("helpModalOpened", "true");
+    }
+  }, []);
 
   return (
     <div>
@@ -71,6 +89,15 @@ const LiveStreams = () => {
           marginBottom: "10px",
         }}
       >
+        <Image
+          src={logo}
+          preview={false}
+          style={{
+            width: "35px",
+            height: "35px",
+            marginRight: "15px",
+          }}
+        />
         <Typography.Text
           style={{
             fontSize: "16px",
@@ -102,6 +129,7 @@ const LiveStreams = () => {
               marginRight: "5px",
             }}
           ></div>
+
           <Typography.Text
             style={{
               fontSize: "10px",
@@ -125,11 +153,11 @@ const LiveStreams = () => {
               borderRadius: "16px",
             }}
           >
-            {/* <ReactPlayer
+            <ReactPlayer
               width="100%"
               height={screens.lg ? "422px" : "auto"}
               className={styles["videoWrapper"]}
-              url={ITradeVideo}
+              url={videoSource}
               playing
               loop
               playsinline
@@ -141,8 +169,8 @@ const LiveStreams = () => {
                 height: screens.lg ? "422px" : "auto",
                 borderRadius: "16px",
               }}
-            /> */}
-            <video
+            />
+            {/* <video
               preload="auto"
               controls
               playsInline
@@ -159,7 +187,7 @@ const LiveStreams = () => {
             >
               <source src={videoSource} type="video/mp4" />
               Your browser does not support the video tag.
-            </video>
+            </video> */}
             {screens.lg && (
               <div className={styles["videoController"]}>
                 <div className={styles.blur}></div>
@@ -645,7 +673,7 @@ const LiveStreams = () => {
                         <Tooltip
                           placement="topLeft"
                           title={
-                            "The shown total is currently a static placeholder."
+                            "The shown total is not a correct calculation based on market rates"
                           }
                         >
                           <Typography.Text
@@ -724,16 +752,27 @@ const LiveStreams = () => {
           justifyContent: "space-between",
         }}
       >
-        <Typography.Text
-          style={{
-            fontSize: "16px",
-            fontWeight: "500",
-            lineHeight: "30px",
-            // color: "#FFF",
-          }}
-        >
-          Live streams
-        </Typography.Text>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Image
+            src={logo}
+            preview={false}
+            style={{
+              width: "35px",
+              height: "35px",
+              marginRight: "15px",
+            }}
+          />
+          <Typography.Text
+            style={{
+              fontSize: "16px",
+              fontWeight: "500",
+              lineHeight: "30px",
+              // color: "#FFF",
+            }}
+          >
+            Live streams
+          </Typography.Text>
+        </div>
         <Typography.Text
           style={{
             fontSize: "12px",
@@ -919,16 +958,27 @@ const LiveStreams = () => {
           justifyContent: "space-between",
         }}
       >
-        <Typography.Text
-          style={{
-            fontSize: "16px",
-            fontWeight: "500",
-            lineHeight: "30px",
-            // color: "#FFF",
-          }}
-        >
-          Finished Streams
-        </Typography.Text>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Image
+            src={logo}
+            preview={false}
+            style={{
+              width: "35px",
+              height: "35px",
+              marginRight: "15px",
+            }}
+          />
+          <Typography.Text
+            style={{
+              fontSize: "16px",
+              fontWeight: "500",
+              lineHeight: "30px",
+              // color: "#FFF",
+            }}
+          >
+            Finished Streams
+          </Typography.Text>
+        </div>
         <Typography.Text
           style={{
             fontSize: "12px",
@@ -1030,15 +1080,35 @@ const LiveStreams = () => {
                   {e.title}
                 </Typography.Text>
               </div>
-              <Typography.Text
-                type="secondary"
+              <div
                 style={{
-                  color:
-                    appCustomization.theme === "dark" ? "undefined" : "#FFF",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  gap: "5px",
                 }}
               >
-                {e.date}
-              </Typography.Text>
+                <Typography.Text
+                  type="secondary"
+                  style={{
+                    color:
+                      appCustomization.theme === "dark" ? "undefined" : "#FFF",
+                  }}
+                >
+                  {e.date}
+                </Typography.Text>
+                <Button
+                  onClick={() => navigate(`/liveStreams/1`)}
+                  style={{
+                    background: "#00C853",
+                    borderRadius: "16px",
+                    height: "20px",
+                    color: "#FFF",
+                  }}
+                >
+                  Watch
+                </Button>
+              </div>
             </div>
             <Divider style={{ margin: "15px 0" }} />
             <div
