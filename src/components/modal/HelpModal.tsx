@@ -33,7 +33,7 @@ const HelpModal: React.FC = () => {
           body: {
             height: screens.lg ? "undefined" : "530px",
             overflow: "auto",
-            padding: "20px",
+            // padding: "20px",
           },
         }}
         centered
@@ -43,7 +43,7 @@ const HelpModal: React.FC = () => {
         footer={null}
       >
         <Carousel arrows infinite={false}>
-          <div style={{ width: "80%" }}>
+          <div style={{ padding: "20px" }}>
             <Typography.Text>
               Nothing on Smoothie is a financial advice. Smoothie is a platform
               for crypto analysis, and we do not recommend to base ANY
