@@ -13,7 +13,7 @@ import {
   Typography,
 } from "antd";
 import styles from "./index.module.scss";
-import ReactPlayer from "react-player";
+// import ReactPlayer from "react-player";
 import {
   ArrowRightOutlined,
   CopyOutlined,
@@ -24,7 +24,7 @@ import {
   RightOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import ITradeVideo from "../../assets/stream-1.mp4";
+import videoSource from "../../assets/stream-1.mp4";
 // import IPouse from "../assets/pause.png";
 // import IDoc from "../../assets/Document-1-Copy.png";
 import IPlus from "../../assets/Pluse ellipse.svg";
@@ -125,13 +125,14 @@ const LiveStreams = () => {
               borderRadius: "16px",
             }}
           >
-            <ReactPlayer
+            {/* <ReactPlayer
               width="100%"
               height={screens.lg ? "422px" : "auto"}
               className={styles["videoWrapper"]}
               url={ITradeVideo}
               playing
               loop
+              playsinline
               controls
               muted
               style={{
@@ -140,7 +141,25 @@ const LiveStreams = () => {
                 height: screens.lg ? "422px" : "auto",
                 borderRadius: "16px",
               }}
-            />
+            /> */}
+            <video
+              preload="auto"
+              controls
+              playsInline
+              webkit-playsinline="true"
+              autoPlay
+              muted
+              loop
+              style={{
+                width: "100%",
+                height: screens.lg ? "422px" : "auto",
+                borderRadius: "16px",
+                objectFit: "cover",
+              }}
+            >
+              <source src={videoSource} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
             {screens.lg && (
               <div className={styles["videoController"]}>
                 <div className={styles.blur}></div>
