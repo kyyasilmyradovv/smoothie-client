@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button, Carousel, Image, List, Modal, Typography } from "antd";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setIsHelpModalOpen } from "../../store/general/generalSlice";
@@ -23,6 +23,11 @@ const HelpModal: React.FC = () => {
   const carouselRef = useRef<any>(null); // Create a reference for the Carousel
   const [currentSlide, setCurrentSlide] = useState(0); // Track current slide index
   const totalSlides = 5; // Total number of slides (update if slides change)
+
+  useEffect(() => {
+    carouselRef.current?.goTo(0);
+    setCurrentSlide(0);
+  }, [isHelpModalOpen]);
 
   const handleNext = () => {
     carouselRef.current?.next(); // Call the `next` method
