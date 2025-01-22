@@ -1,95 +1,142 @@
-import React from "react";
-import { Carousel, Grid, List, Modal, Typography } from "antd";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useRef, useState } from "react";
+import { Button, Carousel, Image, List, Modal, Typography } from "antd";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setIsHelpModalOpen } from "../../store/general/generalSlice";
 import styled from "styled-components";
+import logo from "../../assets/Smoothie logo 1.png";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+
 const { Paragraph, Text } = Typography;
 
 const StyledModal = styled(Modal)`
   .ant-modal-content {
     border-radius: 16px;
   }
-  .ant-modal-title {
-    padding-left: 20px;
-  }
 `;
-const { useBreakpoint } = Grid;
+
 const HelpModal: React.FC = () => {
-  const screens = useBreakpoint();
   const dispatch = useAppDispatch();
   const isHelpModalOpen = useAppSelector(
     (state) => state.general.isHelpModalOpen
   );
+  const carouselRef = useRef<any>(null); // Create a reference for the Carousel
+  const [currentSlide, setCurrentSlide] = useState(0); // Track current slide index
+  const totalSlides = 5; // Total number of slides (update if slides change)
+
+  const handleNext = () => {
+    carouselRef.current?.next(); // Call the `next` method
+  };
+
+  const handlePrev = () => {
+    carouselRef.current?.prev(); // Call the `prev` method
+  };
 
   const handleCancel = () => {
     dispatch(setIsHelpModalOpen(false));
   };
 
+  const onCarouselChange = (current: number) => {
+    setCurrentSlide(current); // Update the current slide index
+  };
+
   return (
     <>
       <StyledModal
-        title="How does Smoothie.fun work?"
+        title={
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <Image
+              src={logo}
+              preview={false}
+              style={{
+                width: "35px",
+                height: "35px",
+                marginRight: "7px",
+              }}
+            />
+            <Typography.Title level={4}>
+              "How does Smoothie.fun work?"
+            </Typography.Title>
+          </div>
+        }
         styles={{
           body: {
-            height: screens.lg ? "undefined" : "530px",
+            height: "auto",
             overflow: "auto",
-            // padding: "20px",
+            position: "relative",
+            padding: "0 25px",
+          },
+          header: {
+            paddingLeft: "25px",
           },
         }}
         centered
-        width={800}
+        width={500}
         open={isHelpModalOpen}
         onCancel={handleCancel}
         footer={null}
       >
-        <Carousel arrows infinite={false}>
-          <div style={{ padding: "20px" }}>
+        <Carousel
+          ref={carouselRef}
+          afterChange={onCarouselChange} // Track the current slide
+          infinite={false}
+          style={{ marginTop: "10px" }}
+        >
+          <div>
             <Typography.Text>
-              Nothing on Smoothie is a financial advice. Smoothie is a platform
-              for crypto analysis, and we do not recommend to base ANY
-              investment decisions based on the analysis on Smoothie.
+              <Text strong>DISCLAIMER:</Text> Nothing on Smoothie is financial
+              advice. ALWAYS do your own research. Smoothie is a platform for
+              crypto analyses, and we do not recommend to base ANY investment
+              decisions based on the analyses done on Smoothie platform. Any
+              opinions of analysts are solely their own opinions and DO NOT
+              constitute financial advice.
             </Typography.Text>
           </div>
           <div>
             <Typography.Text>
               <Paragraph>
                 <Text strong>Smoothie.fun</Text> is a streaming platform for
-                crypto analysts.
-              </Paragraph>{" "}
-              <Paragraph>
-                Verified analysts can create streams, analyse projects, and add
-                a rating to each project.
-              </Paragraph>{" "}
+                crypto analysts. Verified analysts can do live streams, create
+                written analyses, add a rating to each project, mark entries,
+                and add target FDVs for exits.
+              </Paragraph>
               <Paragraph>
                 Users (watchers of the stream) can create “Coin Smoothies” or
-                “Moonbags” or simply “portfolios” based on those analyses by
-                using a simple prompt.
-              </Paragraph>{" "}
-              <Paragraph>
-                Users can track the performance of the streamers and the Coin
-                Smoothies they create on the Smoothie platform.<br></br>
-                <Text>
-                  In addition, users can add thesis/comments and import the TLDR
-                  of the streamer analysis to each Smoothie they create and as a
-                  result have a better overview of the reasons why they created
-                  the particular Smoothie.
-                  <br></br> <br></br>Users will get notifications once the
-                  target FDVs are hit (set by the analyst) and can automate
-                  exits based on those targets.
-                </Text>
+                “Smoothfolios” based on those analyses by using Smoothie AI
+                automating both entries and exits based on analyst targets.
               </Paragraph>
             </Typography.Text>
           </div>
           <div>
-            <Text>Our goal is to:</Text>
+            <Typography.Text>
+              <Paragraph>
+                Users can track the performance of the streamers, both for
+                specific analysis and overall performance.{" "}
+              </Paragraph>
+              <Paragraph>
+                In addition, users can add thesis/comments and import the TLDR
+                of the streamer analysis to each Smoothie they create and as a
+                result have a better overview of the reasons why they created
+                the particular Smoothie.
+              </Paragraph>
+              <Paragraph>
+                Users will get notifications once the target FDVs are hit (set
+                by the analyst) and can automate exits based on those targets.
+              </Paragraph>
+            </Typography.Text>
+          </div>
+          <div>
+            <Text>To recap, our goal is to:</Text>
             <List
               style={{ marginTop: "10px" }}
               split={false}
               dataSource={[
                 "a) simplify the creation of portfolios",
                 "b) simplify tracking specific portfolios",
-                "c) enable tracking the performance of analysts, and",
-                "d) give tools to streamers to monetise their work. ",
+                "c) enable adding context to investment decisions",
+                "d) simplify exiting from positions",
+                "e) enable tracking the performance of analysts, and",
+                "f) give tools to analysts to monetise their work.",
               ]}
               renderItem={(item) => (
                 <List.Item style={{ padding: "0" }}>
@@ -118,6 +165,30 @@ const HelpModal: React.FC = () => {
             </Paragraph>
           </div>
         </Carousel>
+        <div
+          style={{
+            // position: "absolute",
+            top: "40%",
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Button
+            disabled={!(currentSlide > 0)}
+            type="primary"
+            onClick={handlePrev}
+            icon={<LeftOutlined />}
+          />
+          {/* Hide "Next" button on the last slide */}
+
+          <Button
+            disabled={!(currentSlide < totalSlides - 1)}
+            type="primary"
+            onClick={handleNext}
+            icon={<RightOutlined />}
+          />
+        </div>
       </StyledModal>
     </>
   );
