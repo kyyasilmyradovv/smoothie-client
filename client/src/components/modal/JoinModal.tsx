@@ -8,14 +8,15 @@ import {
   message,
   Row,
   Col,
+  Image,
 } from "antd";
 import { CheckCircleFilled } from "@ant-design/icons";
 import axios from "axios";
 import { styled } from "styled-components";
+import logo from "../../assets/logo.png";
 
 /**
- * Example of styling your modal similarly to "AddSmothieModal"
- * (rounded corners, padding, etc.)
+ * Styled modal with round corners and padding
  */
 const StyledModal = styled(Modal)`
   .ant-modal-content {
@@ -37,14 +38,14 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
   const [hasWalletConnected, setHasWalletConnected] = useState(false);
   const [hasReferralApplied, setHasReferralApplied] = useState(false);
 
-  // For the “referral stats”:
+  // “Referral stats” sub‐modal & data
   const [isReferralModalOpen, setIsReferralModalOpen] = useState(false);
-  const [userData, setUserData] = useState<any>(null); // the DB record
+  const [userData, setUserData] = useState<any>(null);
   const [myReferralCode, setMyReferralCode] = useState("");
   const [successfulReferrals, setSuccessfulReferrals] = useState(0);
   const [rank, setRank] = useState<number | null>(null);
 
-  // For user input of email and referral code
+  // User inputs
   const [email, setEmail] = useState("");
   const [referralCode, setReferralCode] = useState("");
 
@@ -60,15 +61,16 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
 
   const fetchUserData = async () => {
     try {
-      // Adjust to your actual server port/URL
+      // Adjust to your own server route/port
       const res = await axios.get("http://localhost:4004/api/user", {
         withCredentials: true,
       });
       const user = res.data;
       setUserData(user);
       if (user.referralCode) setMyReferralCode(user.referralCode);
-      if (typeof user.referralCount === "number")
+      if (typeof user.referralCount === "number") {
         setSuccessfulReferrals(user.referralCount);
+      }
       if (typeof user.rank === "number") setRank(user.rank);
     } catch (err) {
       console.error(err);
@@ -76,7 +78,7 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  // 1) Insert email waitlist
+  /** 1) Insert email waitlist */
   const handleJoinWaitlist = async () => {
     if (!email) {
       message.error("Please provide an email");
@@ -95,16 +97,14 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  // 2) X Auth
+  /** 2) X Auth */
   const handleSignInWithX = () => {
-    // Trigger your server route for Twitter OAuth
     window.location.href = "http://localhost:4004/auth/twitter";
   };
 
-  // 3) Follow on X
+  /** 3) Follow on X */
   const handleFollowOnX = () => {
     window.open("https://x.com/smoothiedotfun", "_blank");
-    // Optionally notify server
     axios.post(
       "http://localhost:4004/api/follow",
       {},
@@ -114,15 +114,14 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
     message.success("Thank you for following us on X!");
   };
 
-  // 4) Connect wallet
+  /** 4) Connect wallet */
   const handleConnectWallet = () => {
-    // If you have an existing ConnectWalletModal or logic, you can trigger it
-    // For demonstration we just mark it done
+    // If you have an existing ConnectWalletModal or logic, open it here
     setHasWalletConnected(true);
     message.success("Wallet connected (simulated).");
   };
 
-  // 5) Enter referral code
+  /** 5) Enter referral code */
   const handleApplyReferral = async () => {
     if (!referralCode) {
       message.error("Please enter a referral code");
@@ -136,30 +135,25 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
       );
       setHasReferralApplied(true);
       message.success("Referral code applied!");
-      // Possibly refetch to see updated referral counts
-      fetchUserData();
+      fetchUserData(); // refresh stats
     } catch (err) {
       console.error(err);
       message.error("Invalid referral code or error applying it.");
     }
   };
 
-  // “View referral stats” – open a second sub‐modal
+  /** View referral stats in sub‐modal */
   const openReferralModal = () => {
     if (!hasXAuthenticated) {
       message.warning("You must authenticate with X first.");
       return;
     }
-    // If we don’t yet have user data, fetch it
     if (!userData) fetchUserData();
     setIsReferralModalOpen(true);
   };
+  const closeReferralModal = () => setIsReferralModalOpen(false);
 
-  const closeReferralModal = () => {
-    setIsReferralModalOpen(false);
-  };
-
-  // “Tweet referral”
+  /** Tweet referral */
   const handleTweetReferral = () => {
     const tweetText = encodeURIComponent(
       `Check out Smoothie! My referral code is ${myReferralCode} #smoothiefun`
@@ -167,15 +161,36 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
     window.open(`https://twitter.com/intent/tweet?text=${tweetText}`, "_blank");
   };
 
-  // 6) Complete
+  /** 6) Complete */
   const handleComplete = () => {
-    // If you only want to allow "complete" if all tasks are done, check here:
-    // const allDone = hasJoinedWaitlist && hasXAuthenticated && hasFollowed && hasWalletConnected && hasReferralApplied;
-    // If you want to enforce that, you can conditionally allow them to close.
     onClose();
   };
 
-  // Helper to render a row with a label, whether it’s done, and an action button if not done
+  /**
+   * Here's the key style object for a *rounded gradient border*:
+   * We use a two-layer background:
+   *   1) The first layer (padding-box) can be black, white, or transparent
+   *   2) The second layer (border-box) is the gradient
+   */
+  const gradientButtonStyle: React.CSSProperties = {
+    border: "2px solid transparent",
+    borderRadius: "9999px",
+    // This sets up two backgrounds:
+    // 1. Solid or transparent for the inside,
+    // 2. The gradient for the border area.
+    background:
+      "linear-gradient(#1D1D1D, #1D1D1D) padding-box," + // inside color
+      "linear-gradient(91deg, #F09819, #FF512F) border-box",
+    backgroundClip: "padding-box, border-box",
+    color: "#FFFFFF",
+    padding: "6px 16px",
+    cursor: "pointer",
+    width: 80,
+  };
+
+  /**
+   * Helper to render each task row: a label, check if done, or an action button
+   */
   const TaskRow = ({
     title,
     isDone,
@@ -196,25 +211,36 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
       style={{
         marginBottom: 16,
         width: "100%",
-        alignItems: "center",
-        justifyContent: "space-between",
+        alignItems: "stretch", // Ensures all columns are of equal height
       }}
     >
       <Col flex="auto">
-        <Typography.Text style={{ fontSize: 16, fontWeight: 500 }}>
-          {title}
-        </Typography.Text>
-        {children ? <div style={{ marginTop: 8 }}>{children}</div> : null}
+        <div
+          style={{ height: "100%", display: "flex", flexDirection: "column" }}
+        >
+          <Typography.Text style={{ fontSize: 16, fontWeight: 500 }}>
+            {title}
+          </Typography.Text>
+          {children && (
+            <div style={{ marginTop: 8, flexGrow: 1 }}>{children}</div>
+          )}
+        </div>
       </Col>
-      <Col>
+      <Col
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-end", // Pushes the button to the bottom of the column
+          alignItems: "center", // Centers the button horizontally
+        }}
+      >
         {isDone ? (
           <CheckCircleFilled style={{ color: "#00C853", fontSize: 20 }} />
         ) : onAction ? (
           <Button
-            type="primary"
             onClick={onAction}
             disabled={disabled}
-            style={{ borderRadius: 8 }}
+            style={gradientButtonStyle}
           >
             {actionLabel || "Do it"}
           </Button>
@@ -234,6 +260,15 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
         centered
       >
         <div style={{ textAlign: "center", marginBottom: 16 }}>
+          <Image
+            src={logo}
+            preview={false}
+            style={{
+              width: "45px",
+              height: "45px",
+              marginBottom: 8,
+            }}
+          />
           <Typography.Title level={3}>Join Smoothie</Typography.Title>
           <Typography.Text>
             Complete the tasks below to join our waitlist & referral program.
@@ -260,7 +295,7 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
 
         {/* Task 2: X Auth */}
         <TaskRow
-          title="2. Authenticate with X (Twitter)"
+          title="2. Authenticate with X"
           isDone={hasXAuthenticated}
           onAction={handleSignInWithX}
           actionLabel="Sign in"
@@ -269,9 +304,9 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
         {/* Button to see referral stats, only if X Auth is done */}
         {hasXAuthenticated && (
           <Row style={{ marginBottom: 16, justifyContent: "flex-end" }}>
-            <Button style={{ borderRadius: 8 }} onClick={openReferralModal}>
+            <button style={gradientButtonStyle} onClick={openReferralModal}>
               View referral stats
-            </Button>
+            </button>
           </Row>
         )}
 
@@ -311,11 +346,10 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
         <Divider />
         {/* Task 6: Complete (close) */}
         <Button
-          type="primary"
           size="large"
           style={{
             width: "100%",
-            borderRadius: 8,
+            borderRadius: 9999,
             background: "linear-gradient(91deg, #F09819 0.44%, #FF512F 99.74%)",
             color: "#FFFFFF",
           }}
@@ -339,33 +373,28 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
         <Divider />
         <div style={{ textAlign: "center", marginBottom: 16 }}>
           <Typography.Paragraph>
-            <strong>Referral Code: </strong> {myReferralCode || "N/A"}
+            <strong>Referral Code: </strong>
+            {myReferralCode || "N/A"}
           </Typography.Paragraph>
           <Typography.Paragraph>
-            <strong>Successful Referrals: </strong> {successfulReferrals}
+            <strong>Successful Referrals: </strong>
+            {successfulReferrals}
           </Typography.Paragraph>
           <Typography.Paragraph>
-            <strong>Your Rank: </strong> {rank ?? "N/A"}
+            <strong>Your Rank: </strong>
+            {rank ?? "N/A"}
           </Typography.Paragraph>
         </div>
         <Row justify="center" style={{ marginBottom: 24 }}>
-          <Button
-            style={{
-              marginRight: "0.5rem",
-              borderRadius: 8,
-            }}
+          <button
+            style={{ ...gradientButtonStyle, marginRight: "0.5rem" }}
             onClick={handleTweetReferral}
           >
             Tweet referral
-          </Button>
-          <Button
-            style={{
-              borderRadius: 8,
-            }}
-            onClick={closeReferralModal}
-          >
+          </button>
+          <button style={gradientButtonStyle} onClick={closeReferralModal}>
             Back to tasks
-          </Button>
+          </button>
         </Row>
       </StyledModal>
     </>

@@ -6,8 +6,10 @@ import {
   ExclamationCircleOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+
 import ISearch from "../../assets/Magnifier.png";
 import WISearch from "../../assets/WMagnifier.png";
+
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   setIsConnectWalletModalOpen,
@@ -18,9 +20,7 @@ import {
 import Switch from "../Switch";
 import HelpModal from "../modal/HelpModal";
 import ConnectWalletModal from "../modal/ConnectWalletModal";
-import JoinModal from "../modal/JoinModal"; // <== NEW modal
-
-// ... other imports (ISearch, WISearch, etc.)
+import JoinModal from "../modal/JoinModal"; // The updated version above
 
 const { useBreakpoint } = Grid;
 
@@ -32,11 +32,10 @@ const Navbar = () => {
   const userMail = useAppSelector((state) => state.general.userMail);
   const screens = useBreakpoint();
 
-  // new local state to show/hide the "Join" flow
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
 
-  // Based on if we have a userMail or a user from store, we can decide which button to show
-  const isUserLoggedIn = !!userMail; // or use your own logic
+  // If userMail is set, we consider them "logged in"
+  const isUserLoggedIn = !!userMail;
 
   return (
     <div>
@@ -163,10 +162,7 @@ const Navbar = () => {
                   "linear-gradient(0deg, #f00 -52.7%, #f5af19 191.82%)",
                 color: "#FFFFFF",
               }}
-              onClick={() => {
-                // Instead of opening connect wallet, we open the Join flow
-                setIsJoinModalOpen(true);
-              }}
+              onClick={() => setIsJoinModalOpen(true)}
             >
               Join now
             </Button>
@@ -188,8 +184,12 @@ const Navbar = () => {
           )}
         </div>
       </div>
+
+      {/* Existing modals */}
       <HelpModal />
       <ConnectWalletModal />
+
+      {/* Our new “Join” flow */}
       <JoinModal
         isOpen={isJoinModalOpen}
         onClose={() => setIsJoinModalOpen(false)}
