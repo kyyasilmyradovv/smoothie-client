@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Avatar,
@@ -45,11 +46,15 @@ import {
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   setAddSmothieName,
+  setChats,
   setIsAddSmothieModalOpen,
+  setLastEditedSmothieName,
+  setSettedSmothies,
 } from "../../store/general/generalSlice";
 import { formatPrice, getUSDValue } from "../../functions";
 import RatingTags from "../../components/RatingTags";
 import AiChat from "../../components/AiChat/AiChat";
+import { useEffect } from "react";
 const { useBreakpoint } = Grid;
 const LiveStream = () => {
   const dispatch = useAppDispatch();
@@ -60,6 +65,12 @@ const LiveStream = () => {
   const settedSmothies = useAppSelector(
     (state) => state.general.settedSmothies
   );
+
+  useEffect(() => {
+    dispatch(setChats([]));
+    dispatch(setSettedSmothies({}));
+    dispatch(setLastEditedSmothieName(""));
+  }, []);
 
   return (
     <div>
