@@ -27,7 +27,7 @@ const App: FC = () => {
         : [theme.defaultAlgorithm],
     token: {
       colorPrimary: appCustomization.primaryColor,
-      borderRadius: appCustomization.borderRadius,
+      borderRadius: 16,
       fontFamily: "Poppins, sans-serif",
       fontSize: appCustomization.fontSize,
       colorBgContainer: "inherit",
