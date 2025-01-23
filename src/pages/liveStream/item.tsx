@@ -34,7 +34,7 @@ import {
   CopyOutlined,
   DislikeOutlined,
   DownOutlined,
-  ExclamationCircleOutlined,
+  QuestionCircleOutlined,
   EyeOutlined,
   HeartFilled,
   HeartOutlined,
@@ -630,7 +630,7 @@ const LiveStream = () => {
                               }}
                             >
                               Ticker
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -791,7 +791,7 @@ const LiveStream = () => {
                               }}
                             >
                               CA
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -863,7 +863,7 @@ const LiveStream = () => {
                               }}
                             >
                               Rating
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -902,7 +902,7 @@ const LiveStream = () => {
                               }}
                             >
                               FDV
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -952,7 +952,7 @@ const LiveStream = () => {
                               }}
                             >
                               Target FDV
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -1108,7 +1108,7 @@ const LiveStream = () => {
                               }}
                             >
                               Ticker
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -1270,7 +1270,7 @@ const LiveStream = () => {
                               }}
                             >
                               Rating
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -1418,7 +1418,7 @@ const LiveStream = () => {
                               }}
                             >
                               FDV
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -1468,7 +1468,7 @@ const LiveStream = () => {
                               }}
                             >
                               Target FDV
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -1518,7 +1518,7 @@ const LiveStream = () => {
                               }}
                             >
                               CA
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -1608,7 +1608,7 @@ const LiveStream = () => {
                               accumulator + currentValue,
                             0
                           )}
-                        <ExclamationCircleOutlined />
+                        <QuestionCircleOutlined />
                       </Typography.Text>
                     </Tooltip>
                   ) : (

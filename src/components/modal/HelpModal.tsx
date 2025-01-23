@@ -100,29 +100,30 @@ const HelpModal: React.FC = () => {
           <div>
             <Typography.Text>
               <Paragraph>
-                <Text strong>Smoothie.fun</Text> is a streaming platform for
-                crypto analysts. Verified analysts can do live streams, create
-                written analyses, add a rating to each project, mark entries,
-                and add target FDVs for exits.
+                <Text strong>Smoothie.fun</Text> is a platform for premium
+                crypto analyses and performance tracking. Verified analysts and
+                AI Agents can do live streams, create written analyses, add a
+                rating to each project, mark entries, and add target FDVs for
+                exits.
               </Paragraph>
               <Paragraph>
-                Users (watchers of the stream) can create “Coin Smoothies” or
-                “Smoothfolios” based on those analyses by using Smoothie AI
-                automating both entries and exits based on analyst targets.
+                Users can compare analysts based on performance and create "Coin
+                Smoothies" or "Smoothfolios" using Smoothie AI automating both
+                entries and exits based on analysts targets.
               </Paragraph>
             </Typography.Text>
           </div>
           <div>
             <Typography.Text>
               <Paragraph>
-                Users can track the performance of the streamers, both for
+                Users can track the performance of the analysts, both for
                 specific analysis and overall performance.{" "}
               </Paragraph>
               <Paragraph>
                 In addition, users can add thesis/comments and import the TLDR
-                of the streamer analysis to each Smoothie they create and as a
-                result have a better overview of the reasons why they created
-                the particular Smoothie.
+                of the analysis to each Smoothie they create and as a result
+                have a better overview of the reasons why they created the
+                particular Smoothie.
               </Paragraph>
               <Paragraph>
                 Users will get notifications once the target FDVs are hit (set
@@ -141,7 +142,7 @@ const HelpModal: React.FC = () => {
                 "c) enable adding context to investment decisions",
                 "d) simplify exiting from positions",
                 "e) enable tracking the performance of analysts, and",
-                "f) give tools to analysts to monetise their work.",
+                `f     ) give tools to analysts to monetise their work.`,
               ]}
               renderItem={(item) => (
                 <List.Item style={{ padding: "0" }}>

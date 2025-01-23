@@ -26,7 +26,7 @@ import ConnectWalletModal from "../modal/ConnectWalletModal";
 import {
   BarsOutlined,
   BellOutlined,
-  ExclamationCircleOutlined,
+  QuestionCircleOutlined,
   UserOutlined,
   // MoonOutlined,
   // SunOutlined,
@@ -139,7 +139,7 @@ const Navbar = () => {
               >
                 How it works
               </Typography.Text>
-              <ExclamationCircleOutlined />
+              <QuestionCircleOutlined />
               {/* <ExclamationCircleFilled style={{ fontSize: "14px" }} /> */}
             </Button>
           )}
