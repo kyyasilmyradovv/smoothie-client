@@ -5,7 +5,7 @@ const {
   twitterOAuth2Callback,
 } = require('../controllers/authController');
 
-router.get('/twitter/start', twitterOAuth2Start);
-router.get('/twitter/callback', twitterOAuth2Callback);
+router.get('/auth/twitter/start', twitterOAuth2Start);
+router.get('/auth/twitter/callback', twitterOAuth2Callback);
 
 module.exports = router;

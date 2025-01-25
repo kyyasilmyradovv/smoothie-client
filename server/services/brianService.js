@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 const BRIAN_API_URL = 'https://api.brianknows.org/api/v0/agent';
-const BRIAN_API_KEY = 'brian_zSyJc5hFxdckZ0Sms';
+const BRIAN_API_KEY = 'brian_D7FzZdWEsB3N8sges';
 
 const brianService = {
   /**

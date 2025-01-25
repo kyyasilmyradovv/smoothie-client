@@ -8,13 +8,13 @@ import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 
 const queryClient = new QueryClient();
 
-const projectId = "17bbc8fa6e10cf054c0ef2783278a12f";
+const projectId = "ad0c097d3dcf6119eae95425e517c01a";
 
 const metadata = {
   name: "Smoothie.fun",
   description: "Smoothie.fun is a streaming platform for crypto analysts.",
-  url: "https://smoothie.fun",
-  icons: ["https://smoothie.fun/favicon.ico"],
+  url: "https://subscribes.lt",
+  icons: ["https://subscribes.lt/favicon.ico"],
 };
 
 const networks: [AppKitNetwork, ...AppKitNetwork[]] = [mainnet, arbitrum];

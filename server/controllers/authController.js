@@ -25,7 +25,7 @@ exports.twitterOAuth2Start = async (req, res, next) => {
 
     const stateToken = jwt.sign(payload, JWT_SECRET, { expiresIn: '365d' });
 
-    const callbackURL = `${process.env.BACKEND_URL}/auth/twitter/callback`;
+    const callbackURL = `${process.env.BACKEND_URL}/api/auth/twitter/callback`;
 
     console.log(
       'Redirecting user to x.com with codeChallenge + callback:',
@@ -72,7 +72,7 @@ exports.twitterOAuth2Callback = async (req, res, next) => {
       return next(createError(400, 'Missing codeVerifier in state payload'));
     }
 
-    const callbackURL = `${process.env.BACKEND_URL}/auth/twitter/callback`;
+    const callbackURL = `${process.env.BACKEND_URL}/api/auth/twitter/callback`;
     const tokenUrl = 'https://api.twitter.com/2/oauth2/token';
     console.log('Exchanging code for tokens at tokenUrl:', tokenUrl);
 

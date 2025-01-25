@@ -3,7 +3,7 @@ import { mainnet, arbitrum, sepolia } from "@reown/appkit/networks";
 import type { AppKitNetwork } from "@reown/appkit/networks";
 
 export const projectId =
-  process.env.VITE_PUBLIC_PROJECT_ID || "b56e18d47c72ab683b10814fe9495694";
+  process.env.VITE_PUBLIC_PROJECT_ID || "ad0c097d3dcf6119eae95425e517c01a";
 
 if (!projectId) {
   throw new Error("Project ID is not defined");
@@ -12,8 +12,8 @@ if (!projectId) {
 export const metadata = {
   name: "Smoothie.fun",
   description: "Smoothie.fun is a streaming platform for crypto analysts.",
-  url: "https://smoothie.fun",
-  icons: ["https://smoothie.fun/favicon.ico"],
+  url: "https://subscribes.lt",
+  icons: ["https://subscribes.lt/favicon.ico"],
 };
 
 export const networks = [mainnet, arbitrum, sepolia] as [

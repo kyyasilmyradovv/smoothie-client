@@ -90,7 +90,7 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
         throw new Error("No accessToken in localStorage");
       }
 
-      const res = await axios.get("https://smoothie.fun/api/user", {
+      const res = await axios.get("https://subscribes.lt/api/user", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -115,7 +115,7 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
       return;
     }
     try {
-      const res = await axios.post("https://smoothie.fun/api/join", { email });
+      const res = await axios.post("https://subscribes.lt/api/join", { email });
       const user = res.data.user;
 
       if (user.referralCode) {
@@ -130,13 +130,13 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
   };
 
   const handleSignInWithX = () => {
-    window.location.href = "https://smoothie.fun/auth/twitter/start";
+    window.location.href = "https://subscribes.lt/api/auth/twitter/start";
   };
 
   const handleFollowOnX = () => {
     window.open("https://x.com/smoothiedotfun", "_blank");
     axios.post(
-      "https://smoothie.fun/api/follow",
+      "https://subscribes.lt/api/follow",
       {},
       { withCredentials: true }
     );
@@ -162,7 +162,7 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
       }
 
       await axios.post(
-        "https://smoothie.fun/api/referral",
+        "https://subscribes.lt/api/referral",
         { referralCode },
         {
           headers: {

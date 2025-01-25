@@ -24,7 +24,7 @@ app.use(
   })
 );
 
-app.use('/auth', authRoutes);
+app.use('/api', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api', referralRoutes);
 app.use('/api', chatRoutes);
