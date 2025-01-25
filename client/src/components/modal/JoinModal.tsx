@@ -1,3 +1,4 @@
+// client/src/components/modal/JoinModal.tsx
 import React, { useState, useEffect } from "react";
 import {
   Modal,
@@ -6,8 +7,6 @@ import {
   Typography,
   Divider,
   message,
-  Row,
-  Col,
   Image,
 } from "antd";
 import { CheckCircleFilled } from "@ant-design/icons";
@@ -15,9 +14,6 @@ import axios from "axios";
 import { styled } from "styled-components";
 import logo from "../../assets/logo.png";
 
-/**
- * Styled modal with round corners and padding
- */
 const StyledModal = styled(Modal)`
   .ant-modal-content {
     border-radius: 16px;
@@ -31,37 +27,64 @@ type JoinModalProps = {
 };
 
 const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
-  // Track “which tasks are done?”
+  // 1) Task states
   const [hasJoinedWaitlist, setHasJoinedWaitlist] = useState(false);
   const [hasXAuthenticated, setHasXAuthenticated] = useState(false);
   const [hasFollowed, setHasFollowed] = useState(false);
   const [hasWalletConnected, setHasWalletConnected] = useState(false);
   const [hasReferralApplied, setHasReferralApplied] = useState(false);
 
-  // “Referral stats” sub‐modal & data
-  const [isReferralModalOpen, setIsReferralModalOpen] = useState(false);
+  // 2) App data from user
   const [userData, setUserData] = useState<any>(null);
   const [myReferralCode, setMyReferralCode] = useState("");
   const [successfulReferrals, setSuccessfulReferrals] = useState(0);
   const [rank, setRank] = useState<number | null>(null);
 
-  // User inputs
+  // 3) Input fields
   const [email, setEmail] = useState("");
   const [referralCode, setReferralCode] = useState("");
 
   useEffect(() => {
-    // If we detect ?loggedIn=true, user has come back from X
-    const queryParams = new URLSearchParams(window.location.search);
-    const loggedIn = queryParams.get("loggedIn");
-    if (loggedIn) {
-      setHasXAuthenticated(true);
+    // A) Load tasks from localStorage
+    const localHasJoinedWaitlist = localStorage.getItem("hasJoinedWaitlist");
+    if (localHasJoinedWaitlist === "true") setHasJoinedWaitlist(true);
+
+    const localHasXAuthenticated = localStorage.getItem("hasXAuthenticated");
+    if (localHasXAuthenticated === "true") setHasXAuthenticated(true);
+
+    const localHasFollowed = localStorage.getItem("hasFollowed");
+    if (localHasFollowed === "true") setHasFollowed(true);
+
+    const localHasWalletConnected = localStorage.getItem("hasWalletConnected");
+    if (localHasWalletConnected === "true") setHasWalletConnected(true);
+
+    const localHasReferralApplied = localStorage.getItem("hasReferralApplied");
+    if (localHasReferralApplied === "true") setHasReferralApplied(true);
+
+    // B) If hasXAuthenticated is true, we can fetch user data
+    if (localHasXAuthenticated === "true") {
       fetchUserData();
     }
   }, []);
 
+  useEffect(() => {
+    // Save tasks changes to localStorage
+    localStorage.setItem("hasJoinedWaitlist", hasJoinedWaitlist.toString());
+    localStorage.setItem("hasXAuthenticated", hasXAuthenticated.toString());
+    localStorage.setItem("hasFollowed", hasFollowed.toString());
+    localStorage.setItem("hasWalletConnected", hasWalletConnected.toString());
+    localStorage.setItem("hasReferralApplied", hasReferralApplied.toString());
+  }, [
+    hasJoinedWaitlist,
+    hasXAuthenticated,
+    hasFollowed,
+    hasWalletConnected,
+    hasReferralApplied,
+  ]);
+
+  // fetch user data from the server (session-based)
   const fetchUserData = async () => {
     try {
-      // Adjust to your own server route/port
       const res = await axios.get("http://localhost:4004/api/user", {
         withCredentials: true,
       });
@@ -78,7 +101,7 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  /** 1) Insert email waitlist */
+  // Task Handlers
   const handleJoinWaitlist = async () => {
     if (!email) {
       message.error("Please provide an email");
@@ -97,12 +120,11 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  /** 2) X Auth */
   const handleSignInWithX = () => {
-    window.location.href = "http://localhost:4004/auth/twitter";
+    // Start Twitter OAuth flow
+    window.location.href = "http://localhost:4004/auth/twitter/start";
   };
 
-  /** 3) Follow on X */
   const handleFollowOnX = () => {
     window.open("https://x.com/smoothiedotfun", "_blank");
     axios.post(
@@ -114,15 +136,16 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
     message.success("Thank you for following us on X!");
   };
 
-  /** 4) Connect wallet */
   const handleConnectWallet = () => {
-    // If you have an existing ConnectWalletModal or logic, open it here
     setHasWalletConnected(true);
     message.success("Wallet connected (simulated).");
   };
 
-  /** 5) Enter referral code */
   const handleApplyReferral = async () => {
+    if (!hasXAuthenticated) {
+      message.error("Please sign in with X first!");
+      return;
+    }
     if (!referralCode) {
       message.error("Please enter a referral code");
       return;
@@ -135,25 +158,13 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
       );
       setHasReferralApplied(true);
       message.success("Referral code applied!");
-      fetchUserData(); // refresh stats
+      fetchUserData();
     } catch (err) {
       console.error(err);
       message.error("Invalid referral code or error applying it.");
     }
   };
 
-  /** View referral stats in sub‐modal */
-  const openReferralModal = () => {
-    if (!hasXAuthenticated) {
-      message.warning("You must authenticate with X first.");
-      return;
-    }
-    if (!userData) fetchUserData();
-    setIsReferralModalOpen(true);
-  };
-  const closeReferralModal = () => setIsReferralModalOpen(false);
-
-  /** Tweet referral */
   const handleTweetReferral = () => {
     const tweetText = encodeURIComponent(
       `Check out Smoothie! My referral code is ${myReferralCode} #smoothiefun`
@@ -161,243 +172,243 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
     window.open(`https://twitter.com/intent/tweet?text=${tweetText}`, "_blank");
   };
 
-  /** 6) Complete */
   const handleComplete = () => {
     onClose();
   };
 
-  /**
-   * Here's the key style object for a *rounded gradient border*:
-   * We use a two-layer background:
-   *   1) The first layer (padding-box) can be black, white, or transparent
-   *   2) The second layer (border-box) is the gradient
-   */
+  // Helper to show a check mark or the button
+  function InlineAction({
+    done,
+    children,
+  }: {
+    done: boolean;
+    children: React.ReactNode;
+  }) {
+    return (
+      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        {done ? (
+          <CheckCircleFilled style={{ color: "#00C853", fontSize: 20 }} />
+        ) : (
+          children
+        )}
+      </div>
+    );
+  }
+
+  // Rendering tasks
   const gradientButtonStyle: React.CSSProperties = {
     border: "2px solid transparent",
     borderRadius: "9999px",
-    // This sets up two backgrounds:
-    // 1. Solid or transparent for the inside,
-    // 2. The gradient for the border area.
     background:
-      "linear-gradient(#1D1D1D, #1D1D1D) padding-box," + // inside color
+      "linear-gradient(#1D1D1D, #1D1D1D) padding-box," +
       "linear-gradient(91deg, #F09819, #FF512F) border-box",
     backgroundClip: "padding-box, border-box",
     color: "#FFFFFF",
     padding: "6px 16px",
     cursor: "pointer",
-    width: 80,
+    width: 90,
   };
 
-  /**
-   * Helper to render each task row: a label, check if done, or an action button
-   */
-  const TaskRow = ({
-    title,
-    isDone,
-    onAction,
-    actionLabel,
-    children,
-    disabled,
-  }: {
-    title: string;
-    isDone: boolean;
-    onAction?: () => void;
-    actionLabel?: string;
-    children?: React.ReactNode;
-    disabled?: boolean;
-  }) => (
-    <Row
-      gutter={12}
-      style={{
-        marginBottom: 16,
-        width: "100%",
-        alignItems: "stretch", // Ensures all columns are of equal height
-      }}
-    >
-      <Col flex="auto">
-        <div
-          style={{ height: "100%", display: "flex", flexDirection: "column" }}
-        >
-          <Typography.Text style={{ fontSize: 16, fontWeight: 500 }}>
-            {title}
-          </Typography.Text>
-          {children && (
-            <div style={{ marginTop: 8, flexGrow: 1 }}>{children}</div>
-          )}
-        </div>
-      </Col>
-      <Col
+  const gradientButtonStyleLarge: React.CSSProperties = {
+    ...gradientButtonStyle,
+    marginTop: 8,
+    width: 200,
+  };
+
+  const renderWaitlistTask = () => (
+    <div style={{ marginBottom: 24 }}>
+      <div
         style={{
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end", // Pushes the button to the bottom of the column
-          alignItems: "center", // Centers the button horizontally
+          justifyContent: "space-between",
+          alignItems: "flex-end",
         }}
       >
-        {isDone ? (
-          <CheckCircleFilled style={{ color: "#00C853", fontSize: 20 }} />
-        ) : onAction ? (
-          <Button
-            onClick={onAction}
-            disabled={disabled}
-            style={gradientButtonStyle}
-          >
-            {actionLabel || "Do it"}
+        <Typography.Text style={{ fontSize: 16, fontWeight: 500 }}>
+          1. Join waitlist with your email
+        </Typography.Text>
+        <InlineAction done={hasJoinedWaitlist}>
+          <Button onClick={handleJoinWaitlist} style={gradientButtonStyle}>
+            Join
           </Button>
-        ) : null}
-      </Col>
-    </Row>
+        </InlineAction>
+      </div>
+      {!hasJoinedWaitlist && (
+        <div style={{ marginTop: 8 }}>
+          <Input
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            style={{ maxWidth: 300 }}
+          />
+        </div>
+      )}
+    </div>
+  );
+
+  const renderXAuthTask = () => (
+    <div style={{ marginBottom: 24 }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+        }}
+      >
+        <Typography.Text style={{ fontSize: 16, fontWeight: 500 }}>
+          2. Authenticate with X
+        </Typography.Text>
+        <InlineAction done={hasXAuthenticated}>
+          <Button onClick={handleSignInWithX} style={gradientButtonStyle}>
+            Sign in
+          </Button>
+        </InlineAction>
+      </div>
+
+      {hasXAuthenticated && (
+        <div
+          style={{
+            marginTop: 8,
+            border: "1px solid #505050",
+            borderRadius: 8,
+            padding: 12,
+          }}
+        >
+          <Typography.Text style={{ display: "block", fontWeight: 500 }}>
+            Referral Code: {myReferralCode || "N/A"}
+          </Typography.Text>
+          <Typography.Text style={{ display: "block", fontWeight: 500 }}>
+            Successful Referrals: {successfulReferrals}
+          </Typography.Text>
+          <Typography.Text style={{ display: "block", fontWeight: 500 }}>
+            Your Rank: {rank ?? "N/A"}
+          </Typography.Text>
+          <Button
+            onClick={handleTweetReferral}
+            style={gradientButtonStyleLarge}
+          >
+            Tweet your referral
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+
+  const renderFollowTask = () => (
+    <div style={{ marginBottom: 24 }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+        }}
+      >
+        <Typography.Text style={{ fontSize: 16, fontWeight: 500 }}>
+          3. Follow @smoothiedotfun on X
+        </Typography.Text>
+        <InlineAction done={hasFollowed}>
+          <Button onClick={handleFollowOnX} style={gradientButtonStyle}>
+            Follow
+          </Button>
+        </InlineAction>
+      </div>
+    </div>
+  );
+
+  const renderWalletTask = () => (
+    <div style={{ marginBottom: 24 }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+        }}
+      >
+        <Typography.Text style={{ fontSize: 16, fontWeight: 500 }}>
+          4. Connect your wallet
+        </Typography.Text>
+        <InlineAction done={hasWalletConnected}>
+          <Button onClick={handleConnectWallet} style={gradientButtonStyle}>
+            Connect
+          </Button>
+        </InlineAction>
+      </div>
+    </div>
+  );
+
+  const renderReferralTask = () => (
+    <div style={{ marginBottom: 24 }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "flex-end",
+        }}
+      >
+        <Typography.Text style={{ fontSize: 16, fontWeight: 500 }}>
+          5. Enter a friend's referral code
+        </Typography.Text>
+        <InlineAction done={hasReferralApplied}>
+          <Button onClick={handleApplyReferral} style={gradientButtonStyle}>
+            Apply
+          </Button>
+        </InlineAction>
+      </div>
+
+      {!hasReferralApplied && (
+        <div style={{ marginTop: 8 }}>
+          <Input
+            placeholder="Referral code"
+            value={referralCode}
+            onChange={(e) => setReferralCode(e.target.value)}
+            style={{ maxWidth: 200 }}
+          />
+        </div>
+      )}
+    </div>
   );
 
   return (
-    <>
-      {/* MAIN “JOIN” MODAL */}
-      <StyledModal
-        visible={isOpen}
-        onCancel={onClose}
-        footer={null}
-        width={500}
-        centered
+    <StyledModal
+      visible={isOpen}
+      onCancel={onClose}
+      footer={null}
+      width={500}
+      centered
+    >
+      <div style={{ textAlign: "center", marginBottom: 16 }}>
+        <Image
+          src={logo}
+          preview={false}
+          style={{ width: "45px", height: "45px", marginBottom: 8 }}
+        />
+        <Typography.Title level={3}>Join Smoothie</Typography.Title>
+        <Typography.Text>
+          Complete the tasks below to join our waitlist & referral program.
+        </Typography.Text>
+      </div>
+
+      <Divider />
+      {renderWaitlistTask()}
+      {renderXAuthTask()}
+      {renderFollowTask()}
+      {renderWalletTask()}
+      {renderReferralTask()}
+      <Divider />
+
+      <Button
+        size="large"
+        style={{
+          width: "100%",
+          borderRadius: 9999,
+          background: "linear-gradient(91deg, #F09819 0.44%, #FF512F 99.74%)",
+          color: "#FFFFFF",
+        }}
+        onClick={handleComplete}
       >
-        <div style={{ textAlign: "center", marginBottom: 16 }}>
-          <Image
-            src={logo}
-            preview={false}
-            style={{
-              width: "45px",
-              height: "45px",
-              marginBottom: 8,
-            }}
-          />
-          <Typography.Title level={3}>Join Smoothie</Typography.Title>
-          <Typography.Text>
-            Complete the tasks below to join our waitlist & referral program.
-          </Typography.Text>
-        </div>
-        <Divider />
-
-        {/* Task 1: Join waitlist */}
-        <TaskRow
-          title="1. Join waitlist with your email"
-          isDone={hasJoinedWaitlist}
-          onAction={handleJoinWaitlist}
-          actionLabel="Join"
-        >
-          {!hasJoinedWaitlist && (
-            <Input
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              style={{ maxWidth: 300 }}
-            />
-          )}
-        </TaskRow>
-
-        {/* Task 2: X Auth */}
-        <TaskRow
-          title="2. Authenticate with X"
-          isDone={hasXAuthenticated}
-          onAction={handleSignInWithX}
-          actionLabel="Sign in"
-        />
-
-        {/* Button to see referral stats, only if X Auth is done */}
-        {hasXAuthenticated && (
-          <Row style={{ marginBottom: 16, justifyContent: "flex-end" }}>
-            <button style={gradientButtonStyle} onClick={openReferralModal}>
-              View referral stats
-            </button>
-          </Row>
-        )}
-
-        {/* Task 3: Follow on X */}
-        <TaskRow
-          title="3. Follow @smoothiedotfun on X"
-          isDone={hasFollowed}
-          onAction={handleFollowOnX}
-          actionLabel="Follow"
-        />
-
-        {/* Task 4: Connect wallet */}
-        <TaskRow
-          title="4. Connect your wallet"
-          isDone={hasWalletConnected}
-          onAction={handleConnectWallet}
-          actionLabel="Connect"
-        />
-
-        {/* Task 5: Enter referral code (optional) */}
-        <TaskRow
-          title="5. Enter a friend's referral code"
-          isDone={hasReferralApplied}
-          onAction={handleApplyReferral}
-          actionLabel="Apply"
-        >
-          {!hasReferralApplied && (
-            <Input
-              placeholder="Referral code"
-              value={referralCode}
-              onChange={(e) => setReferralCode(e.target.value)}
-              style={{ maxWidth: 200 }}
-            />
-          )}
-        </TaskRow>
-
-        <Divider />
-        {/* Task 6: Complete (close) */}
-        <Button
-          size="large"
-          style={{
-            width: "100%",
-            borderRadius: 9999,
-            background: "linear-gradient(91deg, #F09819 0.44%, #FF512F 99.74%)",
-            color: "#FFFFFF",
-          }}
-          onClick={handleComplete}
-        >
-          Complete
-        </Button>
-      </StyledModal>
-
-      {/* “REFERRAL STATS” SUB‐MODAL */}
-      <StyledModal
-        visible={isReferralModalOpen}
-        onCancel={closeReferralModal}
-        footer={null}
-        width={500}
-        centered
-      >
-        <div style={{ textAlign: "center", marginBottom: 16 }}>
-          <Typography.Title level={3}>Your Referral Info</Typography.Title>
-        </div>
-        <Divider />
-        <div style={{ textAlign: "center", marginBottom: 16 }}>
-          <Typography.Paragraph>
-            <strong>Referral Code: </strong>
-            {myReferralCode || "N/A"}
-          </Typography.Paragraph>
-          <Typography.Paragraph>
-            <strong>Successful Referrals: </strong>
-            {successfulReferrals}
-          </Typography.Paragraph>
-          <Typography.Paragraph>
-            <strong>Your Rank: </strong>
-            {rank ?? "N/A"}
-          </Typography.Paragraph>
-        </div>
-        <Row justify="center" style={{ marginBottom: 24 }}>
-          <button
-            style={{ ...gradientButtonStyle, marginRight: "0.5rem" }}
-            onClick={handleTweetReferral}
-          >
-            Tweet referral
-          </button>
-          <button style={gradientButtonStyle} onClick={closeReferralModal}>
-            Back to tasks
-          </button>
-        </Row>
-      </StyledModal>
-    </>
+        Complete
+      </Button>
+    </StyledModal>
   );
 };
 
