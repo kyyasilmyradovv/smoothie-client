@@ -13,6 +13,30 @@ import { useAppSelector } from "./store/hooks";
 import MainLayout from "./layouts/MainLayout";
 import Loader from "./components/Loader";
 import { PageRoutes } from "./Routes";
+import { createAppKit } from "@reown/appkit/react";
+import { WagmiProvider } from "wagmi";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { projectId, metadata, networks, wagmiAdapter } from "../config";
+
+const queryClient = new QueryClient();
+
+const generalConfig = {
+  projectId,
+  networks,
+  metadata,
+  themeMode: "light" as const,
+  themeVariables: {
+    "--w3m-accent": "#000000",
+  },
+};
+
+createAppKit({
+  adapters: [wagmiAdapter],
+  ...generalConfig,
+  features: {
+    analytics: true,
+  },
+});
 
 const App: FC = () => {
   const language = useAppSelector((state) => state.general.language);
@@ -80,8 +104,10 @@ const App: FC = () => {
 
   return (
     <ConfigProvider locale={systemLanguage} theme={themeConfig}>
-      <Routes>
-        {/* <Route
+      <WagmiProvider config={wagmiAdapter.wagmiConfig}>
+        <QueryClientProvider client={queryClient}>
+          <Routes>
+            {/* <Route
           path="/login"
           element={
             <Suspense fallback={<Loader />}>
@@ -90,25 +116,27 @@ const App: FC = () => {
           }
         /> */}
 
-        <Route
-          path="/"
-          element={
-            <Suspense fallback={<Loader />}>
-              <MainLayout />
-            </Suspense>
-          }
-        >
-          {PageRoutes.map((route, index) => {
-            return (
-              <Route
-                path={route.path}
-                element={route.element}
-                key={`route-index-${index}`}
-              />
-            );
-          })}
-        </Route>
-      </Routes>
+            <Route
+              path="/"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <MainLayout />
+                </Suspense>
+              }
+            >
+              {PageRoutes.map((route, index) => {
+                return (
+                  <Route
+                    path={route.path}
+                    element={route.element}
+                    key={`route-index-${index}`}
+                  />
+                );
+              })}
+            </Route>
+          </Routes>
+        </QueryClientProvider>
+      </WagmiProvider>
     </ConfigProvider>
   );
 };

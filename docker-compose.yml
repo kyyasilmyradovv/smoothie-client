@@ -17,7 +17,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5000:4000"
-      - "9229:9229" # Port for Node.js debugging
     env_file:
       - .env.production
     volumes:
@@ -25,7 +24,7 @@ services:
     restart: always
     networks:
       - app-network
-    command: node --inspect=0.0.0.0:9229 /app/server.js # Replace "index.js" with your entry point file
+    command: node /app/server.js
 
   frontend-green:
     build:
@@ -45,7 +44,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5001:4000"
-      - "9230:9229" # Port for Node.js debugging
     env_file:
       - .env.production
     volumes:
@@ -53,7 +51,7 @@ services:
     restart: always
     networks:
       - app-network
-    command: node --inspect=0.0.0.0:9229 /app/server.js # Replace "index.js" with your entry point file
+    command: node /app/server.js
 
 networks:
   app-network:

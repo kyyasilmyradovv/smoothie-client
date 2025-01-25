@@ -12,6 +12,8 @@ model User {
   email         String?  @unique
   twitterHandle String?  @unique
   referralCode  String   @unique
+  twitterAccessToken String? @unique
+  twitterRefreshToken String? @unique
   referralCount Int      @default(0)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt

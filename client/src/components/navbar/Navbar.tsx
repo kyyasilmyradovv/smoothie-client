@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Avatar, Button, Divider, Grid, Image, Input, Typography } from "antd";
 import {
   BarsOutlined,
@@ -12,7 +12,6 @@ import WISearch from "../../assets/WMagnifier.png";
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
-  setIsConnectWalletModalOpen,
   setIsHelpModalOpen,
   setIsSidebarOpen,
 } from "../../store/general/generalSlice";
@@ -20,7 +19,7 @@ import {
 import Switch from "../Switch";
 import HelpModal from "../modal/HelpModal";
 import ConnectWalletModal from "../modal/ConnectWalletModal";
-import JoinModal from "../modal/JoinModal"; // The updated version above
+import JoinModal from "../modal/JoinModal";
 
 const { useBreakpoint } = Grid;
 
@@ -34,7 +33,6 @@ const Navbar = () => {
 
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
 
-  // If userMail is set, we consider them "logged in"
   const isUserLoggedIn = !!userMail;
 
   return (
@@ -185,11 +183,9 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Existing modals */}
       <HelpModal />
       <ConnectWalletModal />
 
-      {/* Our new “Join” flow */}
       <JoinModal
         isOpen={isJoinModalOpen}
         onClose={() => setIsJoinModalOpen(false)}

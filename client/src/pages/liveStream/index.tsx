@@ -49,18 +49,22 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { formatPrice, getUSDValue } from "../../functions";
 import RatingTags from "../../components/RatingTags";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import {
   setHelpModalOpened,
   setIsHelpModalOpen,
 } from "../../store/general/generalSlice";
 import ReactPlayer from "react-player";
+import JoinModal from "../../components/modal/JoinModal";
 // import { useAppSelector } from "../../store/hooks";
 // import IVolume from "../assets/volume.png";
 const { useBreakpoint } = Grid;
 const LiveStreams = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   const appCustomization = useAppSelector(
     (state) => state.general.appCustomization
   );
@@ -71,6 +75,32 @@ const LiveStreams = () => {
     (state) => state.general.settedSmothies
   );
   const screens = useBreakpoint();
+
+  useEffect(() => {
+    console.log("LiveStreams: Checking URL search params =>", location.search);
+    const params = new URLSearchParams(location.search);
+    const loggedIn = params.get("loggedIn");
+    const accessToken = params.get("accessToken");
+
+    if (loggedIn === "true" && accessToken) {
+      localStorage.setItem("hasXAuthenticated", "true");
+      localStorage.setItem("accessToken", accessToken);
+
+      setIsJoinModalOpen(true);
+
+      params.delete("loggedIn");
+      params.delete("accessToken");
+      navigate({
+        pathname: location.pathname,
+        search: params.toString(),
+      });
+    }
+  }, [location, navigate]);
+
+  const handleOpenModal = () => {
+    console.log("LiveStreams: manually opening JoinModal");
+    setIsJoinModalOpen(true);
+  };
 
   useEffect(() => {
     if (!helpModalOpened) {
@@ -1212,6 +1242,12 @@ const LiveStreams = () => {
                 <RightOutlined style={{ color: "#1F6FCE" }} />
               </div>
             </div>
+            <Button onClick={handleOpenModal}>Open JoinModal</Button>
+
+            <JoinModal
+              isOpen={isJoinModalOpen}
+              onClose={() => setIsJoinModalOpen(false)}
+            />
           </div>
         ))}
       </div>

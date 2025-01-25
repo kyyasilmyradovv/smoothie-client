@@ -1,57 +1,35 @@
 import React, { useState } from "react";
-import { Input, Button, Typography, List, Divider, message, Modal } from "antd";
-import axios from "axios";
+import { Input, Button, Typography, Divider, message, Card } from "antd";
 import { useAppKitAccount, useAppKitState } from "@reown/appkit/react";
-import {
-  grantPermissions,
-  SmartSessionGrantPermissionsRequest,
-} from "@reown/appkit-experimental/smart-session";
+import axios from "axios";
 
 const { Text, Title } = Typography;
 const { TextArea } = Input;
 
-type Transaction = {
-  solver: string;
-  action: string;
-  type: string;
-  data: {
-    to: string;
-    data: string;
-    value: string;
-    fromChainId: number;
-  };
-  gasCostUSD: string;
-  fromChainId: number;
-  fromAmountUSD: string;
-  fromAmount: string;
-  fromToken: { symbol: string; address: string; decimals: number };
-  fromAddress: string;
-  toChainId: number;
-  toAmountUSD: string;
-  toAmount: string;
-  toAmountMin: string;
-  toToken: { symbol: string; address: string; decimals: number };
-  toAddress: string;
-  receiver: string;
-  protocol: Record<string, unknown>;
-};
-
-type ChatResponse = {
-  answer: string;
-  transaction?: Transaction[];
-};
-
-const ChatInterface: React.FC = () => {
+const ChatInterface = () => {
   const [prompt, setPrompt] = useState("");
-  const [responses, setResponses] = useState<ChatResponse[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [transactionDetails, setTransactionDetails] =
-    useState<Transaction | null>(null);
+  interface Response {
+    conversationHistory: { sender: string; content: string }[];
+    data?: {
+      description: string;
+      fromAmount: string;
+      fromToken: { symbol: string; priceUSD: string };
+      toToken: { symbol: string; decimals: number; priceUSD: string };
+      toAmount: number;
+      toAmountUSD: string;
+      steps: { gasLimit?: string; to?: string }[];
+      receiver: string;
+    };
+    answer?: string;
+  }
 
-  const token = localStorage.getItem("accessToken"); // Replace with your auth setup
-  const { address, isConnected } = useAppKitAccount(); // Get wallet info
-  const { activeChain } = useAppKitState(); // Get active chain info
+  const [responses, setResponses] = useState<Response[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const { address, isConnected } = useAppKitAccount();
+  const { activeChain } = useAppKitState();
+
+  const token = localStorage.getItem("accessToken");
 
   const handleSendPrompt = async () => {
     if (!prompt.trim()) {
@@ -77,15 +55,20 @@ const ChatInterface: React.FC = () => {
         }
       );
 
-      const newResponse: ChatResponse = res.data.result.result[0]; // Adjust for nested structure
-      setResponses([...responses, newResponse]);
+      const newResponse = res.data.result.result[0];
 
-      // Automatically show the transaction modal if a transaction exists
-      if (newResponse.transaction && newResponse.transaction.length > 0) {
-        setTransactionDetails(newResponse.transaction[0]); // Take the first transaction
-        setIsModalVisible(true);
+      if (!newResponse) {
+        throw new Error("No valid response received.");
       }
 
+      if (newResponse.data) {
+        newResponse.data.fromToken = {
+          ...newResponse.data.fromToken,
+          decimals: newResponse.data.fromToken.decimals || 18,
+        };
+      }
+
+      setResponses((prev) => [...prev, newResponse]);
       setPrompt("");
     } catch (error) {
       console.error("Error sending prompt:", error);
@@ -95,145 +78,201 @@ const ChatInterface: React.FC = () => {
     }
   };
 
-  const handleConfirmTransaction = async () => {
-    if (!isConnected || !address || !transactionDetails) {
-      message.error("Please connect your wallet first.");
-      return;
-    }
-
+  const handleTransaction = async (transactionData: TransactionData) => {
     try {
-      // Step 1: Grant Permissions
-      const permissionRequest: SmartSessionGrantPermissionsRequest = {
-        expiry: Math.floor(Date.now() / 1000) + 24 * 60 * 60, // 24 hours
-        chainId: `0x${transactionDetails.fromChainId.toString(16)}`,
-        address: address as `0x${string}`,
-        signer: {
-          type: "keys",
-          data: {
-            keys: [
-              {
-                type: "secp256k1",
-                publicKey: "0x...", // Replace with your dApp signer's public key
-              },
-            ],
-          },
-        },
-        permissions: [
-          {
-            type: "contract-call",
-            data: {
-              address: transactionDetails.data.to as `0x${string}`,
-              abi: [], // Provide the ABI if needed
-              functions: [
-                {
-                  functionName: transactionDetails.action || "call", // Adjust action dynamically
-                },
-              ],
-            },
-          },
-        ],
-        policies: [],
-      };
-
-      const permissionResponse = await grantPermissions(permissionRequest);
-      console.log("Permissions Granted:", permissionResponse);
-
-      // Prepare transaction calls and send
-      const prepareCallsParams = [
-        {
-          from: transactionDetails.fromAddress,
-          chainId: `0x${transactionDetails.fromChainId.toString(16)}`,
-          calls: [
-            {
-              to: transactionDetails.data.to,
-              data: transactionDetails.data.data,
-              value: transactionDetails.data.value,
-            },
-          ],
-          capabilities: {},
-        },
-      ];
-
-      const prepareCallsResponse = await axios.post(
-        "https://rpc.walletconnect.org/v1/wallets/prepareCalls",
-        prepareCallsParams
-      );
-
-      const preparedCalls = prepareCallsResponse.data[0].preparedCalls;
-      const context = prepareCallsResponse.data[0].context;
-
-      // Sign the transaction
-      const signatureRequestHash =
-        prepareCallsResponse.data[0].signatureRequest.hash;
-      const signResponse = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/api/sign`,
-        { hash: signatureRequestHash },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const signature = signResponse.data.signature;
-
-      // Send the transaction
-      const sendPreparedCallsResponse = await axios.post(
-        "https://rpc.walletconnect.org/v1/wallets/sendPreparedCalls",
-        {
-          preparedCalls,
-          signature,
-          context,
-        }
-      );
-
-      const callId = sendPreparedCallsResponse.data.callId;
-      console.log("Transaction Call ID:", callId);
-
-      message.success("Transaction submitted successfully!");
-      setIsModalVisible(false); // Close modal after submission
+      message.info("Attempting to execute transaction...");
+      console.log("Transaction Data:", transactionData);
     } catch (error) {
-      console.error("Error executing transaction:", error);
+      console.error("Transaction failed:", error);
       message.error("Failed to execute transaction.");
     }
+  };
+
+  const handleRejectTransaction = (index: number) => {
+    setResponses((prev: Response[]) =>
+      prev.filter((_, responseIndex: number) => responseIndex !== index)
+    );
+  };
+
+  interface Token {
+    symbol: string;
+    priceUSD: string;
+    decimals: number;
+  }
+
+  interface Step {
+    gasLimit?: string;
+    to?: string;
+  }
+
+  interface TransactionData {
+    description: string;
+    fromAmount: string;
+    fromToken: Token;
+    toToken: Token;
+    toAmount: number;
+    toAmountUSD: string;
+    steps: Step[];
+    receiver: string;
+  }
+
+  const renderTransactionCard = (data: TransactionData, index: number) => {
+    if (!data) return null;
+
+    const {
+      description,
+      fromAmount,
+      fromToken,
+      toToken,
+      toAmount,
+      toAmountUSD,
+      steps,
+      receiver,
+    } = data;
+
+    return (
+      <Card
+        key={`transaction-${index}`}
+        style={{
+          marginTop: 16,
+          marginBottom: 24,
+          borderRadius: 12,
+          background: "#2b2b2b",
+        }}
+        bodyStyle={{ padding: 16 }}
+      >
+        <Title level={5} style={{ color: "#fff" }}>
+          Transaction Details
+        </Title>
+        <Text style={{ color: "#aaa", display: "block", marginBottom: 12 }}>
+          {description}
+        </Text>
+        <Divider style={{ borderColor: "#444" }} />
+        <div style={{ color: "#fff", lineHeight: "1.5" }}>
+          <Text strong>From:</Text> {parseFloat(fromAmount).toFixed(2)}{" "}
+          {fromToken.symbol} (${fromToken.priceUSD})
+          <br />
+          <Text strong>To:</Text> {toToken.symbol} (
+          {parseFloat(
+            (toAmount / Math.pow(10, toToken.decimals || 0)).toString()
+          ).toFixed(6)}
+          ) @ ${toToken.priceUSD}
+          <br />
+          <Text strong>Value:</Text> ${toAmountUSD}
+          <br />
+          <Text strong>Gas Price:</Text>{" "}
+          {steps[0]?.gasLimit ? `${steps[0]?.gasLimit} units` : "N/A"}
+          <br />
+          <Text strong>Receiver:</Text> {receiver}
+          <br />
+          <Text strong>Resolver Address:</Text> {steps[0]?.to || "N/A"}
+        </div>
+        <Divider style={{ borderColor: "#444" }} />
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <Button
+            type="primary"
+            onClick={() => handleTransaction(data)}
+            style={{ borderRadius: 8 }}
+          >
+            Accept
+          </Button>
+          <Button
+            danger
+            onClick={() => handleRejectTransaction(index)}
+            style={{ borderRadius: 8 }}
+          >
+            Reject
+          </Button>
+        </div>
+      </Card>
+    );
+  };
+
+  interface Message {
+    sender: string;
+    content: string;
+  }
+
+  const renderChatBubble = (message: Message, index: number) => {
+    const isUser = message.sender === "user";
+
+    return (
+      <div
+        key={index}
+        style={{
+          display: "flex",
+          justifyContent: isUser ? "flex-end" : "flex-start",
+          marginBottom: 16,
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "70%",
+            borderRadius: 12,
+            padding: 12,
+            background: isUser ? "#474747" : "#383838",
+            color: "#fff",
+            whiteSpace: "pre-line",
+          }}
+        >
+          <Text strong style={{ display: "block", marginBottom: 8 }}>
+            {isUser ? "You" : "Brian"}
+          </Text>
+          <Text>{message.content}</Text>
+        </div>
+      </div>
+    );
   };
 
   return (
     <div style={{ padding: 24, maxWidth: 800, margin: "0 auto" }}>
       <Title level={3}>Chat with Brian</Title>
-      <Text>
-        Ask anything related to web3, smart contracts, or transactions.
-      </Text>
+      <Text>Ask anything about web3, smart contracts, or transactions.</Text>
       <Divider />
-      <List
-        itemLayout="vertical"
-        dataSource={responses}
-        renderItem={(item, index) => (
-          <List.Item key={index}>
-            <List.Item.Meta
-              title={<Text strong>Brian:</Text>}
-              description={
-                <>
-                  <div>{item.answer}</div>
-                  {item.transaction && item.transaction.length > 0 && (
-                    <Button
-                      type="primary"
-                      onClick={() => {
-                        setTransactionDetails(item.transaction[0]);
-                        setIsModalVisible(true);
-                      }}
-                      style={{ marginTop: 8 }}
-                    >
-                      View Transaction
-                    </Button>
-                  )}
-                </>
-              }
-            />
-          </List.Item>
-        )}
-      />
+
+      <div>
+        {responses.map((response, index) => (
+          <React.Fragment key={index}>
+            {/* Regular chat */}
+            {response.conversationHistory.map((msg, idx) =>
+              renderChatBubble(msg, idx)
+            )}
+
+            {/* Render transaction card if applicable */}
+            {response.data && renderTransactionCard(response.data, index)}
+
+            {/* Handle answers without transactions */}
+            {!response.data && response.answer && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  marginBottom: 16,
+                }}
+              >
+                <div
+                  style={{
+                    maxWidth: "70%",
+                    borderRadius: 12,
+                    padding: 12,
+                    background: "#383838",
+                    color: "#fff",
+                    whiteSpace: "pre-line",
+                  }}
+                >
+                  <Text strong style={{ display: "block", marginBottom: 8 }}>
+                    Brian
+                  </Text>
+                  <Text>{response.answer}</Text>
+                </div>
+              </div>
+            )}
+          </React.Fragment>
+        ))}
+      </div>
+
       <Divider />
+
       <TextArea
         rows={4}
         value={prompt}
@@ -248,29 +287,6 @@ const ChatInterface: React.FC = () => {
       >
         Send
       </Button>
-
-      {/* Modal for transaction confirmation */}
-      <Modal
-        title="Transaction Confirmation"
-        visible={isModalVisible}
-        onOk={handleConfirmTransaction}
-        onCancel={() => setIsModalVisible(false)}
-        okText="Confirm"
-        cancelText="Cancel"
-      >
-        {transactionDetails && (
-          <pre
-            style={{
-              background: "#f0f2f5",
-              padding: 16,
-              borderRadius: 8,
-              overflowX: "auto",
-            }}
-          >
-            {JSON.stringify(transactionDetails, null, 2)}
-          </pre>
-        )}
-      </Modal>
     </div>
   );
 };

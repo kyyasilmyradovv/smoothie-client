@@ -1,5 +1,4 @@
-// client/src/components/modal/JoinModal.tsx
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   Button,
@@ -13,6 +12,7 @@ import { CheckCircleFilled } from "@ant-design/icons";
 import axios from "axios";
 import { styled } from "styled-components";
 import logo from "../../assets/logo.png";
+import { useAppKitTheme } from "@reown/appkit/react";
 
 const StyledModal = styled(Modal)`
   .ant-modal-content {
@@ -26,55 +26,62 @@ type JoinModalProps = {
   onClose: () => void;
 };
 
+type UserData = {
+  referralCode?: string;
+  referralCount?: number;
+  rank?: number;
+};
+
 const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
-  // 1) Task states
   const [hasJoinedWaitlist, setHasJoinedWaitlist] = useState(false);
   const [hasXAuthenticated, setHasXAuthenticated] = useState(false);
   const [hasFollowed, setHasFollowed] = useState(false);
   const [hasWalletConnected, setHasWalletConnected] = useState(false);
   const [hasReferralApplied, setHasReferralApplied] = useState(false);
+  const [hasLoadedFromStorage, setHasLoadedFromStorage] = useState(false);
 
-  // 2) App data from user
-  const [userData, setUserData] = useState<any>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [myReferralCode, setMyReferralCode] = useState("");
   const [successfulReferrals, setSuccessfulReferrals] = useState(0);
   const [rank, setRank] = useState<number | null>(null);
-
-  // 3) Input fields
   const [email, setEmail] = useState("");
   const [referralCode, setReferralCode] = useState("");
+  const { setThemeMode } = useAppKitTheme();
+  setThemeMode("dark");
 
   useEffect(() => {
-    // A) Load tasks from localStorage
+    if (!isOpen) return;
+    if (hasLoadedFromStorage) return;
+
     const localHasJoinedWaitlist = localStorage.getItem("hasJoinedWaitlist");
-    if (localHasJoinedWaitlist === "true") setHasJoinedWaitlist(true);
-
     const localHasXAuthenticated = localStorage.getItem("hasXAuthenticated");
-    if (localHasXAuthenticated === "true") setHasXAuthenticated(true);
-
     const localHasFollowed = localStorage.getItem("hasFollowed");
-    if (localHasFollowed === "true") setHasFollowed(true);
-
     const localHasWalletConnected = localStorage.getItem("hasWalletConnected");
-    if (localHasWalletConnected === "true") setHasWalletConnected(true);
-
     const localHasReferralApplied = localStorage.getItem("hasReferralApplied");
+
+    if (localHasJoinedWaitlist === "true") setHasJoinedWaitlist(true);
+    if (localHasXAuthenticated === "true") setHasXAuthenticated(true);
+    if (localHasFollowed === "true") setHasFollowed(true);
+    if (localHasWalletConnected === "true") setHasWalletConnected(true);
     if (localHasReferralApplied === "true") setHasReferralApplied(true);
 
-    // B) If hasXAuthenticated is true, we can fetch user data
+    setHasLoadedFromStorage(true);
+
     if (localHasXAuthenticated === "true") {
       fetchUserData();
     }
-  }, []);
+  }, [isOpen, hasLoadedFromStorage]);
 
   useEffect(() => {
-    // Save tasks changes to localStorage
+    if (!hasLoadedFromStorage) return;
+
     localStorage.setItem("hasJoinedWaitlist", hasJoinedWaitlist.toString());
     localStorage.setItem("hasXAuthenticated", hasXAuthenticated.toString());
     localStorage.setItem("hasFollowed", hasFollowed.toString());
     localStorage.setItem("hasWalletConnected", hasWalletConnected.toString());
     localStorage.setItem("hasReferralApplied", hasReferralApplied.toString());
   }, [
+    hasLoadedFromStorage,
     hasJoinedWaitlist,
     hasXAuthenticated,
     hasFollowed,
@@ -82,36 +89,48 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
     hasReferralApplied,
   ]);
 
-  // fetch user data from the server (session-based)
   const fetchUserData = async () => {
     try {
-      const res = await axios.get("http://localhost:4004/api/user", {
-        withCredentials: true,
+      const token = localStorage.getItem("accessToken");
+      console.log("fetchUserData => token =>", token);
+
+      if (!token) {
+        throw new Error("No accessToken in localStorage");
+      }
+
+      const res = await axios.get("https://smoothie.fun/api/user", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       const user = res.data;
+      console.log("fetchUserData => got user =>", user);
+
       setUserData(user);
-      if (user.referralCode) setMyReferralCode(user.referralCode);
-      if (typeof user.referralCount === "number") {
-        setSuccessfulReferrals(user.referralCount);
-      }
-      if (typeof user.rank === "number") setRank(user.rank);
+      setMyReferralCode(user.referralCode || "");
+      setSuccessfulReferrals(
+        typeof user.referralCount === "number" ? user.referralCount : 0
+      );
+      setRank(typeof user.rank === "number" ? user.rank : null);
     } catch (err) {
-      console.error(err);
+      console.error("fetchUserData => error =>", err);
       message.error("Could not fetch user data");
     }
   };
 
-  // Task Handlers
   const handleJoinWaitlist = async () => {
     if (!email) {
       message.error("Please provide an email");
       return;
     }
     try {
-      const res = await axios.post("http://localhost:4004/api/join", { email });
+      const res = await axios.post("https://smoothie.fun/api/join", { email });
       const user = res.data.user;
       setUserData(user);
-      if (user.referralCode) setMyReferralCode(user.referralCode);
+
+      if (user.referralCode) {
+        setMyReferralCode(user.referralCode);
+      }
       setHasJoinedWaitlist(true);
       message.success("Email waitlist joined!");
     } catch (err) {
@@ -121,24 +140,18 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
   };
 
   const handleSignInWithX = () => {
-    // Start Twitter OAuth flow
-    window.location.href = "http://localhost:4004/auth/twitter/start";
+    window.location.href = "https://smoothie.fun/auth/twitter/start";
   };
 
   const handleFollowOnX = () => {
     window.open("https://x.com/smoothiedotfun", "_blank");
     axios.post(
-      "http://localhost:4004/api/follow",
+      "https://smoothie.fun/api/follow",
       {},
       { withCredentials: true }
     );
     setHasFollowed(true);
     message.success("Thank you for following us on X!");
-  };
-
-  const handleConnectWallet = () => {
-    setHasWalletConnected(true);
-    message.success("Wallet connected (simulated).");
   };
 
   const handleApplyReferral = async () => {
@@ -150,12 +163,24 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
       message.error("Please enter a referral code");
       return;
     }
+
     try {
+      const token = localStorage.getItem("accessToken");
+      if (!token) {
+        message.error("No JWT token found; please log in again.");
+        return;
+      }
+
       await axios.post(
-        "http://localhost:4004/api/referral",
+        "https://smoothie.fun/api/referral",
         { referralCode },
-        { withCredentials: true }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
+
       setHasReferralApplied(true);
       message.success("Referral code applied!");
       fetchUserData();
@@ -176,7 +201,6 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
     onClose();
   };
 
-  // Helper to show a check mark or the button
   function InlineAction({
     done,
     children,
@@ -195,7 +219,6 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
     );
   }
 
-  // Rendering tasks
   const gradientButtonStyle: React.CSSProperties = {
     border: "2px solid transparent",
     borderRadius: "9999px",
@@ -327,11 +350,16 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
         <Typography.Text style={{ fontSize: 16, fontWeight: 500 }}>
           4. Connect your wallet
         </Typography.Text>
-        <InlineAction done={hasWalletConnected}>
-          <Button onClick={handleConnectWallet} style={gradientButtonStyle}>
-            Connect
-          </Button>
-        </InlineAction>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            border: "1px solid #505050",
+            borderRadius: 20,
+          }}
+        >
+          <appkit-button />
+        </div>
       </div>
     </div>
   );

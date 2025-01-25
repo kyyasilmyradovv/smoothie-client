@@ -17,6 +17,7 @@ import InitialPrompts from "./components/InitialPrompts";
 import { getCA } from "../../functions";
 import { setAiButtonValue, setChats } from "../../store/general/generalSlice";
 import Chatting from "./components/Chatting";
+import ChatInterface from "../../components/ChatInterface";
 const { useBreakpoint } = Grid;
 const AiChat = () => {
   const dispatch = useAppDispatch();
@@ -35,6 +36,7 @@ const AiChat = () => {
 
   return (
     <Col span={24}>
+      <ChatInterface />
       <div
         className={styles.container}
         style={{

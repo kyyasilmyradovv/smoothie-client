@@ -12,9 +12,14 @@
   "dependencies": {
     "@ant-design/icons": "^5.5.2",
     "@reduxjs/toolkit": "^2.5.0",
+    "@reown/appkit": "^1.6.5",
+    "@reown/appkit-adapter-wagmi": "^1.6.5",
+    "@reown/appkit-experimental": "^1.6.5",
+    "@tanstack/react-query": "^5.64.2",
     "antd": "^5.23.0",
     "axios": "^1.7.9",
     "dayjs": "^1.11.13",
+    "ethers": "^6.13.5",
     "firebase": "^11.1.0",
     "i18next": "^24.2.1",
     "react": "^18.3.1",
@@ -24,7 +29,9 @@
     "react-player": "^2.16.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.1",
-    "styled-components": "^6.1.14"
+    "styled-components": "^6.1.14",
+    "viem": "^2.22.13",
+    "wagmi": "^2.14.9"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
@@ -39,5 +46,6 @@
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.18.2",
     "vite": "^6.0.5"
-  }
+  },
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
 }
