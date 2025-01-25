@@ -1,12 +1,5 @@
 import { useState } from "react";
 import { Avatar, Button, Divider, Grid, Image, Input, Typography } from "antd";
-import {
-  BarsOutlined,
-  BellOutlined,
-  ExclamationCircleOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-
 import ISearch from "../../assets/Magnifier.png";
 import WISearch from "../../assets/WMagnifier.png";
 
@@ -15,8 +8,6 @@ import {
   setIsHelpModalOpen,
   setIsSidebarOpen,
 } from "../../store/general/generalSlice";
-
-import Switch from "../Switch";
 import HelpModal from "../modal/HelpModal";
 import ConnectWalletModal from "../modal/ConnectWalletModal";
 import {
@@ -31,6 +22,7 @@ import {
 import Switch from "../Switch";
 // import { ExclamationCircleFilled } from "@ant-design/icons";
 // import { DownOutlined } from "@ant-design/icons";
+import JoinModal from "../modal/JoinModal";
 const { useBreakpoint } = Grid;
 
 const Navbar = () => {
