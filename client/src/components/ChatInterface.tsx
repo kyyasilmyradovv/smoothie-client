@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Input, Button, Typography, Divider, message, Card } from "antd";
-import { useAppKitAccount, useAppKitState } from "@reown/appkit/react";
+import { useAppKitAccount } from "@reown/appkit/react";
+import { useChainId } from "wagmi"; // Import useChainId from wagmi
 import axios from "axios";
 
 const { Text, Title } = Typography;
@@ -8,12 +9,13 @@ const { TextArea } = Input;
 
 const ChatInterface = () => {
   const [prompt, setPrompt] = useState("");
+
   interface Response {
     conversationHistory: { sender: string; content: string }[];
     data?: {
       description: string;
       fromAmount: string;
-      fromToken: { symbol: string; priceUSD: string };
+      fromToken: { symbol: string; priceUSD: string; decimals?: number };
       toToken: { symbol: string; decimals: number; priceUSD: string };
       toAmount: number;
       toAmountUSD: string;
@@ -27,7 +29,7 @@ const ChatInterface = () => {
   const [loading, setLoading] = useState(false);
 
   const { address, isConnected } = useAppKitAccount();
-  const { activeChain } = useAppKitState();
+  const chainId = useChainId(); // Use wagmi's useChainId hook to get the current chain ID
 
   const token = localStorage.getItem("accessToken");
 
@@ -47,7 +49,7 @@ const ChatInterface = () => {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/api/chat`,
-        { prompt, chainId: activeChain?.id, address },
+        { prompt, chainId, address }, // Use chainId from wagmi
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -64,8 +66,8 @@ const ChatInterface = () => {
       if (newResponse.data) {
         newResponse.data.fromToken = {
           ...newResponse.data.fromToken,
-          decimals: newResponse.data.fromToken.decimals || 18,
-        };
+          decimals: newResponse.data.fromToken.decimals ?? 18, // Default decimals
+        } as { symbol: string; priceUSD: string; decimals: number };
       }
 
       setResponses((prev) => [...prev, newResponse]);
@@ -238,8 +240,8 @@ const ChatInterface = () => {
               renderChatBubble(msg, idx)
             )}
 
-            {/* Render transaction card if applicable */}
-            {response.data && renderTransactionCard(response.data, index)}
+            {response.data &&
+              renderTransactionCard(response.data as TransactionData, index)}
 
             {/* Handle answers without transactions */}
             {!response.data && response.answer && (

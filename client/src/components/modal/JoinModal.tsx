@@ -26,12 +26,6 @@ type JoinModalProps = {
   onClose: () => void;
 };
 
-type UserData = {
-  referralCode?: string;
-  referralCount?: number;
-  rank?: number;
-};
-
 const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
   const [hasJoinedWaitlist, setHasJoinedWaitlist] = useState(false);
   const [hasXAuthenticated, setHasXAuthenticated] = useState(false);
@@ -39,8 +33,6 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
   const [hasWalletConnected, setHasWalletConnected] = useState(false);
   const [hasReferralApplied, setHasReferralApplied] = useState(false);
   const [hasLoadedFromStorage, setHasLoadedFromStorage] = useState(false);
-
-  const [userData, setUserData] = useState<UserData | null>(null);
   const [myReferralCode, setMyReferralCode] = useState("");
   const [successfulReferrals, setSuccessfulReferrals] = useState(0);
   const [rank, setRank] = useState<number | null>(null);
@@ -106,7 +98,6 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
       const user = res.data;
       console.log("fetchUserData => got user =>", user);
 
-      setUserData(user);
       setMyReferralCode(user.referralCode || "");
       setSuccessfulReferrals(
         typeof user.referralCount === "number" ? user.referralCount : 0
@@ -126,7 +117,6 @@ const JoinModal: React.FC<JoinModalProps> = ({ isOpen, onClose }) => {
     try {
       const res = await axios.post("https://smoothie.fun/api/join", { email });
       const user = res.data.user;
-      setUserData(user);
 
       if (user.referralCode) {
         setMyReferralCode(user.referralCode);
