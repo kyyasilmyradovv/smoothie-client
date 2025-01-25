@@ -3,7 +3,11 @@ const brianService = require('../services/brianService');
 exports.handleChat = async (req, res) => {
   const { prompt, address, chainId, messages = [] } = req.body;
 
-  console.log('Chat prompt received:', prompt, address);
+  console.log('Received Chat Request:');
+  console.log('Prompt:', prompt);
+  console.log('Address:', address);
+  console.log('Chain ID:', chainId);
+  console.log('Messages:', messages);
 
   if (!prompt || !address) {
     return res
@@ -18,6 +22,9 @@ exports.handleChat = async (req, res) => {
       messages,
       chainId,
     });
+
+    // Log the successful response from Brian
+    console.log('Brian API Response:', brianResponse);
 
     res.status(200).json({ result: brianResponse });
   } catch (error) {

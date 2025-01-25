@@ -17,10 +17,15 @@ const brianService = {
       const body = {
         prompt,
         address,
-        messages,
+        messages: messages.length
+          ? messages
+          : [{ sender: 'user', content: prompt }], // Ensure at least one message
+        chainId,
+        kbId: 'public-knowledge-box', // Added kbId
       };
 
-      if (chainId) body.chainId = chainId;
+      // Log the request payload
+      console.log('Request Payload:', JSON.stringify(body, null, 2));
 
       const response = await fetch(BRIAN_API_URL, {
         method: 'POST',
@@ -30,13 +35,20 @@ const brianService = {
         },
         body: JSON.stringify(body),
       });
+      console.log('Response:', response);
 
       if (!response.ok) {
         const errorData = await response.json();
+        console.error('Error Response from Brian API:', errorData);
         throw new Error(errorData.error || 'Brian API Error');
       }
 
-      return await response.json();
+      const data = await response.json();
+
+      // Log the successful response
+      console.log('Response from Brian API:', JSON.stringify(data, null, 2));
+
+      return data;
     } catch (error) {
       console.error('Error interacting with Brian API:', error);
       throw error;

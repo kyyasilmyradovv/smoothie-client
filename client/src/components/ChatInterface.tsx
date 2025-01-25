@@ -49,7 +49,12 @@ const ChatInterface = () => {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/api/chat`,
-        { prompt, chainId, address }, // Use chainId from wagmi
+        {
+          prompt,
+          chainId: chainId.toString(), // Convert chainId to string
+          address,
+          messages: [], // Add an empty array for messages if no history exists
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
