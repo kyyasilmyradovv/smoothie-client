@@ -27,7 +27,7 @@ import {
 import {
   ArrowLeftOutlined,
   ArrowRightOutlined,
-  ExclamationCircleOutlined,
+  QuestionCircleOutlined,
   LikeOutlined,
   RightOutlined,
   UserOutlined,
@@ -173,7 +173,7 @@ const Sidebar = () => {
                 "linear-gradient(91deg, #FF512F 0.44%, #F09819 99.74%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
-              marginLeft: "10px",
+              marginLeft: "8px",
             }}
           >
             Coin Smoothies
@@ -543,7 +543,7 @@ const Sidebar = () => {
             <Typography.Text style={{ fontWeight: "500", lineHeight: "18px" }}>
               How it works
             </Typography.Text>
-            <ExclamationCircleOutlined />
+            <QuestionCircleOutlined />
             {/* <ExclamationCircleFilled style={{ fontSize: "14px" }} /> */}
           </Button>
         </div>

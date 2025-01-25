@@ -11,7 +11,7 @@ import {
   Typography,
 } from "antd";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { ArrowUpOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import { ArrowUpOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import logo1 from "../../assets/logo.png";
 import InitialPrompts from "./components/InitialPrompts";
 import { getCA } from "../../functions";
@@ -71,7 +71,7 @@ const AiChat = () => {
                 >
                   Insert a prompt
                 </Typography.Title>
-                <ExclamationCircleOutlined
+                <QuestionCircleOutlined
                   style={{ fontSize: "12px", marginLeft: "3px" }}
                 />
               </Button>

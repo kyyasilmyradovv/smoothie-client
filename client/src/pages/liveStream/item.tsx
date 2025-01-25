@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Avatar,
@@ -33,7 +34,7 @@ import {
   CopyOutlined,
   DislikeOutlined,
   DownOutlined,
-  ExclamationCircleOutlined,
+  QuestionCircleOutlined,
   EyeOutlined,
   HeartFilled,
   HeartOutlined,
@@ -45,11 +46,15 @@ import {
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   setAddSmothieName,
+  setChats,
   setIsAddSmothieModalOpen,
+  setLastEditedSmothieName,
+  setSettedSmothies,
 } from "../../store/general/generalSlice";
 import { formatPrice, getUSDValue } from "../../functions";
 import RatingTags from "../../components/RatingTags";
 import AiChat from "../../components/AiChat/AiChat";
+import { useEffect } from "react";
 const { useBreakpoint } = Grid;
 const LiveStream = () => {
   const dispatch = useAppDispatch();
@@ -60,6 +65,12 @@ const LiveStream = () => {
   const settedSmothies = useAppSelector(
     (state) => state.general.settedSmothies
   );
+
+  useEffect(() => {
+    dispatch(setChats([]));
+    dispatch(setSettedSmothies({}));
+    dispatch(setLastEditedSmothieName(""));
+  }, []);
 
   return (
     <div>
@@ -619,7 +630,7 @@ const LiveStream = () => {
                               }}
                             >
                               Ticker
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -780,7 +791,7 @@ const LiveStream = () => {
                               }}
                             >
                               CA
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -852,7 +863,7 @@ const LiveStream = () => {
                               }}
                             >
                               Rating
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -891,7 +902,7 @@ const LiveStream = () => {
                               }}
                             >
                               FDV
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -941,7 +952,7 @@ const LiveStream = () => {
                               }}
                             >
                               Target FDV
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -1097,7 +1108,7 @@ const LiveStream = () => {
                               }}
                             >
                               Ticker
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -1259,7 +1270,7 @@ const LiveStream = () => {
                               }}
                             >
                               Rating
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -1407,7 +1418,7 @@ const LiveStream = () => {
                               }}
                             >
                               FDV
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -1457,7 +1468,7 @@ const LiveStream = () => {
                               }}
                             >
                               Target FDV
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -1507,7 +1518,7 @@ const LiveStream = () => {
                               }}
                             >
                               CA
-                              <ExclamationCircleOutlined />
+                              <QuestionCircleOutlined />
                             </Typography.Text>
                           </Tooltip>
                         ),
@@ -1597,7 +1608,7 @@ const LiveStream = () => {
                               accumulator + currentValue,
                             0
                           )}
-                        <ExclamationCircleOutlined />
+                        <QuestionCircleOutlined />
                       </Typography.Text>
                     </Tooltip>
                   ) : (

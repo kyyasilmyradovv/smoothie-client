@@ -19,8 +19,18 @@ import {
 import Switch from "../Switch";
 import HelpModal from "../modal/HelpModal";
 import ConnectWalletModal from "../modal/ConnectWalletModal";
-import JoinModal from "../modal/JoinModal";
-
+import {
+  BarsOutlined,
+  BellOutlined,
+  QuestionCircleOutlined,
+  UserOutlined,
+  // MoonOutlined,
+  // SunOutlined,
+} from "@ant-design/icons";
+// import { EThemeEnum, TThemePropsType } from "../../types/themePropsType";
+import Switch from "../Switch";
+// import { ExclamationCircleFilled } from "@ant-design/icons";
+// import { DownOutlined } from "@ant-design/icons";
 const { useBreakpoint } = Grid;
 
 const Navbar = () => {
@@ -122,7 +132,8 @@ const Navbar = () => {
               >
                 How it works
               </Typography.Text>
-              <ExclamationCircleOutlined />
+              <QuestionCircleOutlined />
+              {/* <ExclamationCircleFilled style={{ fontSize: "14px" }} /> */}
             </Button>
           )}
 

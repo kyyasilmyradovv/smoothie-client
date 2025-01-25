@@ -17,7 +17,7 @@ import styles from "./index.module.scss";
 import {
   ArrowRightOutlined,
   CopyOutlined,
-  ExclamationCircleOutlined,
+  QuestionCircleOutlined,
   EyeOutlined,
   HeartFilled,
   LeftOutlined,
@@ -391,7 +391,7 @@ const LiveStreams = () => {
                             }}
                           >
                             Ticker
-                            <ExclamationCircleOutlined />
+                            <QuestionCircleOutlined />
                           </Typography.Text>
                         </Tooltip>
                       ),
@@ -466,7 +466,7 @@ const LiveStreams = () => {
                             }}
                           >
                             CA
-                            <ExclamationCircleOutlined />
+                            <QuestionCircleOutlined />
                           </Typography.Text>
                         </Tooltip>
                       ),
@@ -537,7 +537,7 @@ const LiveStreams = () => {
                             }}
                           >
                             Rating
-                            <ExclamationCircleOutlined />
+                            <QuestionCircleOutlined />
                           </Typography.Text>
                         </Tooltip>
                       ),
@@ -574,7 +574,7 @@ const LiveStreams = () => {
                             }}
                           >
                             FDV
-                            <ExclamationCircleOutlined />
+                            <QuestionCircleOutlined />
                           </Typography.Text>
                         </Tooltip>
                       ),
@@ -726,7 +726,7 @@ const LiveStreams = () => {
                                   accumulator + currentValue,
                                 0
                               )}
-                            <ExclamationCircleOutlined />
+                            <QuestionCircleOutlined />
                           </Typography.Text>
                         </Tooltip>
                       ) : (
