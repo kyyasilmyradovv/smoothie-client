@@ -864,11 +864,85 @@ const LiveStream = () => {
                             styles={{
                               body: {
                                 padding: "10px",
+                                background:
+                                  appCustomization.theme === "dark"
+                                    ? "#010118"
+                                    : "#FFF",
                               },
                             }}
                             placement="top"
                             title={
-                              "Rating does not constitute as a financial advice and you MUST do your own due diligence for any investment decisions."
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                  // alignItems: "center",
+                                  gap: "10px",
+                                }}
+                              >
+                                <div
+                                  style={{ width: "100%", textAlign: "center" }}
+                                >
+                                  <Image
+                                    src={logo}
+                                    preview={false}
+                                    style={{
+                                      width: "35px",
+                                      height: "35px",
+                                      marginRight: "10px",
+                                    }}
+                                  />
+                                </div>
+                                <Typography.Text
+                                  style={{
+                                    textAlign: "center",
+                                  }}
+                                >
+                                  Rating does not constitute as a financial
+                                  advice and you MUST do your own due diligence
+                                  for any investment decisions.
+                                </Typography.Text>
+
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                  }}
+                                >
+                                  <Typography.Text
+                                    style={{
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    Ratings:
+                                  </Typography.Text>
+                                  <Typography.Text>Long: Buy</Typography.Text>
+                                  <Typography.Text>Short: Sell</Typography.Text>
+                                </div>
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                  }}
+                                >
+                                  <Typography.Text
+                                    style={{
+                                      textAlign: "center",
+                                    }}
+                                  >
+                                    Colors:
+                                  </Typography.Text>
+                                  <Typography.Text>
+                                    Green = high conviction
+                                  </Typography.Text>
+                                  <Typography.Text>
+                                    Yellow = medium conviction
+                                  </Typography.Text>
+                                  <Typography.Text>
+                                    Red = low conviction
+                                  </Typography.Text>
+                                </div>
+                              </div>
                             }
                           >
                             <Typography.Text

@@ -181,6 +181,9 @@ const LiveStreams = () => {
               cursor: "pointer",
               height: screens.lg ? "422px" : "auto",
               borderRadius: "16px",
+              maxWidth: "100%",
+              aspectRatio: "16 / 9",
+              overflow: "hidden",
             }}
           >
             <ReactPlayer
@@ -195,11 +198,12 @@ const LiveStreams = () => {
               muted
               style={{
                 cursor: "pointer",
-                height: screens.lg ? "422px" : "auto",
+                height: "100%",
+                width: "100%",
                 borderRadius: "16px",
                 objectFit: "cover",
-                overflow: "clip",
-                overflowClipMargin: "content-box",
+                // overflow: "clip",
+                // overflowClipMargin: "content-box",
               }}
             />
 
@@ -572,8 +576,16 @@ const LiveStreams = () => {
                                 >
                                   Ratings:
                                 </Typography.Text>
-                                <Typography.Text>Long: Buy</Typography.Text>
-                                <Typography.Text>Short: Sell</Typography.Text>
+                                <ul style={{ marginLeft: "22px" }}>
+                                  <li>
+                                    <Typography.Text>Long: Buy</Typography.Text>
+                                  </li>
+                                  <li>
+                                    <Typography.Text>
+                                      Short: Sell
+                                    </Typography.Text>
+                                  </li>
+                                </ul>
                               </div>
                               <div
                                 style={{
@@ -588,15 +600,23 @@ const LiveStreams = () => {
                                 >
                                   Colors:
                                 </Typography.Text>
-                                <Typography.Text>
-                                  Green = high conviction
-                                </Typography.Text>
-                                <Typography.Text>
-                                  Yellow = medium conviction
-                                </Typography.Text>
-                                <Typography.Text>
-                                  Red = low conviction
-                                </Typography.Text>
+                                <ul style={{ marginLeft: "22px" }}>
+                                  <li>
+                                    <Typography.Text>
+                                      Green = high conviction
+                                    </Typography.Text>
+                                  </li>
+                                  <li>
+                                    <Typography.Text>
+                                      Yellow = medium conviction
+                                    </Typography.Text>
+                                  </li>
+                                  <li>
+                                    <Typography.Text>
+                                      Red = low conviction
+                                    </Typography.Text>
+                                  </li>
+                                </ul>
                               </div>
                             </div>
                           }
@@ -830,7 +850,8 @@ const LiveStreams = () => {
                     marginTop: "20px",
                     width: "100%",
                     borderRadius: "16px",
-                    background: "#00C853",
+                    background:
+                      "linear-gradient(90deg, hsla(159, 35%, 45%, 1) 0%, hsla(176, 68%, 12%, 1) 100%)",
                     height: "35px",
                     display: "flex",
                     justifyContent: "center",
@@ -1053,7 +1074,8 @@ const LiveStreams = () => {
               <Button
                 onClick={() => navigate(`/liveStreams/1`)}
                 style={{
-                  background: "#00C853",
+                  background:
+                    "linear-gradient(90deg, hsla(159, 35%, 45%, 1) 0%, hsla(176, 68%, 12%, 1) 100%)",
                   borderRadius: "16px",
                   height: "20px",
                   color: "#FFF",
@@ -1218,7 +1240,8 @@ const LiveStreams = () => {
                 <Button
                   onClick={() => navigate(`/liveStreams/1`)}
                   style={{
-                    background: "#00C853",
+                    background:
+                      "linear-gradient(90deg, hsla(159, 35%, 45%, 1) 0%, hsla(176, 68%, 12%, 1) 100%)",
                     borderRadius: "16px",
                     height: "20px",
                     color: "#FFF",
