@@ -194,10 +194,12 @@ const LiveStreams = () => {
               controls
               muted
               style={{
-                aspectRatio: "16 / 9",
                 cursor: "pointer",
                 height: screens.lg ? "422px" : "auto",
                 borderRadius: "16px",
+                objectFit: "cover",
+                overflow: "clip",
+                overflowClipMargin: "content-box",
               }}
             />
             {/* <video

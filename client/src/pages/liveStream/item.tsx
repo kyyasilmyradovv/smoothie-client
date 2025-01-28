@@ -146,7 +146,11 @@ const LiveStream = () => {
               loop
               controls
               muted
-              style={{ aspectRatio: "16 / 9" }}
+              style={{
+                objectFit: "cover",
+                overflow: "clip",
+                overflowClipMargin: "content-box",
+              }}
             />
 
             <div className={styles["videoController"]}>
