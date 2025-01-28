@@ -194,7 +194,7 @@ const LiveStreams = () => {
               controls
               muted
               style={{
-                objectFit: "cover",
+                aspectRatio: "16 / 9",
                 cursor: "pointer",
                 height: screens.lg ? "422px" : "auto",
                 borderRadius: "16px",
@@ -330,9 +330,9 @@ const LiveStreams = () => {
                     {
                       Ticker: "$GOAT",
                       CA: "CzLSujWBLFsSjncfkh59rUFqvafWcY5tzedWJSuypump",
-                      Rating: "4/10",
+                      Rating: "5/10",
+                      Rate: "Short",
                       EntryPrice: "0.23",
-                      Color: "#FFDD00",
                       FDV: "349m",
                       TargetFDV: "519m",
                       Web: "https://goat.cx/",
@@ -343,8 +343,8 @@ const LiveStreams = () => {
                       Ticker: "$GRIFFAIN",
                       CA: "KENJSUYLASHUMfHyy5o4Hp2FdNqZg1AsUPhfH2kYvEP",
                       Rating: "8/10",
+                      Rate: "Long",
                       EntryPrice: "0.81",
-                      Color: "#00C853",
                       FDV: "434m",
                       TargetFDV: "420m",
                       Web: "https://griffain.com/ ",
@@ -353,9 +353,9 @@ const LiveStreams = () => {
                     {
                       Ticker: "$GNON",
                       CA: "HeJUFDxfJSzYFUuHLxkMqCgytU31G6mjP4wKviwqpump",
-                      Rating: "5/10",
+                      Rating: "4/10",
+                      Rate: "Long",
                       EntryPrice: "1.53",
-                      Color: "#FFDD00",
                       FDV: "42m",
                       TargetFDV: "69m",
                       Web: "https://echochambers.ai/",
@@ -365,8 +365,8 @@ const LiveStreams = () => {
                       Ticker: "$FARTCOIN",
                       CA: "9BB6NFEcjBCtnNLFko2FqVQBq8HHM13kCyYcdQbgpump",
                       Rating: "9/10",
+                      Rate: "Long",
                       EntryPrice: "1.22",
-                      Color: "#00C853",
                       FDV: "1bn",
                       TargetFDV: "1.1bn",
                       Web: "https://www.infinitebackrooms.com/dreams/conversation-1721540624-scenario-terminal-of-truths-txt",
@@ -376,7 +376,15 @@ const LiveStreams = () => {
                   columns={[
                     {
                       title: (
-                        <Tooltip placement="topLeft" title={"Token symbol"}>
+                        <Tooltip
+                          placement="top"
+                          title={"Token symbol"}
+                          styles={{
+                            body: {
+                              padding: "10px",
+                            },
+                          }}
+                        >
                           <Typography.Text
                             style={{
                               fontSize: "10px",
@@ -447,7 +455,12 @@ const LiveStreams = () => {
                     {
                       title: (
                         <Tooltip
-                          placement="topLeft"
+                          styles={{
+                            body: {
+                              padding: "10px",
+                            },
+                          }}
+                          placement="top"
                           title={
                             "Each token has unique contract address for identification"
                           }
@@ -518,9 +531,14 @@ const LiveStreams = () => {
                     {
                       title: (
                         <Tooltip
-                          placement="topLeft"
+                          styles={{
+                            body: {
+                              padding: "10px",
+                            },
+                          }}
+                          placement="top"
                           title={
-                            "Positive rating does not constitute as a financial advice and you MUST do your own due diligence for any investment decisions."
+                            "Rating does not constitute as a financial advice and you MUST do your own due diligence for any investment decisions."
                           }
                         >
                           <Typography.Text
@@ -551,13 +569,23 @@ const LiveStreams = () => {
                         style: { textAlign: "center" },
                       }),
                       render: (_: any, record: any) => {
-                        return <RatingTags value={record.Rating} />;
+                        return (
+                          <RatingTags
+                            value={record.Rating}
+                            label={record.Rate}
+                          />
+                        );
                       },
                     },
                     {
                       title: (
                         <Tooltip
-                          placement="topLeft"
+                          styles={{
+                            body: {
+                              padding: "10px",
+                            },
+                          }}
+                          placement="top"
                           title={"Fully diluted valuation during the analysis."}
                         >
                           <Typography.Text
@@ -701,7 +729,7 @@ const LiveStreams = () => {
                           0
                         ) ? (
                         <Tooltip
-                          placement="topLeft"
+                          placement="top"
                           title={
                             "The shown total is not a correct calculation based on market rates"
                           }

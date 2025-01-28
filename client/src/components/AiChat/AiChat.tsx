@@ -60,7 +60,12 @@ const AiChat = () => {
             </Typography.Title>
 
             <Tooltip
-              placement="topRight"
+              styles={{
+                body: {
+                  padding: "10px",
+                },
+              }}
+              placement="top"
               title={"Chat with Smoothie AI to execute your transactions"}
             >
               <Button type="text">

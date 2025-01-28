@@ -1,7 +1,8 @@
-import { Tag } from "antd";
+import { QuestionCircleOutlined } from "@ant-design/icons";
+import { Tag, Tooltip } from "antd";
 
-const RatingTags = (props: { value: string }) => {
-  const { value } = props;
+const RatingTags = (props: { value: string; label: string }) => {
+  const { value, label } = props;
   // const appCustomization = useAppSelector(
   //   (state) => state.general.appCustomization
   // );
@@ -19,29 +20,53 @@ const RatingTags = (props: { value: string }) => {
       return "";
     }
   };
-  // return appCustomization.theme === "dark" ? (
-  //   <div>
-  //     <Typography.Text
-  //       ellipsis={{
-  //         tooltip: value,
-  //       }}
-  //       style={{
-  //         color: renderingColor(value),
-  //         fontSize: "10px",
-  //       }}
-  //     >
-  //       {value}
-  //     </Typography.Text>
-  //   </div>
-  // ) : (
-  //   <Tag color={renderingColor(value)} style={{ fontSize: "10px" }}>
-  //     {value}
-  //   </Tag>
-  // );
+
+  const renderingBGDesc = (value: string) => {
+    const gettedValue = Number(value[0]);
+
+    if (gettedValue < 5) {
+      return "Low";
+    } else if (gettedValue > 4 && gettedValue < 8) {
+      return "Medium";
+    } else if (gettedValue > 7) {
+      return "High";
+    } else {
+      return "";
+    }
+  };
+
+  const renderingValue = (value: string) => {
+    if (value === "Short") {
+      return "sell";
+    } else if (value === "Long") {
+      return "buy";
+    } else {
+      return "";
+    }
+  };
+
   return (
-    <Tag color={renderingColor(value)} style={{ fontSize: "10px" }}>
-      {value}
-    </Tag>
+    <Tooltip
+      styles={{
+        body: {
+          padding: "10px",
+        },
+      }}
+      placement="top"
+      title={`${renderingBGDesc(
+        value
+      )} conviction that the user should ${renderingValue(label)} the token`}
+    >
+      <Tag
+        color={renderingColor(value)}
+        style={{
+          fontSize: "10px",
+        }}
+      >
+        {label}
+        <QuestionCircleOutlined style={{ marginLeft: "3px" }} />
+      </Tag>
+    </Tooltip>
   );
 };
 
